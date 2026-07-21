@@ -1,0 +1,517 @@
+/* Color Palette Variables */
+:root {
+    --bg-primary: #ffffff;
+    --bg-secondary: #f7f7f7;
+    --bg-tertiary: #ebebeb;
+    --text-primary: #222222;
+    --text-secondary: #717171;
+    --border-color: #dddddd;
+    --brand-primary: #ff385c;
+    --brand-hover: #e61e4d;
+    --card-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+    --nav-shadow: 0 1px 12px rgba(0, 0, 0, 0.08);
+    --input-bg: #ffffff;
+    --footer-bg: #f7f7f7;
+    --transition-speed: 0.4s;
+    --transition-easing: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+[data-bs-theme="dark"] {
+    --bg-primary: #121212;
+    --bg-secondary: #1a1a1a;
+    --bg-tertiary: #2d2d2d;
+    --text-primary: #f3f4f6;
+    --text-secondary: #a1a1aa;
+    --border-color: #333333;
+    --brand-primary: #ff385c;
+    --brand-hover: #ff4d6d;
+    --card-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+    --nav-shadow: 0 2px 16px rgba(0, 0, 0, 0.5);
+    --input-bg: #222222;
+    --footer-bg: #1a1a1a;
+}
+
+body {
+    font-family: "Plus Jakarta Sans", sans-serif !important;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    background-color: var(--bg-primary) !important;
+    color: var(--text-primary) !important;
+}
+
+/* Smooth global theme transitions */
+body, 
+.navbar, 
+footer, 
+.f-info, 
+.listing-card, 
+.form-control, 
+.form-select, 
+.ts-control, 
+.ts-dropdown, 
+.search-inp, 
+.bg-light,
+.nav-link,
+.card-text,
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+i,
+b,
+span,
+label,
+legend,
+.category-tile,
+.feature-card {
+    transition: background-color var(--transition-speed) var(--transition-easing), 
+                color var(--transition-speed) var(--transition-easing), 
+                border-color var(--transition-speed) var(--transition-easing), 
+                box-shadow var(--transition-speed) var(--transition-easing) !important;
+}
+
+.container {
+    flex: 1;
+}
+
+/* Navbar */
+.navbar {
+    min-height: 5rem;
+    background-color: var(--bg-primary) !important;
+    border-color: var(--border-color) !important;
+    box-shadow: var(--nav-shadow);
+    transition: background-color var(--transition-speed) ease, border-color var(--transition-speed) ease, box-shadow var(--transition-speed) ease;
+}
+
+.fa-compass {
+    color: var(--brand-primary);
+    font-size: 2rem;
+    transition: transform 0.2s ease;
+}
+
+.fa-compass:hover {
+    transform: rotate(15deg);
+}
+
+.nav-link {
+    color: var(--text-primary) !important;
+    font-weight: 500;
+}
+
+.nav-link:hover {
+    color: var(--brand-primary) !important;
+}
+
+/* Force Navbar Link visibility and adaptiveness in dark mode */
+.navbar-nav .nav-link,
+.navbar-nav .nav-link b,
+.navbar-nav .nav-link i,
+.navbar-nav .nav-link span {
+    color: var(--text-primary) !important;
+}
+.navbar-nav .nav-link:hover,
+.navbar-nav .nav-link:hover b,
+.navbar-nav .nav-link:hover i {
+    color: var(--brand-primary) !important;
+}
+
+/* Dark Mode Toggle */
+.theme-toggle-btn {
+    border: 1px solid var(--border-color) !important;
+    border-radius: 50%;
+    width: 2.5rem;
+    height: 2.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--bg-secondary) !important;
+    color: var(--text-primary) !important;
+    cursor: pointer;
+    transition: transform var(--transition-speed) ease, background-color var(--transition-speed) ease, border-color var(--transition-speed) ease;
+}
+
+.theme-toggle-btn:hover {
+    transform: scale(1.1) rotate(15deg);
+    border-color: var(--brand-primary) !important;
+    color: var(--brand-primary) !important;
+}
+
+/* Footer */
+footer {
+    border-top: 1px solid var(--border-color);
+}
+
+.f-info {
+    text-align: center;
+    height: 8rem;
+    background-color: var(--footer-bg) !important;
+    color: var(--text-secondary);
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: space-evenly;
+    border-top: 1px solid var(--border-color);
+    transition: background-color var(--transition-speed) ease, border-color var(--transition-speed) ease;
+}
+
+.f-info-links a {
+    text-decoration: none;
+    color: var(--text-secondary) !important;
+    transition: color 0.2s ease;
+}
+
+.f-info-links a:hover {
+    text-decoration: underline;
+    color: var(--brand-primary) !important;
+}
+
+.f-info-brand, .f-info-links, .f-info-socials {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center; 
+}
+
+.f-info-socials i {
+    margin-right: 1rem;
+    font-size: 1.25rem;
+    cursor: pointer;
+    transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.f-info-socials i:hover {
+    color: var(--brand-primary);
+    transform: translateY(-2px);
+}
+
+/* Reverted Card Style & Hover Animations */
+/* Card Transition system using cubic-bezier for smooth sizing */
+.listing-card,
+.listing-card img,
+.card-img-top,
+.card-img-overlay {
+    transition: width 0.4s cubic-bezier(0.25, 0.8, 0.25, 1), 
+                height 0.4s cubic-bezier(0.25, 0.8, 0.25, 1), 
+                transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1), 
+                box-shadow 0.4s cubic-bezier(0.25, 0.8, 0.25, 1),
+                background-color 0.4s cubic-bezier(0.25, 0.8, 0.25, 1),
+                opacity 0.4s cubic-bezier(0.25, 0.8, 0.25, 1) !important;
+}
+
+.listing-card {
+    border: none !important;
+    margin-bottom: 1rem;
+    height: 30rem !important;
+    margin-right: 1rem;
+    background-color: var(--bg-secondary) !important;
+    border-radius: 1rem !important;
+    overflow: hidden !important;
+    box-shadow: var(--card-shadow);
+}
+
+.listing-card .card-body {
+    padding: 0.75rem !important;
+}
+
+.listing-card a {
+    text-decoration: none;
+    color: #222222; /* Default Light Color */
+}
+
+.listing-card:hover {
+    width: 20rem !important;
+    height: 30rem !important;
+    margin-right: 1rem;
+    z-index: 2;
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.15) !important; /* Premium lift shadow */
+}
+
+[data-bs-theme="dark"] .listing-card:hover {
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.6) !important; /* Deeper lift shadow in dark mode */
+}
+
+.listing-card:hover img {
+    width: 20rem !important;
+    height: 24rem !important;
+    border-radius: 1rem;
+    -webkit-border-radius: 1rem;
+    -moz-border-radius: 1rem;
+    -ms-border-radius: 1rem;
+    -o-border-radius: 1rem;
+}
+
+.card-img-top {
+    border-radius: 1rem;
+    -webkit-border-radius: 1rem;
+    -moz-border-radius: 1rem;
+    -ms-border-radius: 1rem;
+    -o-border-radius: 1rem;
+    width: 100% !important;
+    height: 20rem;
+    object-fit: cover !important;
+}
+
+.card-img-overlay {
+    opacity: 0;
+}
+
+.card-img-overlay:hover {
+    opacity: 0.2;
+    width: 21rem !important;
+    background-color: white;
+    transition: 200ms;
+    -webkit-transition: 200ms;
+    -moz-transition: 200ms;
+    -ms-transition: 200ms;
+    -o-transition: 200ms;
+}
+
+.card-body {
+    padding: 0 !important;
+    background-color: transparent !important;
+}
+
+.card-text {
+    font-weight: 450 !important;
+    font-optical-sizing: auto;
+    font-style: normal;
+    color: inherit;
+}
+
+.row {
+    margin-right: 0 !important;
+}
+
+/* Show, Edit, New, Booking, Auth Dark Mode Overrides for text readability */
+
+[data-bs-theme="dark"] .listing-card a {
+    color: var(--text-primary) !important;
+}
+
+[data-bs-theme="dark"] .card-img-overlay:hover {
+    background-color: rgba(0, 0, 0, 0.4) !important;
+    opacity: 1 !important;
+}
+
+[data-bs-theme="dark"] .text-dark,
+[data-bs-theme="dark"] .text-dark *,
+[data-bs-theme="dark"] strong.text-dark,
+[data-bs-theme="dark"] .card-title.text-dark,
+[data-bs-theme="dark"] a.text-dark,
+[data-bs-theme="dark"] code.text-dark,
+[data-bs-theme="dark"] h2.text-dark,
+[data-bs-theme="dark"] h3.text-dark,
+[data-bs-theme="dark"] h5.text-dark,
+[data-bs-theme="dark"] .starability-result::after {
+    color: var(--text-primary) !important;
+}
+
+[data-bs-theme="dark"] [style*="color: #222222"],
+[data-bs-theme="dark"] [style*="color:#222222"] {
+    color: var(--text-primary) !important;
+}
+
+[data-bs-theme="dark"] .bg-light {
+    background-color: var(--bg-secondary) !important;
+    color: var(--text-primary) !important;
+    border-color: var(--border-color) !important;
+}
+
+[data-bs-theme="dark"] .text-muted,
+[data-bs-theme="dark"] .text-secondary {
+    color: var(--text-secondary) !important;
+}
+
+[data-bs-theme="dark"] h1, 
+[data-bs-theme="dark"] h2, 
+[data-bs-theme="dark"] h3, 
+[data-bs-theme="dark"] h4, 
+[data-bs-theme="dark"] h5, 
+[data-bs-theme="dark"] h6,
+[data-bs-theme="dark"] label,
+[data-bs-theme="dark"] legend,
+[data-bs-theme="dark"] .card-text,
+[data-bs-theme="dark"] .form-label,
+[data-bs-theme="dark"] .form-check-label {
+    color: var(--text-primary) !important;
+}
+
+[data-bs-theme="dark"] .btn-outline-dark {
+    color: var(--text-primary) !important;
+    border-color: var(--border-color) !important;
+}
+
+[data-bs-theme="dark"] .btn-outline-dark:hover {
+    background-color: var(--bg-tertiary) !important;
+    color: var(--text-primary) !important;
+}
+
+[data-bs-theme="dark"] .starability-result::after {
+    color: var(--text-primary) !important;
+}
+
+/* Category Filter Dark Mode visibility */
+[data-bs-theme="dark"] .filter,
+[data-bs-theme="dark"] .filter.text-dark,
+[data-bs-theme="dark"] .filter.text-dark p,
+[data-bs-theme="dark"] .filter.text-dark i {
+    color: var(--text-secondary) !important;
+}
+
+[data-bs-theme="dark"] .filter:hover,
+[data-bs-theme="dark"] .filter.text-dark:hover,
+[data-bs-theme="dark"] .filter.text-dark:hover p,
+[data-bs-theme="dark"] .filter.text-dark:hover i,
+[data-bs-theme="dark"] .active-filter,
+[data-bs-theme="dark"] .active-filter.text-dark,
+[data-bs-theme="dark"] .active-filter.text-dark p,
+[data-bs-theme="dark"] .active-filter.text-dark i {
+    color: var(--brand-primary) !important;
+    opacity: 1 !important;
+}
+
+/* Forms & Inputs Dark Mode styling */
+.form-control, .form-select {
+    background-color: var(--input-bg) !important;
+    color: var(--text-primary) !important;
+    border-color: var(--border-color) !important;
+    transition: border-color var(--transition-speed) ease, background-color var(--transition-speed) ease;
+}
+
+.form-control:focus, .form-select:focus {
+    border-color: var(--brand-primary) !important;
+    box-shadow: 0 0 0 0.25rem rgba(255, 56, 92, 0.25) !important;
+}
+
+.form-check-input {
+    cursor: pointer;
+}
+
+.form-check-input:checked {
+    background-color: var(--brand-primary) !important;
+    border-color: var(--brand-primary) !important;
+}
+
+/* Edit & Show Page styling */
+.show-img {
+    width: 100% !important;
+    max-height: 30rem !important;
+    object-fit: cover !important;
+    border-radius: 1rem;
+}
+
+.card-btns {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 1rem;
+}
+
+.add-btn {
+    background-color: var(--brand-primary) !important;
+    border: none !important;
+    font-weight: 600;
+    padding: 0.5rem 1.5rem;
+    border-radius: 0.5rem;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+.add-btn:hover {
+    background-color: var(--brand-hover) !important;
+    transform: scale(1.02);
+}
+
+/* Leaflet Map Dark Mode filter */
+[data-bs-theme="dark"] #map, 
+[data-bs-theme="dark"] #map-preview {
+    filter: invert(90%) hue-rotate(180deg) brightness(95%) contrast(90%);
+}
+
+#map {
+    height: 350px;
+    width: 100%;
+    border-radius: 1rem;
+    border: 2px solid var(--border-color) !important;
+    z-index: 1;
+}
+
+#map-preview {
+    height: 250px;
+    width: 100%;
+    border-radius: 0.75rem;
+    border: 2px solid var(--border-color) !important;
+    z-index: 1;
+}
+
+#map, #map-preview {
+    box-shadow: var(--card-shadow) !important;
+}
+
+/* Tom Select Styling Overrides for Dark Mode */
+[data-bs-theme="dark"] .ts-control {
+    background-color: var(--input-bg) !important;
+    color: var(--text-primary) !important;
+    border-color: var(--border-color) !important;
+}
+
+[data-bs-theme="dark"] .ts-dropdown {
+    background-color: var(--bg-secondary) !important;
+    color: var(--text-primary) !important;
+    border-color: var(--border-color) !important;
+}
+
+[data-bs-theme="dark"] .ts-dropdown .active {
+    background-color: var(--bg-tertiary) !important;
+    color: var(--text-primary) !important;
+}
+
+/* Search responsive tweaks */
+.search-inp {
+    background-color: var(--input-bg) !important;
+    color: var(--text-primary) !important;
+    border-color: var(--border-color) !important;
+}
+
+.tax-info {
+    display: none;
+    font-size: 0.85rem;
+    color: var(--brand-primary);
+    font-weight: 600;
+}
+
+.tax-toggle {
+    border: 1px solid var(--border-color);
+    border-radius: 1rem;
+    padding: 0.75rem 1.5rem;
+    width: fit-content;
+    margin: 1.5rem auto;
+    background-color: var(--bg-secondary);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    transition: background-color var(--transition-speed) ease, border-color var(--transition-speed) ease;
+}
+
+@media (max-width: 768px) {
+    .navbar {
+        height: auto;
+        padding: 0.75rem 0;
+    }
+    
+    .navbar-collapse {
+        margin-top: 1rem;
+    }
+    
+    .search-inp {
+        width: 100%;
+        margin-bottom: 0.5rem;
+    }
+    
+    .search-btn {
+        width: 100%;
+        justify-content: center;
+    }
+}

@@ -1,0 +1,157 @@
+<% layout("layouts/boilerplate") %>
+
+<%
+const formatDate = (date) => {
+    return new Date(date).toLocaleDateString("en-IN", {
+        weekday: 'short',
+        year: 'numeric',
+        month: 'short',
+        day: 'numeric'
+    });
+};
+const nights = Math.ceil((new Date(booking.checkOutDate) - new Date(booking.checkInDate)) / (1000 * 60 * 60 * 24));
+const basePrice = booking.listing.price * nights * booking.numberOfRooms;
+const gst = Math.round(basePrice * 0.18);
+%>
+
+<div class="container my-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="card shadow border-0 p-4 p-md-5" style="border-radius: 20px;">
+                <!-- Success Header -->
+                <div class="text-center mb-4 pb-3 border-bottom">
+                    <div class="mb-3">
+                        <i class="fa-solid fa-circle-check fa-5x text-success"></i>
+                    </div>
+                    <h2 class="fw-bold" style="color: #222222;">Booking Confirmed!</h2>
+                    <p class="text-muted">Your stay at <%= booking.listing.title %> has been successfully reserved.</p>
+                </div>
+
+                <!-- Booking ID section -->
+                <div class="alert alert-light border d-flex justify-content-between align-items-center mb-4 p-3" style="border-radius: 12px;">
+                    <div>
+                        <span class="text-muted small d-block">Booking Reference ID</span>
+                        <code class="fs-5 fw-bold text-dark text-break" id="booking-id-text"><%= booking._id %></code>
+                    </div>
+                    <div>
+                        <button class="btn btn-outline-danger btn-sm px-3 py-2 rounded-pill fw-semibold" style="border-color: #ff385c; color: #ff385c;" onclick="copyBookingId('<%= booking._id %>')">
+                            <i class="fa-regular fa-copy"></i> Copy ID
+                        </button>
+                        <span id="copy-success-msg" class="text-success ms-2 small fw-semibold" style="display: none;">
+                            <i class="fa-solid fa-check"></i> Copied!
+                        </span>
+                    </div>
+                </div>
+
+                <!-- Stay Details -->
+                <div class="row mb-4">
+                    <div class="col-md-6 mb-3 mb-md-0">
+                        <h5 class="fw-bold mb-3"><i class="fa-regular fa-calendar"></i> Stay Details</h5>
+                        <ul class="list-unstyled mb-0">
+                            <li class="mb-2">
+                                <span class="text-muted">Check-in Date:</span><br>
+                                <strong class="text-dark"><%= formatDate(booking.checkInDate) %></strong>
+                            </li>
+                            <li class="mb-2">
+                                <span class="text-muted">Check-out Date:</span><br>
+                                <strong class="text-dark"><%= formatDate(booking.checkOutDate) %></strong>
+                            </li>
+                            <li class="mb-2">
+                                <span class="text-muted">Duration:</span>
+                                <strong class="text-dark"><%= nights %> Nights</strong>
+                            </li>
+                            <li>
+                                <span class="text-muted">Standard Timings:</span><br>
+                                <span class="small text-muted">Check-in: 12:00 PM | Checkout: 11:00 AM</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="col-md-6">
+                        <h5 class="fw-bold mb-3"><i class="fa-solid fa-users"></i> Guests & Rooms</h5>
+                        <ul class="list-unstyled mb-0">
+                            <li class="mb-2">
+                                <span class="text-muted">Guest Count:</span>
+                                <strong class="text-dark"><%= booking.numberOfPeople %> Guests</strong>
+                            </li>
+                            <li class="mb-2">
+                                <span class="text-muted">Rooms Booked:</span>
+                                <strong class="text-dark"><%= booking.numberOfRooms %> Rooms</strong>
+                            </li>
+                            <li class="mb-2">
+                                <span class="text-muted">Booked By:</span>
+                                <strong class="text-dark"><%= booking.user.username %></strong>
+                            </li>
+                            <li class="mb-2">
+                                <span class="text-muted">Registered Email:</span>
+                                <strong class="text-dark"><%= booking.contactEmail %></strong>
+                            </li>
+                            <% if (booking.contactPhone) { %>
+                            <li>
+                                <span class="text-muted">Contact Phone:</span>
+                                <strong class="text-dark"><%= booking.contactPhone %></strong>
+                            </li>
+                            <% } %>
+                        </ul>
+                    </div>
+                </div>
+
+                <hr class="my-4">
+
+                <!-- Listing Preview -->
+                <div class="d-flex align-items-center gap-3 mb-4 p-3 bg-light rounded" style="border-radius: 12px;">
+                    <img src="<%= booking.listing.image.url %>" alt="<%= booking.listing.title %>" class="img-fluid rounded" style="width: 80px; height: 80px; object-fit: cover;">
+                    <div>
+                        <h6 class="fw-bold mb-1"><a href="/listings/<%= booking.listing._id %>" class="text-decoration-none text-dark"><%= booking.listing.title %></a></h6>
+                        <p class="text-muted small mb-0"><%= booking.listing.location %>, <%= booking.listing.country %></p>
+                        <p class="text-muted small mb-0">&#8377; <%= booking.listing.price.toLocaleString("en-IN") %> per night</p>
+                    </div>
+                </div>
+
+                <!-- Price Receipt -->
+                <div class="card border-0 p-3 bg-light" style="border-radius: 12px;">
+                    <div class="d-flex justify-content-between text-muted small mb-2">
+                        <span>Rate:</span>
+                        <span>&#8377; <%= booking.listing.price.toLocaleString("en-IN") %> / night</span>
+                    </div>
+                    <div class="d-flex justify-content-between text-muted small mb-2">
+                        <span>Rooms & Nights:</span>
+                        <span><%= booking.numberOfRooms %> Rooms x <%= nights %> Nights</span>
+                    </div>
+                    <div class="d-flex justify-content-between text-muted small mb-2">
+                        <span>Base Subtotal:</span>
+                        <span>&#8377; <%= basePrice.toLocaleString("en-IN") %></span>
+                    </div>
+                    <div class="d-flex justify-content-between text-muted small mb-2">
+                        <span>GST (18%):</span>
+                        <span>&#8377; <%= gst.toLocaleString("en-IN") %></span>
+                    </div>
+                    <hr class="my-2">
+                    <div class="d-flex justify-content-between fw-bold text-dark fs-5">
+                        <span>Amount Paid (Net):</span>
+                        <span>&#8377; <%= booking.totalPrice.toLocaleString("en-IN") %></span>
+                    </div>
+                </div>
+
+                <div class="text-center mt-5">
+                    <a href="/listings" class="btn btn-outline-dark px-4 py-2 rounded-pill fw-semibold me-2">Explore More</a>
+                    <a href="/bookings/my" class="btn btn-danger px-4 py-2 rounded-pill fw-semibold" style="background-color: #ff385c; border-color: #ff385c; color: white;">My Bookings</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function copyBookingId(id) {
+        navigator.clipboard.writeText(id).then(() => {
+            const msg = document.getElementById("copy-success-msg");
+            msg.style.display = "inline";
+            setTimeout(() => {
+                msg.style.display = "none";
+            }, 2500);
+        }).catch(err => {
+            console.error("Failed to copy text: ", err);
+        });
+    }
+</script>

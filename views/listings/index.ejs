@@ -1,0 +1,149 @@
+<% layout("layouts/boilerplate") %>
+
+<body>
+    <!-- <h3>All Listings</h3> -->
+    <!-- <form method="get" action="/listings/new">
+        <button>Create New Listing</button>
+
+    </form> -->
+    <style>
+        .filters{
+    display:flex;
+    align-items:center;
+    gap:2rem;
+    overflow-x:auto;
+    overflow-y:hidden;
+    white-space:nowrap;
+    flex-wrap:nowrap;
+    padding:1rem;
+    scrollbar-width:none;
+}
+
+.filters::-webkit-scrollbar{
+    display:none;
+}
+
+.filter{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    text-align:center;
+    flex:0 0 auto;
+
+    margin-right:2rem;
+    margin-top:1rem;
+
+    opacity:0.7;
+
+    color:black;
+    text-decoration:none;
+
+    transition:0.2s;
+}
+
+.filter:hover{
+    opacity:1;
+    color:black;
+}
+
+.filter p{
+    font-size:.8rem;
+    margin-top:.3rem;
+}
+
+.active-filter{
+    opacity:1;
+}
+
+.active-filter p{
+    border-bottom:2px solid #fe424d;
+    padding-bottom:3px;
+    font-weight:600;
+}
+
+.active-filter i{
+    color:#fe424d;
+}
+    </style>
+    <div class="filters">
+
+    <a href="/listings"
+       class="filter text-decoration-none text-dark <%= !selectedCategory ? 'active-filter' : '' %>">
+        <div><i class="fa-solid fa-border-all"></i></div>
+        <p>All</p>
+    </a>
+
+    <% categories.forEach(category => { %>
+
+        <a
+            href="/listings?category=<%= encodeURIComponent(category.name) %>"
+            class="filter text-decoration-none text-dark <%= selectedCategory === category.name ? 'active-filter' : '' %>">
+
+            <div>
+                <i class="<%= category.icon %>"></i>
+            </div>
+
+            <p><%= category.name %></p>
+
+        </a>
+
+    <% }) %>
+
+</div>
+    
+    <div class="tax-toggle">
+            <div class="form-check-reverse form-switch">
+                <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+                <label class="form-check-label" for="flexSwitchCheckDefault">Display total after Taxes</label>
+            </div>
+        </div>  
+<% if (allListings.length === 0) { %>
+    <div class="no-listings-container text-center my-5 py-5" style="border: 1px dashed #ddd; border-radius: 15px; background: #fafafa;">
+        <div class="no-listings-icon mb-4">
+            <i class="fa-solid fa-face-frown fa-5x" style="color: #ff385c;"></i>
+        </div>
+        <h2 class="fw-bold mb-3" style="color: #222222;">No Results Found</h2>
+        <p class="text-muted fs-5 mb-4">
+            <% if (searchQuery) { %>
+                We couldn't find any listings matching "<span class="text-danger fw-bold"><%= searchQuery %></span>"<%= selectedCategory ? ` in the category "${selectedCategory}"` : '' %>.
+            <% } else if (selectedCategory) { %>
+                We couldn't find any listings in the category "<span class="fw-bold"><%= selectedCategory %></span>".
+            <% } else { %>
+                There are no listings available right now. Please check back later!
+            <% } %>
+        </p>
+        <div class="d-flex justify-content-center gap-3">
+            <a href="/listings" class="btn btn-outline-danger px-4 py-2 rounded-pill fw-semibold" style="border-color: #ff385c; color: #ff385c;">
+                Clear Search & Filters
+            </a>
+        </div>
+    </div>
+<% } else { %>
+<div class="row row-cols-lg-3 row-cols-md-2 row-cols-sm-1">
+    <% for(let listing of allListings){ %>
+    <div class="card listing-card" style="width: 19rem;"><a href="/listings/<%= listing._id %>">
+    <img src="<%= listing.image.url %>" class="card-img-top" alt="Listing Image">
+    <div class="card-img-overlay"></div>
+    <div class="card-body">
+    <p class="card-text"><b><%= listing.title %> </b><br> &#8377; <%= listing.price.toLocaleString("en-IN") %> per night</p>
+    <i class="tax-info">&nbsp;&nbsp;+18% GST</i>
+  </div>
+  </a>
+</div>
+<% } %>
+</div>
+<% } %>
+
+<script>
+    let taxSwitch = document.getElementById("flexSwitchCheckDefault");
+    taxSwitch.addEventListener("click", () =>{
+        let taxInfo = document.getElementsByClassName("tax-info");
+        for(info of taxInfo){
+            info.style.display = taxSwitch.checked ? "inline" : "none";
+        }
+    })
+</script>
+
+</body>
+
+

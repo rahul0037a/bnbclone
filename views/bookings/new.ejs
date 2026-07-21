@@ -1,0 +1,195 @@
+<% layout("layouts/boilerplate") %>
+
+<%
+const formatDate = (d) => {
+    let month = '' + (d.getMonth() + 1),
+        day = '' + d.getDate(),
+        year = d.getFullYear();
+
+    if (month.length < 2) month = '0' + month;
+    if (day.length < 2) day = '0' + day;
+
+    return [year, month, day].join('-');
+}
+const todayStr = formatDate(new Date());
+const tomorrow = new Date();
+tomorrow.setDate(tomorrow.getDate() + 1);
+const tomorrowStr = formatDate(tomorrow);
+%>
+
+
+<div class="container my-5">
+    <div class="row">
+        <!-- Booking Form -->
+        <div class="col-md-7 mb-4">
+            <div class="card p-4 shadow-sm border-0" style="border-radius: 15px;">
+                <h3 class="fw-bold mb-4" style="color: #222222;">Confirm your stay</h3>
+                <form action="/listings/<%= listing._id %>/book" method="POST" class="needs-validation" novalidate>
+                    
+                    <div class="row mb-3">
+                        <div class="col-sm-6 mb-3 mb-sm-0">
+                            <label for="checkInDate" class="form-label fw-semibold">Check-in Date</label>
+                            <input type="date" name="checkInDate" id="checkInDate" class="form-control py-2" value="<%= todayStr %>" min="<%= todayStr %>" required>
+                            <div class="invalid-feedback">Please select a valid check-in date.</div>
+                        </div>
+                        <div class="col-sm-6">
+                            <label for="checkOutDate" class="form-label fw-semibold">Check-out Date</label>
+                            <input type="date" name="checkOutDate" id="checkOutDate" class="form-control py-2" value="<%= tomorrowStr %>" min="<%= tomorrowStr %>" required>
+                            <div class="invalid-feedback">Please select a valid check-out date.</div>
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <div class="col-sm-6 mb-3 mb-sm-0">
+                            <label for="numberOfPeople" class="form-label fw-semibold">Number of Guests</label>
+                            <input type="number" name="numberOfPeople" id="numberOfPeople" class="form-control py-2" min="1" max="16" value="1" required>
+                            <div class="invalid-feedback">Please enter a valid guest count (1-16).</div>
+                        </div>
+                        <div class="col-sm-6">
+                            <label for="numberOfRooms" class="form-label fw-semibold">Number of Rooms</label>
+                            <input type="number" name="numberOfRooms" id="numberOfRooms" class="form-control py-2" min="1" max="10" value="1" required>
+                            <div class="invalid-feedback">Please enter a valid room count.</div>
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="contactEmail" class="form-label fw-semibold">Contact Email</label>
+                        <input type="email" name="contactEmail" id="contactEmail" class="form-control py-2 bg-light text-muted" value="<%= currUser.email %>" readonly required>
+                        <small class="form-text text-muted">Autofilled from your account. Cannot be modified.</small>
+                    </div>
+
+                    <div class="mb-4">
+                        <label for="contactPhone" class="form-label fw-semibold">Contact Phone (Optional)</label>
+                        <input type="tel" name="contactPhone" id="contactPhone" class="form-control py-2" placeholder="e.g. +91 98765 43210">
+                    </div>
+
+                    <button type="submit" class="btn btn-danger w-100 py-3 rounded-pill fw-bold" style="background-color: #ff385c; border-color: #ff385c; font-size: 1.1rem;">
+                        Confirm and Book Stay
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Booking Preview Card -->
+        <div class="col-md-5">
+            <div class="card p-4 shadow-sm border-0 sticky-top" style="border-radius: 15px; top: 100px;">
+                <div class="d-flex align-items-center gap-3 mb-4">
+                    <img src="<%= listing.image.url %>" alt="<%= listing.title %>" class="img-fluid rounded" style="width: 100px; height: 100px; object-fit: cover;">
+                    <div>
+                        <h5 class="fw-bold mb-1" style="color: #222222;"><%= listing.title %></h5>
+                        <p class="text-muted mb-0"><%= listing.location %>, <%= listing.country %></p>
+                    </div>
+                </div>
+
+                <hr class="my-3">
+
+                <div class="mb-4">
+                    <h6 class="fw-bold mb-2">Timing Information</h6>
+                    <div class="d-flex justify-content-between text-muted fs-6 mb-1">
+                        <span>Standard Check-in:</span>
+                        <span class="fw-semibold">12:00 PM</span>
+                    </div>
+                    <div class="d-flex justify-content-between text-muted fs-6">
+                        <span>Standard Checkout:</span>
+                        <span class="fw-semibold">11:00 AM</span>
+                    </div>
+                </div>
+
+                <hr class="my-3">
+
+                <h5 class="fw-bold mb-3" style="color: #222222;">Price Details</h5>
+                
+                <div class="d-flex justify-content-between text-muted mb-2">
+                    <span>Rate per night:</span>
+                    <span>&#8377; <%= listing.price.toLocaleString("en-IN") %></span>
+                </div>
+                <div class="d-flex justify-content-between text-muted mb-2">
+                    <span>Nights:</span>
+                    <span id="preview-nights">1</span>
+                </div>
+                <div class="d-flex justify-content-between text-muted mb-2">
+                    <span>Rooms:</span>
+                    <span id="preview-rooms">1</span>
+                </div>
+
+                <hr class="my-2">
+
+                <div class="d-flex justify-content-between text-muted mb-2">
+                    <span>Base Subtotal:</span>
+                    <span>&#8377; <span id="preview-subtotal"><%= listing.price.toLocaleString("en-IN") %></span></span>
+                </div>
+                <div class="d-flex justify-content-between text-muted mb-2">
+                    <span>GST (18%):</span>
+                    <span>&#8377; <span id="preview-gst"><%= Math.round(listing.price * 0.18).toLocaleString("en-IN") %></span></span>
+                </div>
+
+                <hr class="my-2">
+
+                <div class="d-flex justify-content-between fw-bold fs-5 mb-0" style="color: #222222;">
+                    <span>Total (INR):</span>
+                    <span>&#8377; <span id="preview-total"><%= Math.round(listing.price * 1.18).toLocaleString("en-IN") %></span></span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        const checkInInput = document.getElementById("checkInDate");
+        const checkOutInput = document.getElementById("checkOutDate");
+        const roomsInput = document.getElementById("numberOfRooms");
+
+        const previewNights = document.getElementById("preview-nights");
+        const previewRooms = document.getElementById("preview-rooms");
+        const previewSubtotal = document.getElementById("preview-subtotal");
+        const previewGst = document.getElementById("preview-gst");
+        const previewTotal = document.getElementById("preview-total");
+
+        const listingPrice = <%= listing.price %>;
+
+        // Force checkOut min date based on checkIn
+        checkInInput.addEventListener("change", () => {
+            const checkInVal = checkInInput.value;
+            checkOutInput.min = checkInVal;
+            if (checkOutInput.value && checkOutInput.value <= checkInVal) {
+                // Set checkout to next day
+                const checkInDate = new Date(checkInVal);
+                checkInDate.setDate(checkInDate.getDate() + 1);
+                checkOutInput.value = checkInDate.toISOString().split("T")[0];
+            }
+            calculatePricing();
+        });
+
+        checkOutInput.addEventListener("change", calculatePricing);
+        roomsInput.addEventListener("input", calculatePricing);
+
+        function calculatePricing() {
+            const inDate = new Date(checkInInput.value);
+            const outDate = new Date(checkOutInput.value);
+            const rooms = parseInt(roomsInput.value) || 1;
+
+            if (isNaN(inDate.getTime()) || isNaN(outDate.getTime()) || outDate <= inDate) {
+                previewNights.innerText = "0";
+                previewRooms.innerText = rooms;
+                previewSubtotal.innerText = "0";
+                previewGst.innerText = "0";
+                previewTotal.innerText = "0";
+                return;
+            }
+
+            const diffTime = outDate.getTime() - inDate.getTime();
+            const nights = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+
+            const subtotal = listingPrice * nights * rooms;
+            const gst = Math.round(subtotal * 0.18);
+            const total = subtotal + gst;
+
+            previewNights.innerText = nights;
+            previewRooms.innerText = rooms;
+            previewSubtotal.innerText = subtotal.toLocaleString("en-IN");
+            previewGst.innerText = gst.toLocaleString("en-IN");
+            previewTotal.innerText = total.toLocaleString("en-IN");
+        }
+    });
+</script>
