@@ -1,103 +1,149 @@
 <% layout("/layouts/boilerplate") %>
 
-<div class="row mt-3 justify-content-center"> 
-    <div class="col-lg-8 col-md-10 col-12 px-3" >
-        <br>
-            <h3>Create a New Listing</h3>
-    <form method="post" action="/listings" class="needs-validation" novalidate enctype="multipart/form-data">
-        <div class="mb-3">
-            <label for="title" class="form-label">Title</label>
-            <input name="listing[title]" id="validationCustom01" placeholder="Enter Title" type="text" class="form-control" required>
-            <div class="valid-feedback">Title looks good</div>
-            <div class="invalid-feedback">Please enter a Title</div>
-        </div>
-        <div class="mb-3">
-            <label for="description" class="form-label">Description</label>
-            <textarea name="listing[description]" class="form-control" required></textarea>
-            <div class="valid-feedback">Description looks good</div>
-            <div class="invalid-feedback">Please enter a short description</div>
-        </div>
-        <!-- <div class="mb-3">
-            <label for="image" class="form-label">Image URL</label>
-            <input name="listing[image]" placeholder="Enter image Link/URL" type="text" class="form-control">
+<div class="row my-4 justify-content-center"> 
+    <div class="col-lg-8 col-md-10 col-12 px-3">
+        <div class="card border shadow-sm p-4 p-md-5 rounded-4 bg-body-tertiary">
             
-        </div> -->
-        <div class="mb-3">
-            <label for="image" class="form-label">Upload Listing Image</label>
-            <input name="listing[image]" type="file" class="form-control" required>
-        </div>
-        <div class="row">
-            <div class="mb-3 col-md-4">
-                <label for="price" class="form-label">Price: &#8377;</label>
-                <input type="Number" name="listing[price]"  placeholder="Enter Price" class="form-control" required>
-                <div class="invalid-feedback">Please enter valid Price</div>
+            <!-- Header Banner -->
+            <div class="d-flex align-items-center gap-3 mb-4 pb-3 border-bottom">
+                <div class="rounded-circle bg-danger-subtle text-danger p-3 d-flex align-items-center justify-content-center" style="width: 54px; height: 54px;">
+                    <i class="fa-solid fa-house-medical fs-3"></i>
+                </div>
+                <div>
+                    <h3 class="fw-bold mb-1">Create a New Listing</h3>
+                    <p class="text-secondary small mb-0">Fill out the details below to publish your property on WanderLust.</p>
+                </div>
             </div>
-            <div class="mb-3 col-md-8">
-                <label for="country" class="form-label">Country</label>
-                <input name="listing[country]" placeholder="Enter Country" type="text" class="form-control" required>
-                <div class="invalid-feedback">Enter Country name</div>
-            </div>
-        </div>
-        <div class="mb-3">
-    <label for="categories" class="form-label">Categories</label>
 
-    <select
-        id="categories"
-        name="listing[categories][]"
-        multiple
-        placeholder="Search categories..."
-    >
-        <option value="Trending">Trending</option>
-        <option value="Rooms">Rooms</option>
-        <option value="Farms">Farms</option>
-        <option value="Amazing Views">Amazing Views</option>
-        <option value="Surfing">Surfing</option>
-        <option value="Hill Station">Hill Station</option>
-        <option value="Amazing Pools">Amazing Pools</option>
-        <option value="Beach">Beach</option>
-        <option value="Castle">Castle</option>
-        <option value="Cabins">Cabins</option>
-        <option value="Scuba Diving">Scuba Diving</option>
-        <option value="Arctic">Arctic</option>
-        <option value="Camping">Camping</option>
-        <option value="Hiking">Hiking</option>
-        <option value="LakeFront">LakeFront</option>
-        <option value="OMG!">OMG!</option>
-    </select>
+            <form method="POST" action="/listings" class="needs-validation" novalidate enctype="multipart/form-data">
+                
+                <!-- Section 1: Basic Information -->
+                <div class="mb-4">
+                    <h5 class="fw-bold mb-3 text-secondary small text-uppercase tracking-wider">
+                        <i class="fa-solid fa-circle-info text-danger me-1"></i> Basic Information
+                    </h5>
 
-    <small class="text-muted">
-        Search, select multiple categories, or type your own and press Enter.
-    </small>
-</div>
-        
-        <div class="mb-3">
-            <label for="location" class="form-label">Location</label>
-            <input name="listing[location]" placeholder="Enter Location" type="text" class="form-control" required>
-            <div class="invalid-feedback">Enter correct Location</div>
+                    <!-- Title -->
+                    <div class="mb-3">
+                        <label for="title" class="form-label fw-semibold">Property Title</label>
+                        <input name="listing[title]" id="title" placeholder="e.g. Cozy Beachfront Villa in Goa" type="text" class="form-control form-control-lg rounded-3 fs-6" required>
+                        <div class="valid-feedback">Title looks great!</div>
+                        <div class="invalid-feedback">Please enter a property title</div>
+                    </div>
+
+                    <!-- Description -->
+                    <div class="mb-3">
+                        <label for="description" class="form-label fw-semibold">Description</label>
+                        <textarea name="listing[description]" id="description" rows="4" placeholder="Describe what makes your space special, amenities, views, and surroundings..." class="form-control rounded-3 fs-6" required></textarea>
+                        <div class="valid-feedback">Description looks good</div>
+                        <div class="invalid-feedback">Please enter a short description</div>
+                    </div>
+
+                    <!-- Categories -->
+                    <div class="mb-3">
+                        <label for="categories" class="form-label fw-semibold">Categories</label>
+                        <select id="categories" name="listing[categories][]" multiple placeholder="Search or add categories...">
+                            <option value="Trending">Trending</option>
+                            <option value="Rooms">Rooms</option>
+                            <option value="Farms">Farms</option>
+                            <option value="Amazing Views">Amazing Views</option>
+                            <option value="Surfing">Surfing</option>
+                            <option value="Hill Station">Hill Station</option>
+                            <option value="Amazing Pools">Amazing Pools</option>
+                            <option value="Beach">Beach</option>
+                            <option value="Castle">Castle</option>
+                            <option value="Cabins">Cabins</option>
+                            <option value="Scuba Diving">Scuba Diving</option>
+                            <option value="Arctic">Arctic</option>
+                            <option value="Camping">Camping</option>
+                            <option value="Hiking">Hiking</option>
+                            <option value="LakeFront">LakeFront</option>
+                            <option value="OMG!">OMG!</option>
+                        </select>
+                        <small class="text-secondary d-block mt-1">
+                            Select one or multiple categories, or type a custom tag and press Enter.
+                        </small>
+                    </div>
+                </div>
+
+                <hr class="my-4">
+
+                <!-- Section 2: Photos -->
+                <div class="mb-4">
+                    <h5 class="fw-bold mb-3 text-secondary small text-uppercase tracking-wider">
+                        <i class="fa-solid fa-camera text-danger me-1"></i> Upload Cover Image
+                    </h5>
+                    <div class="mb-3">
+                        <label for="image" class="form-label fw-semibold">Choose Listing Photo</label>
+                        <input name="listing[image]" id="image" type="file" class="form-control form-control-lg rounded-3 fs-6" required>
+                        <small class="text-secondary d-block mt-1">High resolution images (JPG, PNG, JPEG) work best.</small>
+                    </div>
+                </div>
+
+                <hr class="my-4">
+
+                <!-- Section 3: Pricing & Location -->
+                <div class="mb-4">
+                    <h5 class="fw-bold mb-3 text-secondary small text-uppercase tracking-wider">
+                        <i class="fa-solid fa-location-dot text-danger me-1"></i> Pricing & Location
+                    </h5>
+                    
+                    <div class="row g-3">
+                        <!-- Price -->
+                        <div class="mb-3 col-md-5">
+                            <label for="price" class="form-label fw-semibold">Price per Night</label>
+                            <div class="input-group">
+                                <span class="input-group-text rounded-start-3 bg-body-secondary text-body fw-bold">&#8377;</span>
+                                <input type="number" name="listing[price]" id="price" placeholder="1200" class="form-control form-control-lg rounded-end-3 fs-6" min="0" required>
+                            </div>
+                            <div class="invalid-feedback">Please enter a valid price per night</div>
+                        </div>
+
+                        <!-- Country -->
+                        <div class="mb-3 col-md-7">
+                            <label for="country" class="form-label fw-semibold">Country</label>
+                            <input name="listing[country]" id="country" placeholder="e.g. India" type="text" class="form-control form-control-lg rounded-3 fs-6" required>
+                            <div class="invalid-feedback">Please enter country name</div>
+                        </div>
+                    </div>
+
+                    <!-- Location -->
+                    <div class="mb-3">
+                        <label for="location" class="form-label fw-semibold">Location / Address</label>
+                        <input name="listing[location]" id="location" placeholder="e.g. Anjuna, Goa" type="text" class="form-control form-control-lg rounded-3 fs-6" required>
+                        <div class="invalid-feedback">Please enter a location</div>
+                    </div>
+
+                    <!-- Map Preview -->
+                    <div class="mb-3">
+                        <button type="button" id="preview-location-btn" class="btn btn-outline-danger btn-sm rounded-pill px-3 py-2 fw-semibold">
+                            <i class="fa-solid fa-map-location-dot me-1"></i> Preview on Map
+                        </button>
+                        <div id="map-preview" style="display: none;" class="mt-3 rounded-3 border overflow-hidden"></div>
+                    </div>
+                </div>
+
+                <hr class="my-4">
+
+                <!-- Submit Button -->
+                <div class="d-grid mt-4">
+                    <button class="btn add-btn text-white py-3 px-4 rounded-pill fs-6 fw-bold shadow-sm d-inline-flex align-items-center justify-content-center gap-2">
+                        <i class="fa-solid fa-cloud-arrow-up fs-5"></i> Publish Listing
+                    </button>
+                </div>
+
+            </form>
         </div>
-        <div class="mb-3">
-            <button type="button" id="preview-location-btn" class="btn btn-outline-secondary btn-sm">
-                <i class="fa-solid fa-map-location-dot"></i> Preview on Map
-            </button>
-            <div id="map-preview" style="display: none;" class="mt-2"></div>
-        </div>
-        
-        <button class="btn btn-dark add-btn">Add Listing</button>
-        <br><br>
-    </form>
     </div>
 </div>
+
 <script>
 new TomSelect("#categories", {
     plugins: ["remove_button"],
-
-    create: true,        // Allow new categories
+    create: true,
     persist: false,
-
     createOnBlur: true,
-
     maxItems: null,
-
     placeholder: "Search or add categories..."
 });
 </script>

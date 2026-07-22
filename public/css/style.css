@@ -244,6 +244,18 @@ footer {
     -o-border-radius: 1rem;
 }
 
+/* Similar Listings Card Fix to prevent layout reflow glitches inside container columns */
+.similar-listings-section .listing-card,
+.similar-listings-section .listing-card:hover {
+    width: 100% !important;
+    max-width: 19rem !important;
+    margin-right: 0 !important;
+}
+
+.similar-listings-section .listing-card:hover img {
+    width: 100% !important;
+}
+
 .card-img-top {
     border-radius: 1rem;
     -webkit-border-radius: 1rem;
