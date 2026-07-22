@@ -26,5 +26,6 @@ module.exports.bookingSchema = Joi.object({
     checkOutDate: Joi.date().required(),
     numberOfPeople: Joi.number().integer().min(1).max(50).required(),
     numberOfRooms: Joi.number().integer().min(1).max(20).required(),
+    contactEmail: Joi.string().email().allow("", null),
     contactPhone: Joi.string().pattern(/^[+\d\s()\-]{7,20}$/).allow("", null),
 })
