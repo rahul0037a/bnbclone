@@ -65,10 +65,12 @@ const limiter = rateLimit({
 });
 app.use(limiter);
 
+const secret = process.env.SECRET || "mysupersecretcode";
+
 const store = MongoStore.create({
     mongoUrl: dbUrl,
     crypto: {
-        secret: process.env.SECRET,
+        secret: secret,
     },
     touchAfter: 24 * 60 * 60, 
 });
@@ -80,14 +82,14 @@ store.on("error", (err) =>{
 
 const sessionOptions = {
     store,
-    secret: process.env.SECRET,
+    secret: secret,
     resave: false,
     saveUninitialized: false,
     cookie: {
         expires: Date.now() + 7 * 24 * 60 * 60 * 1000,
         maxAge: 7 * 24 * 60 * 60 * 1000,
         httpOnly: true,
-        secure: process.env.NODE_ENV === "production",
+        secure: process.env.NODE_ENV === "production" && process.env.SECURE_COOKIE === "true",
         sameSite: "lax",
     }
 };
