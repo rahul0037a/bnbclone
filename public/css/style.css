@@ -282,6 +282,17 @@ footer {
     color: inherit;
 }
 
+.listing-location {
+    font-size: 0.85rem;
+    color: var(--text-secondary) !important;
+    display: block;
+    margin-top: 0.1rem;
+    margin-bottom: 0.25rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
 .row {
     margin-right: 0 !important;
 }

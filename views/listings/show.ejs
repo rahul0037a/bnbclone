@@ -116,7 +116,11 @@
                                 <img src="<%= similar.image.url %>" class="card-img-top" alt="<%= similar.title %>">
                                 <div class="card-img-overlay"></div>
                                 <div class="card-body">
-                                    <p class="card-text"><b><%= similar.title %> </b><br> &#8377; <%= similar.price.toLocaleString("en-IN") %> per night</p>
+                                    <p class="card-text">
+                                        <b><%= similar.title %></b>
+                                        <span class="listing-location"><i class="fa-solid fa-location-dot me-1"></i><%= similar.location %><% if (similar.country) { %>, <%= similar.country %><% } %></span>
+                                        &#8377; <%= similar.price.toLocaleString("en-IN") %> per night
+                                    </p>
                                 </div>
                             </a></div>
                         <% }) %>

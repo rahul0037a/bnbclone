@@ -335,7 +335,11 @@
             <img src="<%= listing.image.url %>" class="card-img-top" alt="<%= listing.title %>">
             <div class="card-img-overlay"></div>
             <div class="card-body">
-              <p class="card-text"><b><%= listing.title %> </b><br> &#8377; <%= listing.price.toLocaleString("en-IN") %> per night</p>
+              <p class="card-text">
+                <b><%= listing.title %></b>
+                <span class="listing-location"><i class="fa-solid fa-location-dot me-1"></i><%= listing.location %><% if (listing.country) { %>, <%= listing.country %><% } %></span>
+                &#8377; <%= listing.price.toLocaleString("en-IN") %> per night
+              </p>
             </div>
           </a></div>
         <% }) %>
