@@ -4,21 +4,21 @@ const Listing = require("../models/listing");
 const wrapAsync = require("../utils/wrapAsync.js");
 const ExpressError = require("../utils/ExpressError.js");
 const {listingSchema} = require("../schema.js");
-const {isLoggedIn, isOwner, validateListing} = require("../middleware.js");
+const {isLoggedIn, isOwner, validateListing, validateBooking} = require("../middleware.js");
 
 const listingsController = require("../controllers/listings.js");
 const bookingsController = require("../controllers/bookings");
 const multer = require("multer");
 const {storage} = require("../cloudConfig.js");
-const upload = multer({ storage });
+const upload = multer({ storage, limits: { fileSize: 5 * 1024 * 1024 } }); // 5MB max
 
 router.route("/:id/book")
     .get(isLoggedIn, wrapAsync(bookingsController.renderBookingForm))
-    .post(isLoggedIn, wrapAsync(bookingsController.createBooking));
+    .post(isLoggedIn, validateBooking, wrapAsync(bookingsController.createBooking));
 
 router.route("/")
     .get(wrapAsync(listingsController.index))
-    .post(validateListing, upload.single("listing[image]") , wrapAsync(listingsController.createListing));
+    .post(isLoggedIn, validateListing, upload.single("listing[image]"), wrapAsync(listingsController.createListing));
 
 router.get("/new", isLoggedIn, listingsController.renderNewForm);
 

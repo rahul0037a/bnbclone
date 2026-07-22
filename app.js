@@ -5,6 +5,8 @@ if(process.env.NODE_ENV !== "production"){
 
 const express = require("express");
 const app = express();
+const helmet = require("helmet");
+const rateLimit = require("express-rate-limit");
 const mongoose = require('mongoose');
 const Listing = require("./models/listing");
 const path = require("path");
@@ -48,6 +50,21 @@ app.use(methodOverride('_method'));
 app.engine("ejs", ejsMate);
 app.use(express.static(path.join(__dirname, "/public")));
 
+// Security Headers
+app.use(helmet({
+    contentSecurityPolicy: false, // Disabled to allow CDN scripts/styles
+    crossOriginEmbedderPolicy: false, // Allow Cloudinary images & Leaflet tiles
+}));
+
+// General Rate Limiter
+const limiter = rateLimit({
+    windowMs: 15 * 60 * 1000, // 15 minutes
+    max: 200, // limit each IP to 200 requests per window
+    standardHeaders: true,
+    legacyHeaders: false,
+});
+app.use(limiter);
+
 const store = MongoStore.create({
     mongoUrl: dbUrl,
     crypto: {
@@ -61,15 +78,17 @@ store.on("error", (err) =>{
 });
 
 
-const sessionOptions ={
+const sessionOptions = {
     store,
     secret: process.env.SECRET,
     resave: false,
-    saveUninitialized: true,
-    cookie:{
-        expires: Date.now() + 7*24*60*60*1000,
-        maxAge: 7*24*60*60*1000,
+    saveUninitialized: false,
+    cookie: {
+        expires: Date.now() + 7 * 24 * 60 * 60 * 1000,
+        maxAge: 7 * 24 * 60 * 60 * 1000,
         httpOnly: true,
+        secure: process.env.NODE_ENV === "production",
+        sameSite: "lax",
     }
 };
 

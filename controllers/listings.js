@@ -3,6 +3,11 @@ const ExpressError = require("../utils/ExpressError.js");
 const categories = require("../utils/categories");
 const { listingSchema } = require("../schema.js");
 
+// Escape special regex characters to prevent ReDoS attacks
+function escapeRegex(text) {
+    return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, '\\$&');
+}
+
 // Geocode a location string using Nominatim (OpenStreetMap)
 async function geocodeLocation(location, country) {
     try {
@@ -48,7 +53,7 @@ module.exports.index = async (req, res) => {
     }
 
     if (search) {
-        const searchRegex = new RegExp(search.trim(), "i");
+        const searchRegex = new RegExp(escapeRegex(search.trim()), "i");
         query.$or = [
             { title: searchRegex },
             { location: searchRegex },
@@ -240,7 +245,7 @@ module.exports.deleteListing = async (req, res) => {
 
     let deletedListing = await Listing.findByIdAndDelete(id);
 
-    console.log(deletedListing);
+
 
     req.flash("success", "Listing Deleted!");
 
