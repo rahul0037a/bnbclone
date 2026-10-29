@@ -72,7 +72,7 @@ The integration check requires `PREVIEW_MODE=true` and a separate preview databa
 
 Provide environment variables directly when `NODE_ENV=production`; `.env` is loaded only outside production. Configure a random `SECRET` of at least 32 characters. Respect the hosting provider's `PORT`. Non-preview mode listens on `0.0.0.0`; preview mode listens on `127.0.0.1`, unless `HOST` is explicitly configured.
 
-Production cookies require HTTPS. Set `TRUST_PROXY=1` only when serving behind one trusted reverse proxy that terminates TLS. Set `PREVIEW_MODE=false` for an ordinary deployment. Never commit `.env`, credentials, local logs, or database exports. The bundled catalog and reservation flows remain demonstrations; live property inventory and payment processing are not integrated.
+Production cookies require HTTPS. The app automatically trusts the nearest proxy on Render, detected with its platform-provided `RENDER=true` environment variable. On other hosts, set `TRUST_PROXY=1` (or `true`) only when serving behind one trusted reverse proxy that terminates TLS. `TRUST_PROXY=0` (or `false`) explicitly disables proxy trust. Set `PREVIEW_MODE=false` for an ordinary deployment. Never commit `.env`, credentials, local logs, or database exports. The bundled catalog and reservation flows remain demonstrations; live property inventory and payment processing are not integrated.
 
 ### Render
 
@@ -84,7 +84,7 @@ In your Render web service, open **Environment** and configure:
 | `SECRET` | A persistent random secret of at least 32 characters |
 | `ATLASDB_URL` | Your existing MongoDB Atlas connection URL |
 | `PREVIEW_MODE` | `false` |
-| `TRUST_PROXY` | `1` for Render's HTTPS reverse proxy |
+| `TRUST_PROXY` | Leave unset for automatic Render detection, or set `1` / `true` |
 | `HOST` | `0.0.0.0`, or remove an existing loopback override |
 
 Keep `DB_NAME` unset if the connection URL already selects your existing database; otherwise set it to that existing database name. Let Render supply `PORT`. Preserve your Cloudinary credentials. The start command remains `node app.js`.
@@ -98,3 +98,7 @@ node -e "console.log(require('node:crypto').randomBytes(32).toString('hex'))"
 Choose **Save, rebuild, and deploy** after editing the settings. See [Render's environment variable documentation](https://render.com/docs/configure-environment-variables). A local `.env` is not uploaded to Render or loaded in production.
 
 Startup errors now name the failing configuration check without printing credentials. In particular, `[INVALID_SESSION_SECRET]` means `SECRET` is missing or shorter than 32 characters. Older deployments could start with a short or fallback secret; set a strong persistent value when upgrading. `[MISSING_DATABASE_URL]` means `ATLASDB_URL` is absent. `[DATABASE_CONNECTION]` means to check Atlas availability and Network Access for Render's outbound IP addresses. Keep the existing production database; no seed or reset is needed to resolve these errors.
+
+If every freshly loaded login form returns "This form has expired," inspect the `/login` response for a `wanderlust.sid` session cookie. Behind Render's HTTPS proxy, disabling proxy trust prevents Express from issuing that Secure cookie, so the next request loses its CSRF session. Automatic Render detection handles this by default; remove any explicit `TRUST_PROXY=0` / `false` override or set it to `1`, then redeploy and reload the login page. Keep the production cookie Secure and CSRF validation enabled. See [Render's default environment variables](https://render.com/docs/environment-variables) and [Express session's secure-cookie guidance](https://expressjs.com/en/resources/middleware/session/#cookiesecure).
+
+The Content Security Policy also allows connections to jsDelivr and unpkg, which serve source maps referenced by Bootstrap, Tom Select, and Leaflet. This permits DevTools to load those debugging resources without allowing arbitrary connection destinations. A source-map warning is separate from a missing session cookie or a rejected login form.

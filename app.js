@@ -42,7 +42,8 @@ function createApp({ sessionStore, config = getConfig(), rateLimits = true } = {
                 styleSrc: ["'self'", "'unsafe-inline'", "https://fonts.googleapis.com", "https://cdn.jsdelivr.net", "https://cdnjs.cloudflare.com", "https://unpkg.com"],
                 fontSrc: ["'self'", "https://fonts.gstatic.com", "https://cdnjs.cloudflare.com", "data:"],
                 imgSrc: ["'self'", "https:", "data:"],
-                connectSrc: ["'self'", "https://nominatim.openstreetmap.org"],
+                // The shipped CDN scripts/styles reference source maps fetched by DevTools.
+                connectSrc: ["'self'", "https://nominatim.openstreetmap.org", "https://cdn.jsdelivr.net", "https://unpkg.com"],
                 frameAncestors: ["'none'"],
                 upgradeInsecureRequests: config.production ? [] : null,
             },

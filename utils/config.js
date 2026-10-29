@@ -19,6 +19,10 @@ function getConfig(env = process.env) {
     }
     const port = Number(env.PORT || (previewMode ? 8081 : 8080));
     if (!Number.isInteger(port) || port < 1 || port > 65535) throw new StartupConfigurationError("INVALID_PORT");
+    // Render terminates HTTPS before forwarding to Node. Trust its nearest proxy
+    // so express-session can issue Secure cookies; other hosts remain opt-in.
+    const proxySetting = env.TRUST_PROXY?.trim().toLowerCase();
+    const trustProxy = proxySetting ? ["1", "true"].includes(proxySetting) : env.RENDER === "true";
     return {
         dbUrl: env.ATLASDB_URL,
         dbName,
@@ -26,7 +30,7 @@ function getConfig(env = process.env) {
         port,
         host: env.HOST || (previewMode ? "127.0.0.1" : "0.0.0.0"),
         production: env.NODE_ENV === "production",
-        trustProxy: env.TRUST_PROXY === "1",
+        trustProxy,
         secret: env.SECRET || crypto.randomBytes(32).toString("hex"),
     };
 }
