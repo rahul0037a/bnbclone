@@ -18,6 +18,7 @@ const categories = require("./utils/categories");
 const wrapAsync = require("./utils/wrapAsync");
 const ExpressError = require("./utils/ExpressError");
 const { getConfig } = require("./utils/config");
+const { StartupConfigurationError, describeStartupError } = require("./utils/startupError");
 const { csrfProtection } = require("./utils/security");
 
 passport.use(new LocalStrategy(User.authenticate()));
@@ -108,7 +109,7 @@ function createApp({ sessionStore, config = getConfig(), rateLimits = true } = {
 
 async function start() {
     const config = getConfig();
-    if (!config.dbUrl) throw new Error("Set ATLASDB_URL before starting the app.");
+    if (!config.dbUrl) throw new StartupConfigurationError("MISSING_DATABASE_URL");
     await mongoose.connect(config.dbUrl, { dbName: config.dbName, serverSelectionTimeoutMS: 15000 });
     const store = MongoStore.create({ client: mongoose.connection.getClient(), dbName: config.dbName, crypto: { secret: config.secret }, touchAfter: 24 * 60 * 60 });
     store.on("error", err => console.error("Session store error:", err.name));
@@ -119,5 +120,9 @@ async function start() {
     process.once("SIGTERM", shutdown);
     return { app, server };
 }
-if (require.main === module) start().catch(async err => { console.error("Startup failed:", err.name, "Check database and environment configuration."); await mongoose.disconnect(); process.exitCode = 1; });
+if (require.main === module) start().catch(async err => {
+    console.error("Startup failed:", describeStartupError(err));
+    await mongoose.disconnect();
+    process.exitCode = 1;
+});
 module.exports = { createApp, start };

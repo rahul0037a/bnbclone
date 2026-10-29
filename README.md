@@ -73,3 +73,28 @@ The integration check requires `PREVIEW_MODE=true` and a separate preview databa
 Provide environment variables directly when `NODE_ENV=production`; `.env` is loaded only outside production. Configure a random `SECRET` of at least 32 characters. Respect the hosting provider's `PORT`. Non-preview mode listens on `0.0.0.0`; preview mode listens on `127.0.0.1`, unless `HOST` is explicitly configured.
 
 Production cookies require HTTPS. Set `TRUST_PROXY=1` only when serving behind one trusted reverse proxy that terminates TLS. Set `PREVIEW_MODE=false` for an ordinary deployment. Never commit `.env`, credentials, local logs, or database exports. The bundled catalog and reservation flows remain demonstrations; live property inventory and payment processing are not integrated.
+
+### Render
+
+In your Render web service, open **Environment** and configure:
+
+| Variable | Value |
+| --- | --- |
+| `NODE_ENV` | `production` |
+| `SECRET` | A persistent random secret of at least 32 characters |
+| `ATLASDB_URL` | Your existing MongoDB Atlas connection URL |
+| `PREVIEW_MODE` | `false` |
+| `TRUST_PROXY` | `1` for Render's HTTPS reverse proxy |
+| `HOST` | `0.0.0.0`, or remove an existing loopback override |
+
+Keep `DB_NAME` unset if the connection URL already selects your existing database; otherwise set it to that existing database name. Let Render supply `PORT`. Preserve your Cloudinary credentials. The start command remains `node app.js`.
+
+Generate a new secret locally with the following command, then paste its output directly into Render's `SECRET` value. Do not put the value in source control or share it in logs. Changing it signs existing users out.
+
+```sh
+node -e "console.log(require('node:crypto').randomBytes(32).toString('hex'))"
+```
+
+Choose **Save, rebuild, and deploy** after editing the settings. See [Render's environment variable documentation](https://render.com/docs/configure-environment-variables). A local `.env` is not uploaded to Render or loaded in production.
+
+Startup errors now name the failing configuration check without printing credentials. In particular, `[INVALID_SESSION_SECRET]` means `SECRET` is missing or shorter than 32 characters. Older deployments could start with a short or fallback secret; set a strong persistent value when upgrading. `[MISSING_DATABASE_URL]` means `ATLASDB_URL` is absent. `[DATABASE_CONNECTION]` means to check Atlas availability and Network Access for Render's outbound IP addresses. Keep the existing production database; no seed or reset is needed to resolve these errors.
