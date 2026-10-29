@@ -1,9 +1,2 @@
 <% layout("layouts/boilerplate") %>
-
-
-<div class="row mt-3">
-    <div class="alert alert-danger col-6 offset-3" role="alert">
-        <h4 class="alert-heading"><%= message %></h4>
-    </div>
-</div>
-   
+<section class="empty-state page-section error-page"><span class="eyebrow">LET'S GET YOU BACK ON TRACK</span><h1><%= typeof statusCode !== 'undefined' ? statusCode : 'Oops' %></h1><h2><%= message %></h2><p class="muted">You can return to the catalog or try your request again.</p><a class="button button-brand" href="/listings">Explore stays <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a></section>

@@ -1,34 +1,35 @@
 const express = require("express");
-const router = express.Router();
-const Listing = require("../models/listing");
-const wrapAsync = require("../utils/wrapAsync.js");
-const ExpressError = require("../utils/ExpressError.js");
-const {listingSchema} = require("../schema.js");
-const {isLoggedIn, isOwner, validateListing, validateBooking} = require("../middleware.js");
-
-const listingsController = require("../controllers/listings.js");
-const bookingsController = require("../controllers/bookings");
 const multer = require("multer");
-const {storage} = require("../cloudConfig.js");
-const upload = multer({ storage, limits: { fileSize: 5 * 1024 * 1024 } }); // 5MB max
+const router = express.Router();
+const wrapAsync = require("../utils/wrapAsync");
+const ExpressError = require("../utils/ExpressError");
+const { isLoggedIn, isOwner, validateListing, validateBooking } = require("../middleware");
+const listings = require("../controllers/listings");
+const bookings = require("../controllers/bookings");
+const { storage } = require("../cloudConfig");
+
+const upload = multer({
+    storage,
+    limits: { fileSize: 5 * 1024 * 1024, files: 1, fields: 30, fieldSize: 20000 },
+    fileFilter(req, file, callback) {
+        if (!["image/jpeg", "image/png"].includes(file.mimetype)) return callback(new ExpressError(400, "Choose a JPG or PNG image."));
+        callback(null, true);
+    },
+});
 
 router.route("/:id/book")
-    .get(isLoggedIn, wrapAsync(bookingsController.renderBookingForm))
-    .post(isLoggedIn, validateBooking, wrapAsync(bookingsController.createBooking));
+    .get(isLoggedIn, wrapAsync(bookings.renderBookingForm))
+    .post(isLoggedIn, validateBooking, wrapAsync(bookings.createBooking));
 
 router.route("/")
-    .get(wrapAsync(listingsController.index))
-    .post(isLoggedIn, validateListing, upload.single("listing[image]"), wrapAsync(listingsController.createListing));
+    .get(wrapAsync(listings.index))
+    .post(isLoggedIn, upload.single("listing[image]"), validateListing, wrapAsync(listings.createListing));
 
-router.get("/new", isLoggedIn, listingsController.renderNewForm);
-
+router.get("/new", isLoggedIn, listings.renderNewForm);
+router.get("/:id/edit", isLoggedIn, isOwner, wrapAsync(listings.renderEditForm));
 router.route("/:id")
-    .get(wrapAsync(listingsController.showListing))
-    .put(isLoggedIn, isOwner, upload.single("listing[image]") , validateListing  , wrapAsync(listingsController.updateListing))
-    .delete(isLoggedIn, isOwner,wrapAsync(listingsController.deleteListing)
-);
-
-//EDIT Route
-router.get("/:id/edit",isLoggedIn, isOwner,wrapAsync(listingsController.renderEditForm));
+    .get(wrapAsync(listings.showListing))
+    .put(isLoggedIn, isOwner, upload.single("listing[image]"), validateListing, wrapAsync(listings.updateListing))
+    .delete(isLoggedIn, isOwner, wrapAsync(listings.deleteListing));
 
 module.exports = router;

@@ -1,24 +1,13 @@
-<% layout("/layouts/boilerplate") %>
-
-<div class="row mt-3 justify-content-center">
-    <div class="col-lg-6 col-md-8 col-12 px-3">
-        <h1 class="text-center mb-3">Sign-Up on Wanderlust</h1>
-        <form action ="/signup" method="POST" class="needs-validation" novalidate>
-            <div class="mb-3">
-                <label for="username" class="form-label">Username</label>
-                <input name="username" id="username" type="text" class="form-control" required>
-                <div class="valid-feedback">Looks Good</div>
-                <div class="invalid-feedback">Please enter a username</div>
-            </div>
-            <div class="mb-3">
-                <label for="email" class="form-label">Email</label>
-                <input name="email" id="email" type="email" class="form-control" required>
-            </div>
-            <div class="mb-3">
-                <label for="password" class="form-label">Password</label>
-                <input name="password" id="password" type="password" class="form-control" required>
-            </div>
-            <button class="btn btn-success">Sign-Up</button>
-        </form>
-    </div>
-</div>
+<% layout("layouts/boilerplate") %>
+<section class="auth-layout page-section">
+  <div class="auth-story"><span class="eyebrow">MAKE ROOM FOR DISCOVERY</span><h1>Your next good story starts here.</h1><p>Find a new city, save a mountain escape, or share a place of your own.</p><p class="small muted">This isolated preview makes demo reservations only. No payment is collected.</p></div>
+  <div class="panel auth-panel"><h2>Join WanderLust</h2><p class="muted">A fresh account for your next adventure.</p>
+    <form action="/signup" method="POST" class="needs-validation" novalidate>
+      <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+      <div class="field"><label for="username">Username</label><input class="form-control" id="username" name="username" required pattern="[A-Za-z0-9_]{3,30}" minlength="3" maxlength="30" autocomplete="username" aria-describedby="username-help"><small id="username-help" class="muted">3–30 letters, numbers, or underscores.</small></div>
+      <div class="field"><label for="email">Email address</label><input class="form-control" id="email" name="email" type="email" required maxlength="254" autocomplete="email"></div>
+      <div class="field"><label for="password">Password</label><input class="form-control" id="password" name="password" type="password" required minlength="10" maxlength="128" pattern="(?=.*[A-Za-z])(?=.*[0-9]).{10,128}" autocomplete="new-password" aria-describedby="password-help"><small id="password-help" class="muted">At least 10 characters, including a letter and a number.</small></div>
+      <button class="button button-brand w-100" type="submit">Create account <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></button>
+    </form><p class="auth-switch">Already a member? <a href="/login">Log in</a></p>
+  </div>
+</section>

@@ -1,31 +1,18 @@
 const express = require("express");
-const router = express.Router();
-const User = require("../models/user.js");
-const wrapAsync = require("../utils/wrapAsync.js");
 const passport = require("passport");
-const { saveRedirectUrl } = require("../middleware.js");
-const usersController = require("../controllers/users.js");
 const rateLimit = require("express-rate-limit");
-
-// Stricter rate limiter for authentication routes
+const wrapAsync = require("../utils/wrapAsync");
+const { saveRedirectUrl, validateSignup } = require("../middleware");
+const users = require("../controllers/users");
+const router = express.Router();
 const authLimiter = rateLimit({
-    windowMs: 15 * 60 * 1000, // 15 minutes
-    max: 10, // 10 attempts per window
-    message: "Too many attempts, please try again after 15 minutes.",
-    standardHeaders: true,
-    legacyHeaders: false,
+    windowMs: 15 * 60 * 1000, limit: 10,
+    message: "Too many attempts. Please try again in 15 minutes.",
+    standardHeaders: "draft-8", legacyHeaders: false,
 });
-
-router.get("/signup",  usersController.renderSignupForm);
-
-router.post("/signup", authLimiter, wrapAsync(usersController.signup));
-
-router.get("/login", usersController.renderLoginForm);
-router.post("/login", authLimiter, saveRedirectUrl, passport.authenticate("local", {failureRedirect:"/login", failureFlash:true}),
-usersController.login);
-
-
-router.get("/logout", usersController.logout);
-
-
+router.get("/signup", users.renderSignupForm);
+router.post("/signup", authLimiter, validateSignup, wrapAsync(users.signup));
+router.get("/login", users.renderLoginForm);
+router.post("/login", authLimiter, saveRedirectUrl, passport.authenticate("local", { failureRedirect: "/login", failureFlash: true }), users.login);
+router.post("/logout", users.logout);
 module.exports = router;

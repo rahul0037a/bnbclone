@@ -1,18 +1,12 @@
-<% layout("/layouts/boilerplate") %>
-
-<div class="row mt-3 justify-content-center">
-    <div class="col-lg-6 col-md-8 col-12 px-3">
-        <h1 class="text-center mb-3">Login</h1>
-        <form action ="/login" method="POST" class="needs-validation" novalidate>
-            <div class="mb-3">
-                <label for="username" class="form-label">Username</label>
-                <input name="username" id="username" type="text" class="form-control" required>
-            </div>
-            <div class="mb-3">
-                <label for="password" class="form-label">Password</label>
-                <input name="password" id="password" type="password" class="form-control" required>
-            </div>
-            <button class="btn btn-success">Login</button>
-        </form>
-    </div>
-</div>
+<% layout("layouts/boilerplate") %>
+<section class="auth-layout page-section">
+  <div class="auth-story"><span class="eyebrow">YOUR NEXT CHAPTER</span><h1>A little closer to somewhere new.</h1><p>Keep your favorite places close and your next adventure even closer.</p><a href="/listings" class="button button-outline">Explore stays <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a></div>
+  <div class="panel auth-panel"><h2>Welcome back</h2><p class="muted">Log in to your WanderLust account.</p>
+    <form action="/login" method="POST" class="needs-validation" novalidate>
+      <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+      <div class="field"><label for="username">Username</label><input class="form-control" id="username" name="username" required autocomplete="username" maxlength="30"></div>
+      <div class="field"><label for="password">Password</label><input class="form-control" id="password" name="password" type="password" required autocomplete="current-password"></div>
+      <button class="button button-brand w-100" type="submit">Log in <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></button>
+    </form><p class="auth-switch">New here? <a href="/signup">Create an account</a></p>
+  </div>
+</section>

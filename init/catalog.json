@@ -1,0 +1,2530 @@
+[
+  {
+    "catalogSlug": "zostel-agra",
+    "title": "Zostel Agra",
+    "description": "Plan a city escape with Zostel Agra in Agra. This hostel appears in Zostel's official property collection; consult the property page for its current room types and policies.",
+    "image": {
+      "url": "https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?auto=format&fit=crop&w=1200&q=85",
+      "filename": "",
+      "isIllustrative": true
+    },
+    "imageAttribution": "Illustrative stock photograph from Unsplash; not a photograph of this property.",
+    "categories": [
+      "Trending",
+      "City",
+      "Rooms"
+    ],
+    "price": 1800,
+    "location": "Agra",
+    "country": "India",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        78.0081,
+        27.1767
+      ]
+    },
+    "coordinatesApproximate": true,
+    "totalRooms": 8,
+    "maxGuests": 16,
+    "sourceUrl": "https://www.zostel.com/destination/agra/stay/zostel-agra-agrh035",
+    "sourceName": "Zostel",
+    "sourceAccessedAt": "2026-10-28",
+    "isCatalog": true,
+    "ratesIndicative": true,
+    "isActive": true
+  },
+  {
+    "catalogSlug": "zostel-alleppey",
+    "title": "Zostel Alleppey",
+    "description": "Plan a coastal break with Zostel Alleppey in Alleppey. This hostel appears in Zostel's official property collection; consult the property page for its current room types and policies.",
+    "image": {
+      "url": "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1200&q=85",
+      "filename": "",
+      "isIllustrative": true
+    },
+    "imageAttribution": "Illustrative stock photograph from Unsplash; not a photograph of this property.",
+    "categories": [
+      "Trending",
+      "Beach",
+      "Rooms"
+    ],
+    "price": 1900,
+    "location": "Alleppey",
+    "country": "India",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        76.3388,
+        9.4981
+      ]
+    },
+    "coordinatesApproximate": true,
+    "totalRooms": 8,
+    "maxGuests": 16,
+    "sourceUrl": "https://www.zostel.com/destination/alleppey/stay/alleppey-allh830",
+    "sourceName": "Zostel",
+    "sourceAccessedAt": "2026-10-28",
+    "isCatalog": true,
+    "ratesIndicative": true,
+    "isActive": true
+  },
+  {
+    "catalogSlug": "zostel-bangalore-indiranagar",
+    "title": "Zostel Bangalore (Indiranagar)",
+    "description": "Plan a city escape with Zostel Bangalore (Indiranagar) in Bengaluru. This hostel appears in Zostel's official property collection; consult the property page for its current room types and policies.",
+    "image": {
+      "url": "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=1200&q=85",
+      "filename": "",
+      "isIllustrative": true
+    },
+    "imageAttribution": "Illustrative stock photograph from Unsplash; not a photograph of this property.",
+    "categories": [
+      "Trending",
+      "City",
+      "Rooms"
+    ],
+    "price": 2400,
+    "location": "Bengaluru",
+    "country": "India",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        77.5946,
+        12.9716
+      ]
+    },
+    "coordinatesApproximate": true,
+    "totalRooms": 8,
+    "maxGuests": 16,
+    "sourceUrl": "https://www.zostel.com/destination/bangalore/stay/bangalore-bngh107",
+    "sourceName": "Zostel",
+    "sourceAccessedAt": "2026-10-28",
+    "isCatalog": true,
+    "ratesIndicative": true,
+    "isActive": true
+  },
+  {
+    "catalogSlug": "zostel-bundi",
+    "title": "Zostel Bundi",
+    "description": "Plan a culture-filled city break with Zostel Bundi in Bundi. This hostel appears in Zostel's official property collection; consult the property page for its current room types and policies.",
+    "image": {
+      "url": "https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=1200&q=85",
+      "filename": "",
+      "isIllustrative": true
+    },
+    "imageAttribution": "Illustrative stock photograph from Unsplash; not a photograph of this property.",
+    "categories": [
+      "Trending",
+      "Heritage",
+      "Rooms"
+    ],
+    "price": 1400,
+    "location": "Bundi",
+    "country": "India",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        75.6439,
+        25.4305
+      ]
+    },
+    "coordinatesApproximate": true,
+    "totalRooms": 8,
+    "maxGuests": 16,
+    "sourceUrl": "https://www.zostel.com/destination/bundi/stay/zostel-bundi-bndh020",
+    "sourceName": "Zostel",
+    "sourceAccessedAt": "2026-10-28",
+    "isCatalog": true,
+    "ratesIndicative": true,
+    "isActive": true
+  },
+  {
+    "catalogSlug": "zostel-chennai-anna-nagar",
+    "title": "Zostel Chennai (Anna Nagar)",
+    "description": "Plan a city escape with Zostel Chennai (Anna Nagar) in Chennai. This hostel appears in Zostel's official property collection; consult the property page for its current room types and policies.",
+    "image": {
+      "url": "https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?auto=format&fit=crop&w=1200&q=85",
+      "filename": "",
+      "isIllustrative": true
+    },
+    "imageAttribution": "Illustrative stock photograph from Unsplash; not a photograph of this property.",
+    "categories": [
+      "Trending",
+      "City",
+      "Rooms"
+    ],
+    "price": 2200,
+    "location": "Chennai",
+    "country": "India",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        80.2707,
+        13.0827
+      ]
+    },
+    "coordinatesApproximate": true,
+    "totalRooms": 8,
+    "maxGuests": 16,
+    "sourceUrl": "https://www.zostel.com/destination/chennai/stay/zostel-chennai-anna-nagar-chnh551",
+    "sourceName": "Zostel",
+    "sourceAccessedAt": "2026-10-28",
+    "isCatalog": true,
+    "ratesIndicative": true,
+    "isActive": true
+  },
+  {
+    "catalogSlug": "zostel-chitkul",
+    "title": "Zostel Chitkul",
+    "description": "Plan a mountain getaway with Zostel Chitkul in Chitkul. This hostel appears in Zostel's official property collection; consult the property page for its current room types and policies.",
+    "image": {
+      "url": "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=1200&q=85",
+      "filename": "",
+      "isIllustrative": true
+    },
+    "imageAttribution": "Illustrative stock photograph from Unsplash; not a photograph of this property.",
+    "categories": [
+      "Trending",
+      "Hill Station",
+      "Rooms"
+    ],
+    "price": 2200,
+    "location": "Chitkul",
+    "country": "India",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        78.4365,
+        31.3518
+      ]
+    },
+    "coordinatesApproximate": true,
+    "totalRooms": 8,
+    "maxGuests": 16,
+    "sourceUrl": "https://www.zostel.com/destination/chitkul/stay/chitkul-chth585",
+    "sourceName": "Zostel",
+    "sourceAccessedAt": "2026-10-28",
+    "isCatalog": true,
+    "ratesIndicative": true,
+    "isActive": true
+  },
+  {
+    "catalogSlug": "zostel-coorg-madikeri",
+    "title": "Zostel Coorg (Madikeri)",
+    "description": "Plan a mountain getaway with Zostel Coorg (Madikeri) in Madikeri. This hostel appears in Zostel's official property collection; consult the property page for its current room types and policies.",
+    "image": {
+      "url": "https://images.unsplash.com/photo-1470770841072-f978cf4d019e?auto=format&fit=crop&w=1200&q=85",
+      "filename": "",
+      "isIllustrative": true
+    },
+    "imageAttribution": "Illustrative stock photograph from Unsplash; not a photograph of this property.",
+    "categories": [
+      "Trending",
+      "Hill Station",
+      "Rooms"
+    ],
+    "price": 2300,
+    "location": "Madikeri",
+    "country": "India",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        75.7382,
+        12.4244
+      ]
+    },
+    "coordinatesApproximate": true,
+    "totalRooms": 8,
+    "maxGuests": 16,
+    "sourceUrl": "https://www.zostel.com/destination/coorg/stay/zostel-coorg-madikeri-crgh495",
+    "sourceName": "Zostel",
+    "sourceAccessedAt": "2026-10-28",
+    "isCatalog": true,
+    "ratesIndicative": true,
+    "isActive": true
+  },
+  {
+    "catalogSlug": "zostel-delhi",
+    "title": "Zostel Delhi",
+    "description": "Plan a city escape with Zostel Delhi in Delhi. This hostel appears in Zostel's official property collection; consult the property page for its current room types and policies.",
+    "image": {
+      "url": "https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=1200&q=85",
+      "filename": "",
+      "isIllustrative": true
+    },
+    "imageAttribution": "Illustrative stock photograph from Unsplash; not a photograph of this property.",
+    "categories": [
+      "Trending",
+      "City",
+      "Rooms"
+    ],
+    "price": 2500,
+    "location": "Delhi",
+    "country": "India",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        77.209,
+        28.6139
+      ]
+    },
+    "coordinatesApproximate": true,
+    "totalRooms": 8,
+    "maxGuests": 16,
+    "sourceUrl": "https://www.zostel.com/destination/delhi/stay/delhi-dlhh524",
+    "sourceName": "Zostel",
+    "sourceAccessedAt": "2026-10-28",
+    "isCatalog": true,
+    "ratesIndicative": true,
+    "isActive": true
+  },
+  {
+    "catalogSlug": "zostel-dharamkot-bhagsu",
+    "title": "Zostel Dharamkot (Bhagsu)",
+    "description": "Plan a mountain getaway with Zostel Dharamkot (Bhagsu) in Dharamkot. This hostel appears in Zostel's official property collection; consult the property page for its current room types and policies.",
+    "image": {
+      "url": "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?auto=format&fit=crop&w=1200&q=85",
+      "filename": "",
+      "isIllustrative": true
+    },
+    "imageAttribution": "Illustrative stock photograph from Unsplash; not a photograph of this property.",
+    "categories": [
+      "Trending",
+      "Hill Station",
+      "Rooms"
+    ],
+    "price": 1900,
+    "location": "Dharamkot",
+    "country": "India",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        76.3217,
+        32.2484
+      ]
+    },
+    "coordinatesApproximate": true,
+    "totalRooms": 8,
+    "maxGuests": 16,
+    "sourceUrl": "https://www.zostel.com/destination/dharamkot/stay/zostel-bhagsu-bhgh906",
+    "sourceName": "Zostel",
+    "sourceAccessedAt": "2026-10-28",
+    "isCatalog": true,
+    "ratesIndicative": true,
+    "isActive": true
+  },
+  {
+    "catalogSlug": "zostel-gangtok",
+    "title": "Zostel Gangtok",
+    "description": "Plan a mountain getaway with Zostel Gangtok in Gangtok. This hostel appears in Zostel's official property collection; consult the property page for its current room types and policies.",
+    "image": {
+      "url": "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=1200&q=85",
+      "filename": "",
+      "isIllustrative": true
+    },
+    "imageAttribution": "Illustrative stock photograph from Unsplash; not a photograph of this property.",
+    "categories": [
+      "Trending",
+      "Hill Station",
+      "Rooms"
+    ],
+    "price": 2100,
+    "location": "Gangtok",
+    "country": "India",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        88.6138,
+        27.3389
+      ]
+    },
+    "coordinatesApproximate": true,
+    "totalRooms": 8,
+    "maxGuests": 16,
+    "sourceUrl": "https://www.zostel.com/destination/gangtok/stay/gangtok-gngh967",
+    "sourceName": "Zostel",
+    "sourceAccessedAt": "2026-10-28",
+    "isCatalog": true,
+    "ratesIndicative": true,
+    "isActive": true
+  },
+  {
+    "catalogSlug": "zostel-goa-morjim",
+    "title": "Zostel Goa (Morjim)",
+    "description": "Plan a coastal break with Zostel Goa (Morjim) in Morjim, Goa. This hostel appears in Zostel's official property collection; consult the property page for its current room types and policies.",
+    "image": {
+      "url": "https://images.unsplash.com/photo-1571896349842-33c89424de2d?auto=format&fit=crop&w=1200&q=85",
+      "filename": "",
+      "isIllustrative": true
+    },
+    "imageAttribution": "Illustrative stock photograph from Unsplash; not a photograph of this property.",
+    "categories": [
+      "Trending",
+      "Beach",
+      "Rooms"
+    ],
+    "price": 2900,
+    "location": "Morjim, Goa",
+    "country": "India",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        73.739,
+        15.6298
+      ]
+    },
+    "coordinatesApproximate": true,
+    "totalRooms": 8,
+    "maxGuests": 16,
+    "sourceUrl": "https://www.zostel.com/destination/goa/stay/zostel-goa-morjim-goah407",
+    "sourceName": "Zostel",
+    "sourceAccessedAt": "2026-10-28",
+    "isCatalog": true,
+    "ratesIndicative": true,
+    "isActive": true
+  },
+  {
+    "catalogSlug": "zostel-gokarna",
+    "title": "Zostel Gokarna",
+    "description": "Plan a coastal break with Zostel Gokarna in Gokarna. This hostel appears in Zostel's official property collection; consult the property page for its current room types and policies.",
+    "image": {
+      "url": "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&w=1200&q=85",
+      "filename": "",
+      "isIllustrative": true
+    },
+    "imageAttribution": "Illustrative stock photograph from Unsplash; not a photograph of this property.",
+    "categories": [
+      "Trending",
+      "Beach",
+      "Rooms"
+    ],
+    "price": 2400,
+    "location": "Gokarna",
+    "country": "India",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        74.3188,
+        14.5479
+      ]
+    },
+    "coordinatesApproximate": true,
+    "totalRooms": 8,
+    "maxGuests": 16,
+    "sourceUrl": "https://www.zostel.com/destination/gokarna/stay/gokarna-gkrh533",
+    "sourceName": "Zostel",
+    "sourceAccessedAt": "2026-10-28",
+    "isCatalog": true,
+    "ratesIndicative": true,
+    "isActive": true
+  },
+  {
+    "catalogSlug": "zostel-guwahati",
+    "title": "Zostel Guwahati",
+    "description": "Plan a city escape with Zostel Guwahati in Guwahati. This hostel appears in Zostel's official property collection; consult the property page for its current room types and policies.",
+    "image": {
+      "url": "https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?auto=format&fit=crop&w=1200&q=85",
+      "filename": "",
+      "isIllustrative": true
+    },
+    "imageAttribution": "Illustrative stock photograph from Unsplash; not a photograph of this property.",
+    "categories": [
+      "Trending",
+      "City",
+      "Rooms"
+    ],
+    "price": 1800,
+    "location": "Guwahati",
+    "country": "India",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        91.7362,
+        26.1445
+      ]
+    },
+    "coordinatesApproximate": true,
+    "totalRooms": 8,
+    "maxGuests": 16,
+    "sourceUrl": "https://www.zostel.com/destination/guwahati/stay/zostel-guwahati-gwhh030",
+    "sourceName": "Zostel",
+    "sourceAccessedAt": "2026-10-28",
+    "isCatalog": true,
+    "ratesIndicative": true,
+    "isActive": true
+  },
+  {
+    "catalogSlug": "zostel-hampi-gangavathi",
+    "title": "Zostel Hampi (Gangavathi)",
+    "description": "Plan a culture-filled city break with Zostel Hampi (Gangavathi) in Hampi. This hostel appears in Zostel's official property collection; consult the property page for its current room types and policies.",
+    "image": {
+      "url": "https://images.unsplash.com/photo-1524492412937-b28074a5d7da?auto=format&fit=crop&w=1200&q=85",
+      "filename": "",
+      "isIllustrative": true
+    },
+    "imageAttribution": "Illustrative stock photograph from Unsplash; not a photograph of this property.",
+    "categories": [
+      "Trending",
+      "Heritage",
+      "Rooms"
+    ],
+    "price": 2100,
+    "location": "Hampi",
+    "country": "India",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        76.4608,
+        15.335
+      ]
+    },
+    "coordinatesApproximate": true,
+    "totalRooms": 8,
+    "maxGuests": 16,
+    "sourceUrl": "https://www.zostel.com/destination/hampi/stay/zostel-hampi-gangavathi-hmph144",
+    "sourceName": "Zostel",
+    "sourceAccessedAt": "2026-10-28",
+    "isCatalog": true,
+    "ratesIndicative": true,
+    "isActive": true
+  },
+  {
+    "catalogSlug": "zostel-hyderabad",
+    "title": "Zostel Hyderabad",
+    "description": "Plan a city escape with Zostel Hyderabad in Hyderabad. This hostel appears in Zostel's official property collection; consult the property page for its current room types and policies.",
+    "image": {
+      "url": "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=1200&q=85",
+      "filename": "",
+      "isIllustrative": true
+    },
+    "imageAttribution": "Illustrative stock photograph from Unsplash; not a photograph of this property.",
+    "categories": [
+      "Trending",
+      "City",
+      "Rooms"
+    ],
+    "price": 2300,
+    "location": "Hyderabad",
+    "country": "India",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        78.4867,
+        17.385
+      ]
+    },
+    "coordinatesApproximate": true,
+    "totalRooms": 8,
+    "maxGuests": 16,
+    "sourceUrl": "https://www.zostel.com/destination/hyderabad/stay/zostel-hyderabad-hydh476",
+    "sourceName": "Zostel",
+    "sourceAccessedAt": "2026-10-28",
+    "isCatalog": true,
+    "ratesIndicative": true,
+    "isActive": true
+  },
+  {
+    "catalogSlug": "zostel-jaipur-hawa-mahal",
+    "title": "Zostel Jaipur (Hawa Mahal)",
+    "description": "Plan a culture-filled city break with Zostel Jaipur (Hawa Mahal) in Jaipur. This hostel appears in Zostel's official property collection; consult the property page for its current room types and policies.",
+    "image": {
+      "url": "https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=1200&q=85",
+      "filename": "",
+      "isIllustrative": true
+    },
+    "imageAttribution": "Illustrative stock photograph from Unsplash; not a photograph of this property.",
+    "categories": [
+      "Trending",
+      "Heritage",
+      "Rooms"
+    ],
+    "price": 2100,
+    "location": "Jaipur",
+    "country": "India",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        75.7873,
+        26.9124
+      ]
+    },
+    "coordinatesApproximate": true,
+    "totalRooms": 8,
+    "maxGuests": 16,
+    "sourceUrl": "https://www.zostel.com/destination/jaipur/stay/jaipur-jprh038",
+    "sourceName": "Zostel",
+    "sourceAccessedAt": "2026-10-28",
+    "isCatalog": true,
+    "ratesIndicative": true,
+    "isActive": true
+  },
+  {
+    "catalogSlug": "zostel-jaisalmer",
+    "title": "Zostel Jaisalmer",
+    "description": "Plan a culture-filled city break with Zostel Jaisalmer in Jaisalmer. This hostel appears in Zostel's official property collection; consult the property page for its current room types and policies.",
+    "image": {
+      "url": "https://images.unsplash.com/photo-1564507592333-c60657eea523?auto=format&fit=crop&w=1200&q=85",
+      "filename": "",
+      "isIllustrative": true
+    },
+    "imageAttribution": "Illustrative stock photograph from Unsplash; not a photograph of this property.",
+    "categories": [
+      "Trending",
+      "Heritage",
+      "Rooms"
+    ],
+    "price": 2200,
+    "location": "Jaisalmer",
+    "country": "India",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        70.9121,
+        26.9157
+      ]
+    },
+    "coordinatesApproximate": true,
+    "totalRooms": 8,
+    "maxGuests": 16,
+    "sourceUrl": "https://www.zostel.com/destination/jaisalmer/stay/jaisalmer-jslh404",
+    "sourceName": "Zostel",
+    "sourceAccessedAt": "2026-10-28",
+    "isCatalog": true,
+    "ratesIndicative": true,
+    "isActive": true
+  },
+  {
+    "catalogSlug": "zostel-jodhpur-clock-tower",
+    "title": "Zostel Jodhpur (Clock Tower)",
+    "description": "Plan a culture-filled city break with Zostel Jodhpur (Clock Tower) in Jodhpur. This hostel appears in Zostel's official property collection; consult the property page for its current room types and policies.",
+    "image": {
+      "url": "https://images.unsplash.com/photo-1524492412937-b28074a5d7da?auto=format&fit=crop&w=1200&q=85",
+      "filename": "",
+      "isIllustrative": true
+    },
+    "imageAttribution": "Illustrative stock photograph from Unsplash; not a photograph of this property.",
+    "categories": [
+      "Trending",
+      "Heritage",
+      "Rooms"
+    ],
+    "price": 2100,
+    "location": "Jodhpur",
+    "country": "India",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        73.0243,
+        26.2389
+      ]
+    },
+    "coordinatesApproximate": true,
+    "totalRooms": 8,
+    "maxGuests": 16,
+    "sourceUrl": "https://www.zostel.com/destination/jodhpur/stay/jodhpur-jdhh559",
+    "sourceName": "Zostel",
+    "sourceAccessedAt": "2026-10-28",
+    "isCatalog": true,
+    "ratesIndicative": true,
+    "isActive": true
+  },
+  {
+    "catalogSlug": "zostel-kalpa",
+    "title": "Zostel Kalpa",
+    "description": "Plan a mountain getaway with Zostel Kalpa in Kalpa. This hostel appears in Zostel's official property collection; consult the property page for its current room types and policies.",
+    "image": {
+      "url": "https://images.unsplash.com/photo-1470770841072-f978cf4d019e?auto=format&fit=crop&w=1200&q=85",
+      "filename": "",
+      "isIllustrative": true
+    },
+    "imageAttribution": "Illustrative stock photograph from Unsplash; not a photograph of this property.",
+    "categories": [
+      "Trending",
+      "Hill Station",
+      "Rooms"
+    ],
+    "price": 2300,
+    "location": "Kalpa",
+    "country": "India",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        78.2519,
+        31.5377
+      ]
+    },
+    "coordinatesApproximate": true,
+    "totalRooms": 8,
+    "maxGuests": 16,
+    "sourceUrl": "https://www.zostel.com/destination/kalpa/stay/zostel-kalpa-klph572",
+    "sourceName": "Zostel",
+    "sourceAccessedAt": "2026-10-28",
+    "isCatalog": true,
+    "ratesIndicative": true,
+    "isActive": true
+  },
+  {
+    "catalogSlug": "zostel-kasol",
+    "title": "Zostel Kasol",
+    "description": "Plan a mountain getaway with Zostel Kasol in Kasol. This hostel appears in Zostel's official property collection; consult the property page for its current room types and policies.",
+    "image": {
+      "url": "https://images.unsplash.com/photo-1472396961693-142e6e269027?auto=format&fit=crop&w=1200&q=85",
+      "filename": "",
+      "isIllustrative": true
+    },
+    "imageAttribution": "Illustrative stock photograph from Unsplash; not a photograph of this property.",
+    "categories": [
+      "Trending",
+      "Hill Station",
+      "Rooms"
+    ],
+    "price": 1900,
+    "location": "Kasol",
+    "country": "India",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        77.315,
+        32.0099
+      ]
+    },
+    "coordinatesApproximate": true,
+    "totalRooms": 8,
+    "maxGuests": 16,
+    "sourceUrl": "https://www.zostel.com/destination/kasol/stay/zostel-kasol-kslh734",
+    "sourceName": "Zostel",
+    "sourceAccessedAt": "2026-10-28",
+    "isCatalog": true,
+    "ratesIndicative": true,
+    "isActive": true
+  },
+  {
+    "catalogSlug": "zostel-kochi-fort-kochi",
+    "title": "Zostel Kochi (Fort Kochi)",
+    "description": "Plan a coastal break with Zostel Kochi (Fort Kochi) in Fort Kochi. This hostel appears in Zostel's official property collection; consult the property page for its current room types and policies.",
+    "image": {
+      "url": "https://images.unsplash.com/photo-1518837695005-2083093ee35b?auto=format&fit=crop&w=1200&q=85",
+      "filename": "",
+      "isIllustrative": true
+    },
+    "imageAttribution": "Illustrative stock photograph from Unsplash; not a photograph of this property.",
+    "categories": [
+      "Trending",
+      "Beach",
+      "Rooms"
+    ],
+    "price": 2300,
+    "location": "Fort Kochi",
+    "country": "India",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        76.2421,
+        9.9656
+      ]
+    },
+    "coordinatesApproximate": true,
+    "totalRooms": 8,
+    "maxGuests": 16,
+    "sourceUrl": "https://www.zostel.com/destination/kochi/stay/zostel-kochi-fort-kochi-kchh080",
+    "sourceName": "Zostel",
+    "sourceAccessedAt": "2026-10-28",
+    "isCatalog": true,
+    "ratesIndicative": true,
+    "isActive": true
+  },
+  {
+    "catalogSlug": "zostel-kodaikanal",
+    "title": "Zostel Kodaikanal",
+    "description": "Plan a mountain getaway with Zostel Kodaikanal in Kodaikanal. This hostel appears in Zostel's official property collection; consult the property page for its current room types and policies.",
+    "image": {
+      "url": "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=1200&q=85",
+      "filename": "",
+      "isIllustrative": true
+    },
+    "imageAttribution": "Illustrative stock photograph from Unsplash; not a photograph of this property.",
+    "categories": [
+      "Trending",
+      "Hill Station",
+      "Rooms"
+    ],
+    "price": 2400,
+    "location": "Kodaikanal",
+    "country": "India",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        77.4892,
+        10.2381
+      ]
+    },
+    "coordinatesApproximate": true,
+    "totalRooms": 8,
+    "maxGuests": 16,
+    "sourceUrl": "https://www.zostel.com/destination/kodaikanal/stay/kodaikanal-kdkh541",
+    "sourceName": "Zostel",
+    "sourceAccessedAt": "2026-10-28",
+    "isCatalog": true,
+    "ratesIndicative": true,
+    "isActive": true
+  },
+  {
+    "catalogSlug": "zostel-kolad",
+    "title": "Zostel Kolad",
+    "description": "Plan an outdoors-focused trip with Zostel Kolad in Kolad. This hostel appears in Zostel's official property collection; consult the property page for its current room types and policies.",
+    "image": {
+      "url": "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?auto=format&fit=crop&w=1200&q=85",
+      "filename": "",
+      "isIllustrative": true
+    },
+    "imageAttribution": "Illustrative stock photograph from Unsplash; not a photograph of this property.",
+    "categories": [
+      "Trending",
+      "Nature",
+      "Rooms"
+    ],
+    "price": 2200,
+    "location": "Kolad",
+    "country": "India",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        73.2101,
+        18.4065
+      ]
+    },
+    "coordinatesApproximate": true,
+    "totalRooms": 8,
+    "maxGuests": 16,
+    "sourceUrl": "https://www.zostel.com/destination/kolad/stay/kolad-kldh813",
+    "sourceName": "Zostel",
+    "sourceAccessedAt": "2026-10-28",
+    "isCatalog": true,
+    "ratesIndicative": true,
+    "isActive": true
+  },
+  {
+    "catalogSlug": "zostel-kolkata",
+    "title": "Zostel Kolkata",
+    "description": "Plan a city escape with Zostel Kolkata in Kolkata. This hostel appears in Zostel's official property collection; consult the property page for its current room types and policies.",
+    "image": {
+      "url": "https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=1200&q=85",
+      "filename": "",
+      "isIllustrative": true
+    },
+    "imageAttribution": "Illustrative stock photograph from Unsplash; not a photograph of this property.",
+    "categories": [
+      "Trending",
+      "City",
+      "Rooms"
+    ],
+    "price": 2100,
+    "location": "Kolkata",
+    "country": "India",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        88.3639,
+        22.5726
+      ]
+    },
+    "coordinatesApproximate": true,
+    "totalRooms": 8,
+    "maxGuests": 16,
+    "sourceUrl": "https://www.zostel.com/destination/kolkata/stay/zostel-kolkata-klkh729",
+    "sourceName": "Zostel",
+    "sourceAccessedAt": "2026-10-28",
+    "isCatalog": true,
+    "ratesIndicative": true,
+    "isActive": true
+  },
+  {
+    "catalogSlug": "zostel-leh-main-market",
+    "title": "Zostel Leh (Main Market)",
+    "description": "Plan a mountain getaway with Zostel Leh (Main Market) in Leh. This hostel appears in Zostel's official property collection; consult the property page for its current room types and policies.",
+    "image": {
+      "url": "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?auto=format&fit=crop&w=1200&q=85",
+      "filename": "",
+      "isIllustrative": true
+    },
+    "imageAttribution": "Illustrative stock photograph from Unsplash; not a photograph of this property.",
+    "categories": [
+      "Trending",
+      "Hill Station",
+      "Rooms"
+    ],
+    "price": 2300,
+    "location": "Leh",
+    "country": "India",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        77.5771,
+        34.1526
+      ]
+    },
+    "coordinatesApproximate": true,
+    "totalRooms": 8,
+    "maxGuests": 16,
+    "sourceUrl": "https://www.zostel.com/destination/leh/stay/zostel-leh-main-market-lehh532",
+    "sourceName": "Zostel",
+    "sourceAccessedAt": "2026-10-28",
+    "isCatalog": true,
+    "ratesIndicative": true,
+    "isActive": true
+  },
+  {
+    "catalogSlug": "zostel-manali-vashisht",
+    "title": "Zostel Manali (Vashisht)",
+    "description": "Plan a mountain getaway with Zostel Manali (Vashisht) in Manali. This hostel appears in Zostel's official property collection; consult the property page for its current room types and policies.",
+    "image": {
+      "url": "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=1200&q=85",
+      "filename": "",
+      "isIllustrative": true
+    },
+    "imageAttribution": "Illustrative stock photograph from Unsplash; not a photograph of this property.",
+    "categories": [
+      "Trending",
+      "Hill Station",
+      "Rooms"
+    ],
+    "price": 2100,
+    "location": "Manali",
+    "country": "India",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        77.1892,
+        32.263
+      ]
+    },
+    "coordinatesApproximate": true,
+    "totalRooms": 8,
+    "maxGuests": 16,
+    "sourceUrl": "https://www.zostel.com/destination/vashisht/stay/zostel-manali-vashisht-vshh380",
+    "sourceName": "Zostel",
+    "sourceAccessedAt": "2026-10-28",
+    "isCatalog": true,
+    "ratesIndicative": true,
+    "isActive": true
+  },
+  {
+    "catalogSlug": "zostel-mcleodganj",
+    "title": "Zostel Mcleodganj",
+    "description": "Plan a mountain getaway with Zostel Mcleodganj in McLeod Ganj. This hostel appears in Zostel's official property collection; consult the property page for its current room types and policies.",
+    "image": {
+      "url": "https://images.unsplash.com/photo-1470770841072-f978cf4d019e?auto=format&fit=crop&w=1200&q=85",
+      "filename": "",
+      "isIllustrative": true
+    },
+    "imageAttribution": "Illustrative stock photograph from Unsplash; not a photograph of this property.",
+    "categories": [
+      "Trending",
+      "Hill Station",
+      "Rooms"
+    ],
+    "price": 2200,
+    "location": "McLeod Ganj",
+    "country": "India",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        76.3255,
+        32.2426
+      ]
+    },
+    "coordinatesApproximate": true,
+    "totalRooms": 8,
+    "maxGuests": 16,
+    "sourceUrl": "https://www.zostel.com/destination/mcleodganj/stay/zostel-mcleodganj-mclh045",
+    "sourceName": "Zostel",
+    "sourceAccessedAt": "2026-10-28",
+    "isCatalog": true,
+    "ratesIndicative": true,
+    "isActive": true
+  },
+  {
+    "catalogSlug": "zostel-mumbai",
+    "title": "Zostel Mumbai",
+    "description": "Plan a city escape with Zostel Mumbai in Mumbai. This hostel appears in Zostel's official property collection; consult the property page for its current room types and policies.",
+    "image": {
+      "url": "https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=1200&q=85",
+      "filename": "",
+      "isIllustrative": true
+    },
+    "imageAttribution": "Illustrative stock photograph from Unsplash; not a photograph of this property.",
+    "categories": [
+      "Trending",
+      "City",
+      "Rooms"
+    ],
+    "price": 3200,
+    "location": "Mumbai",
+    "country": "India",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        72.8777,
+        19.076
+      ]
+    },
+    "coordinatesApproximate": true,
+    "totalRooms": 8,
+    "maxGuests": 16,
+    "sourceUrl": "https://www.zostel.com/destination/mumbai/stay/mumbai-mmbh714",
+    "sourceName": "Zostel",
+    "sourceAccessedAt": "2026-10-28",
+    "isCatalog": true,
+    "ratesIndicative": true,
+    "isActive": true
+  },
+  {
+    "catalogSlug": "zostel-munnar",
+    "title": "Zostel Munnar",
+    "description": "Plan a mountain getaway with Zostel Munnar in Munnar. This hostel appears in Zostel's official property collection; consult the property page for its current room types and policies.",
+    "image": {
+      "url": "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?auto=format&fit=crop&w=1200&q=85",
+      "filename": "",
+      "isIllustrative": true
+    },
+    "imageAttribution": "Illustrative stock photograph from Unsplash; not a photograph of this property.",
+    "categories": [
+      "Trending",
+      "Hill Station",
+      "Rooms"
+    ],
+    "price": 2500,
+    "location": "Munnar",
+    "country": "India",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        77.0595,
+        10.0889
+      ]
+    },
+    "coordinatesApproximate": true,
+    "totalRooms": 8,
+    "maxGuests": 16,
+    "sourceUrl": "https://www.zostel.com/destination/munnar/stay/zostel-munnar-pallivasal-mnnh779",
+    "sourceName": "Zostel",
+    "sourceAccessedAt": "2026-10-28",
+    "isCatalog": true,
+    "ratesIndicative": true,
+    "isActive": true
+  },
+  {
+    "catalogSlug": "zostel-mussoorie-mall-road",
+    "title": "Zostel Mussoorie (Mall Road)",
+    "description": "Plan a mountain getaway with Zostel Mussoorie (Mall Road) in Mussoorie. This hostel appears in Zostel's official property collection; consult the property page for its current room types and policies.",
+    "image": {
+      "url": "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=1200&q=85",
+      "filename": "",
+      "isIllustrative": true
+    },
+    "imageAttribution": "Illustrative stock photograph from Unsplash; not a photograph of this property.",
+    "categories": [
+      "Trending",
+      "Hill Station",
+      "Rooms"
+    ],
+    "price": 2600,
+    "location": "Mussoorie",
+    "country": "India",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        78.0745,
+        30.4598
+      ]
+    },
+    "coordinatesApproximate": true,
+    "totalRooms": 8,
+    "maxGuests": 16,
+    "sourceUrl": "https://www.zostel.com/destination/mussoorie/stay/zostel-mussoorie-mall-road-mssh686",
+    "sourceName": "Zostel",
+    "sourceAccessedAt": "2026-10-28",
+    "isCatalog": true,
+    "ratesIndicative": true,
+    "isActive": true
+  },
+  {
+    "catalogSlug": "zostel-mysore",
+    "title": "Zostel Mysore",
+    "description": "Plan a culture-filled city break with Zostel Mysore in Mysuru. This hostel appears in Zostel's official property collection; consult the property page for its current room types and policies.",
+    "image": {
+      "url": "https://images.unsplash.com/photo-1548013146-72479768bada?auto=format&fit=crop&w=1200&q=85",
+      "filename": "",
+      "isIllustrative": true
+    },
+    "imageAttribution": "Illustrative stock photograph from Unsplash; not a photograph of this property.",
+    "categories": [
+      "Trending",
+      "Heritage",
+      "Rooms"
+    ],
+    "price": 2000,
+    "location": "Mysuru",
+    "country": "India",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        76.6394,
+        12.2958
+      ]
+    },
+    "coordinatesApproximate": true,
+    "totalRooms": 8,
+    "maxGuests": 16,
+    "sourceUrl": "https://www.zostel.com/destination/mysore/stay/mysore-mysh811",
+    "sourceName": "Zostel",
+    "sourceAccessedAt": "2026-10-28",
+    "isCatalog": true,
+    "ratesIndicative": true,
+    "isActive": true
+  },
+  {
+    "catalogSlug": "zostel-nashik",
+    "title": "Zostel Nashik",
+    "description": "Plan a city escape with Zostel Nashik in Nashik. This hostel appears in Zostel's official property collection; consult the property page for its current room types and policies.",
+    "image": {
+      "url": "https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=1200&q=85",
+      "filename": "",
+      "isIllustrative": true
+    },
+    "imageAttribution": "Illustrative stock photograph from Unsplash; not a photograph of this property.",
+    "categories": [
+      "Trending",
+      "City",
+      "Rooms"
+    ],
+    "price": 1900,
+    "location": "Nashik",
+    "country": "India",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        73.7898,
+        19.9975
+      ]
+    },
+    "coordinatesApproximate": true,
+    "totalRooms": 8,
+    "maxGuests": 16,
+    "sourceUrl": "https://www.zostel.com/destination/nashik/stay/zostel-nashik-nshh386",
+    "sourceName": "Zostel",
+    "sourceAccessedAt": "2026-10-28",
+    "isCatalog": true,
+    "ratesIndicative": true,
+    "isActive": true
+  },
+  {
+    "catalogSlug": "zostel-nubra",
+    "title": "Zostel Nubra",
+    "description": "Plan a mountain getaway with Zostel Nubra in Nubra Valley. This hostel appears in Zostel's official property collection; consult the property page for its current room types and policies.",
+    "image": {
+      "url": "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?auto=format&fit=crop&w=1200&q=85",
+      "filename": "",
+      "isIllustrative": true
+    },
+    "imageAttribution": "Illustrative stock photograph from Unsplash; not a photograph of this property.",
+    "categories": [
+      "Trending",
+      "Hill Station",
+      "Rooms"
+    ],
+    "price": 2800,
+    "location": "Nubra Valley",
+    "country": "India",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        77.566,
+        34.685
+      ]
+    },
+    "coordinatesApproximate": true,
+    "totalRooms": 8,
+    "maxGuests": 16,
+    "sourceUrl": "https://www.zostel.com/destination/nubra/stay/zostel-nubra-nbrh614",
+    "sourceName": "Zostel",
+    "sourceAccessedAt": "2026-10-28",
+    "isCatalog": true,
+    "ratesIndicative": true,
+    "isActive": true
+  },
+  {
+    "catalogSlug": "zostel-ooty",
+    "title": "Zostel Ooty",
+    "description": "Plan a mountain getaway with Zostel Ooty in Ooty. This hostel appears in Zostel's official property collection; consult the property page for its current room types and policies.",
+    "image": {
+      "url": "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=1200&q=85",
+      "filename": "",
+      "isIllustrative": true
+    },
+    "imageAttribution": "Illustrative stock photograph from Unsplash; not a photograph of this property.",
+    "categories": [
+      "Trending",
+      "Hill Station",
+      "Rooms"
+    ],
+    "price": 2400,
+    "location": "Ooty",
+    "country": "India",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        76.695,
+        11.4102
+      ]
+    },
+    "coordinatesApproximate": true,
+    "totalRooms": 8,
+    "maxGuests": 16,
+    "sourceUrl": "https://www.zostel.com/destination/ooty/stay/ooty-otyh641",
+    "sourceName": "Zostel",
+    "sourceAccessedAt": "2026-10-28",
+    "isCatalog": true,
+    "ratesIndicative": true,
+    "isActive": true
+  },
+  {
+    "catalogSlug": "zostel-pahalgam",
+    "title": "Zostel Pahalgam",
+    "description": "Plan a mountain getaway with Zostel Pahalgam in Pahalgam. This hostel appears in Zostel's official property collection; consult the property page for its current room types and policies.",
+    "image": {
+      "url": "https://images.unsplash.com/photo-1470770841072-f978cf4d019e?auto=format&fit=crop&w=1200&q=85",
+      "filename": "",
+      "isIllustrative": true
+    },
+    "imageAttribution": "Illustrative stock photograph from Unsplash; not a photograph of this property.",
+    "categories": [
+      "Trending",
+      "Hill Station",
+      "Rooms"
+    ],
+    "price": 3000,
+    "location": "Pahalgam",
+    "country": "India",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        75.319,
+        34.0159
+      ]
+    },
+    "coordinatesApproximate": true,
+    "totalRooms": 8,
+    "maxGuests": 16,
+    "sourceUrl": "https://www.zostel.com/destination/pahalgam/stay/zostel-pahalgam-phlh309",
+    "sourceName": "Zostel",
+    "sourceAccessedAt": "2026-10-28",
+    "isCatalog": true,
+    "ratesIndicative": true,
+    "isActive": true
+  },
+  {
+    "catalogSlug": "zostel-phuket",
+    "title": "Zostel Phuket",
+    "description": "Plan a coastal break with Zostel Phuket in Phuket. This hostel appears in Zostel's official property collection; consult the property page for its current room types and policies.",
+    "image": {
+      "url": "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&w=1200&q=85",
+      "filename": "",
+      "isIllustrative": true
+    },
+    "imageAttribution": "Illustrative stock photograph from Unsplash; not a photograph of this property.",
+    "categories": [
+      "Trending",
+      "Beach",
+      "Rooms"
+    ],
+    "price": 3600,
+    "location": "Phuket",
+    "country": "Thailand",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        98.3381,
+        7.8966
+      ]
+    },
+    "coordinatesApproximate": true,
+    "totalRooms": 8,
+    "maxGuests": 16,
+    "sourceUrl": "https://www.zostel.com/destination/phuket/stay/zostel-phuket-phkh951",
+    "sourceName": "Zostel",
+    "sourceAccessedAt": "2026-10-28",
+    "isCatalog": true,
+    "ratesIndicative": true,
+    "isActive": true
+  },
+  {
+    "catalogSlug": "zostel-pokhara",
+    "title": "Zostel Pokhara",
+    "description": "Plan a mountain getaway with Zostel Pokhara in Pokhara. This hostel appears in Zostel's official property collection; consult the property page for its current room types and policies.",
+    "image": {
+      "url": "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?auto=format&fit=crop&w=1200&q=85",
+      "filename": "",
+      "isIllustrative": true
+    },
+    "imageAttribution": "Illustrative stock photograph from Unsplash; not a photograph of this property.",
+    "categories": [
+      "Trending",
+      "Hill Station",
+      "Rooms"
+    ],
+    "price": 2200,
+    "location": "Pokhara",
+    "country": "Nepal",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        83.9856,
+        28.2096
+      ]
+    },
+    "coordinatesApproximate": true,
+    "totalRooms": 8,
+    "maxGuests": 16,
+    "sourceUrl": "https://www.zostel.com/destination/pokhara/stay/zostel-pokhara-pkhh648",
+    "sourceName": "Zostel",
+    "sourceAccessedAt": "2026-10-28",
+    "isCatalog": true,
+    "ratesIndicative": true,
+    "isActive": true
+  },
+  {
+    "catalogSlug": "zostel-pondicherry-auroville-road",
+    "title": "Zostel Pondicherry (Auroville Road)",
+    "description": "Plan a coastal break with Zostel Pondicherry (Auroville Road) in Puducherry. This hostel appears in Zostel's official property collection; consult the property page for its current room types and policies.",
+    "image": {
+      "url": "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1200&q=85",
+      "filename": "",
+      "isIllustrative": true
+    },
+    "imageAttribution": "Illustrative stock photograph from Unsplash; not a photograph of this property.",
+    "categories": [
+      "Trending",
+      "Beach",
+      "Rooms"
+    ],
+    "price": 2500,
+    "location": "Puducherry",
+    "country": "India",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        79.8083,
+        11.9416
+      ]
+    },
+    "coordinatesApproximate": true,
+    "totalRooms": 8,
+    "maxGuests": 16,
+    "sourceUrl": "https://www.zostel.com/destination/pondicherry/stay/zostel-pondicherry-pndh771",
+    "sourceName": "Zostel",
+    "sourceAccessedAt": "2026-10-28",
+    "isCatalog": true,
+    "ratesIndicative": true,
+    "isActive": true
+  },
+  {
+    "catalogSlug": "zostel-port-blair",
+    "title": "Zostel Port Blair",
+    "description": "Plan a coastal break with Zostel Port Blair in Port Blair. This hostel appears in Zostel's official property collection; consult the property page for its current room types and policies.",
+    "image": {
+      "url": "https://images.unsplash.com/photo-1571896349842-33c89424de2d?auto=format&fit=crop&w=1200&q=85",
+      "filename": "",
+      "isIllustrative": true
+    },
+    "imageAttribution": "Illustrative stock photograph from Unsplash; not a photograph of this property.",
+    "categories": [
+      "Trending",
+      "Beach",
+      "Rooms"
+    ],
+    "price": 3200,
+    "location": "Port Blair",
+    "country": "India",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        92.7265,
+        11.6234
+      ]
+    },
+    "coordinatesApproximate": true,
+    "totalRooms": 8,
+    "maxGuests": 16,
+    "sourceUrl": "https://www.zostel.com/destination/port-blair/stay/zostel-port-blair-prth967",
+    "sourceName": "Zostel",
+    "sourceAccessedAt": "2026-10-28",
+    "isCatalog": true,
+    "ratesIndicative": true,
+    "isActive": true
+  },
+  {
+    "catalogSlug": "zostel-pune-viman-nagar",
+    "title": "Zostel Pune (Viman Nagar)",
+    "description": "Plan a city escape with Zostel Pune (Viman Nagar) in Pune. This hostel appears in Zostel's official property collection; consult the property page for its current room types and policies.",
+    "image": {
+      "url": "https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=1200&q=85",
+      "filename": "",
+      "isIllustrative": true
+    },
+    "imageAttribution": "Illustrative stock photograph from Unsplash; not a photograph of this property.",
+    "categories": [
+      "Trending",
+      "City",
+      "Rooms"
+    ],
+    "price": 2400,
+    "location": "Pune",
+    "country": "India",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        73.8567,
+        18.5204
+      ]
+    },
+    "coordinatesApproximate": true,
+    "totalRooms": 8,
+    "maxGuests": 16,
+    "sourceUrl": "https://www.zostel.com/destination/pune/stay/zostel-pune-viman-nagar-punh925",
+    "sourceName": "Zostel",
+    "sourceAccessedAt": "2026-10-28",
+    "isCatalog": true,
+    "ratesIndicative": true,
+    "isActive": true
+  },
+  {
+    "catalogSlug": "zostel-pushkar",
+    "title": "Zostel Pushkar",
+    "description": "Plan a culture-filled city break with Zostel Pushkar in Pushkar. This hostel appears in Zostel's official property collection; consult the property page for its current room types and policies.",
+    "image": {
+      "url": "https://images.unsplash.com/photo-1564507592333-c60657eea523?auto=format&fit=crop&w=1200&q=85",
+      "filename": "",
+      "isIllustrative": true
+    },
+    "imageAttribution": "Illustrative stock photograph from Unsplash; not a photograph of this property.",
+    "categories": [
+      "Trending",
+      "Heritage",
+      "Rooms"
+    ],
+    "price": 1800,
+    "location": "Pushkar",
+    "country": "India",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        74.5511,
+        26.4897
+      ]
+    },
+    "coordinatesApproximate": true,
+    "totalRooms": 8,
+    "maxGuests": 16,
+    "sourceUrl": "https://www.zostel.com/destination/pushkar/stay/zostel-pushkar-pshh956",
+    "sourceName": "Zostel",
+    "sourceAccessedAt": "2026-10-28",
+    "isCatalog": true,
+    "ratesIndicative": true,
+    "isActive": true
+  },
+  {
+    "catalogSlug": "zostel-rishikesh-laxman-jhula",
+    "title": "Zostel Rishikesh (Laxman Jhula)",
+    "description": "Plan an outdoors-focused trip with Zostel Rishikesh (Laxman Jhula) in Rishikesh. This hostel appears in Zostel's official property collection; consult the property page for its current room types and policies.",
+    "image": {
+      "url": "https://images.unsplash.com/photo-1472396961693-142e6e269027?auto=format&fit=crop&w=1200&q=85",
+      "filename": "",
+      "isIllustrative": true
+    },
+    "imageAttribution": "Illustrative stock photograph from Unsplash; not a photograph of this property.",
+    "categories": [
+      "Trending",
+      "Nature",
+      "Rooms"
+    ],
+    "price": 2300,
+    "location": "Rishikesh",
+    "country": "India",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        78.2676,
+        30.0869
+      ]
+    },
+    "coordinatesApproximate": true,
+    "totalRooms": 8,
+    "maxGuests": 16,
+    "sourceUrl": "https://www.zostel.com/destination/rishikesh/stay/zostel-rishikesh-laxman-jhula-rshh304",
+    "sourceName": "Zostel",
+    "sourceAccessedAt": "2026-10-28",
+    "isCatalog": true,
+    "ratesIndicative": true,
+    "isActive": true
+  },
+  {
+    "catalogSlug": "zostel-shangarh",
+    "title": "Zostel Shangarh",
+    "description": "Plan a mountain getaway with Zostel Shangarh in Shangarh. This hostel appears in Zostel's official property collection; consult the property page for its current room types and policies.",
+    "image": {
+      "url": "https://images.unsplash.com/photo-1470770841072-f978cf4d019e?auto=format&fit=crop&w=1200&q=85",
+      "filename": "",
+      "isIllustrative": true
+    },
+    "imageAttribution": "Illustrative stock photograph from Unsplash; not a photograph of this property.",
+    "categories": [
+      "Trending",
+      "Hill Station",
+      "Rooms"
+    ],
+    "price": 2100,
+    "location": "Shangarh",
+    "country": "India",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        77.3322,
+        31.7475
+      ]
+    },
+    "coordinatesApproximate": true,
+    "totalRooms": 8,
+    "maxGuests": 16,
+    "sourceUrl": "https://www.zostel.com/destination/shangarh/stay/shangarh-kullu-shnh319",
+    "sourceName": "Zostel",
+    "sourceAccessedAt": "2026-10-28",
+    "isCatalog": true,
+    "ratesIndicative": true,
+    "isActive": true
+  },
+  {
+    "catalogSlug": "zostel-shillong",
+    "title": "Zostel Shillong",
+    "description": "Plan a mountain getaway with Zostel Shillong in Shillong. This hostel appears in Zostel's official property collection; consult the property page for its current room types and policies.",
+    "image": {
+      "url": "https://images.unsplash.com/photo-1472396961693-142e6e269027?auto=format&fit=crop&w=1200&q=85",
+      "filename": "",
+      "isIllustrative": true
+    },
+    "imageAttribution": "Illustrative stock photograph from Unsplash; not a photograph of this property.",
+    "categories": [
+      "Trending",
+      "Hill Station",
+      "Rooms"
+    ],
+    "price": 2400,
+    "location": "Shillong",
+    "country": "India",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        91.8933,
+        25.5788
+      ]
+    },
+    "coordinatesApproximate": true,
+    "totalRooms": 8,
+    "maxGuests": 16,
+    "sourceUrl": "https://www.zostel.com/destination/shillong/stay/zostel-shillong-shlh305",
+    "sourceName": "Zostel",
+    "sourceAccessedAt": "2026-10-28",
+    "isCatalog": true,
+    "ratesIndicative": true,
+    "isActive": true
+  },
+  {
+    "catalogSlug": "zostel-shoja-jibhi",
+    "title": "Zostel Shoja (Jibhi)",
+    "description": "Plan a mountain getaway with Zostel Shoja (Jibhi) in Shoja. This hostel appears in Zostel's official property collection; consult the property page for its current room types and policies.",
+    "image": {
+      "url": "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?auto=format&fit=crop&w=1200&q=85",
+      "filename": "",
+      "isIllustrative": true
+    },
+    "imageAttribution": "Illustrative stock photograph from Unsplash; not a photograph of this property.",
+    "categories": [
+      "Trending",
+      "Hill Station",
+      "Rooms"
+    ],
+    "price": 2300,
+    "location": "Shoja",
+    "country": "India",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        77.372,
+        31.551
+      ]
+    },
+    "coordinatesApproximate": true,
+    "totalRooms": 8,
+    "maxGuests": 16,
+    "sourceUrl": "https://www.zostel.com/destination/shoja/stay/zostel-shoja-jibhi-shjh523",
+    "sourceName": "Zostel",
+    "sourceAccessedAt": "2026-10-28",
+    "isCatalog": true,
+    "ratesIndicative": true,
+    "isActive": true
+  },
+  {
+    "catalogSlug": "zostel-sissu-khangsar",
+    "title": "Zostel Sissu (Khangsar)",
+    "description": "Plan a mountain getaway with Zostel Sissu (Khangsar) in Sissu. This hostel appears in Zostel's official property collection; consult the property page for its current room types and policies.",
+    "image": {
+      "url": "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=1200&q=85",
+      "filename": "",
+      "isIllustrative": true
+    },
+    "imageAttribution": "Illustrative stock photograph from Unsplash; not a photograph of this property.",
+    "categories": [
+      "Trending",
+      "Hill Station",
+      "Rooms"
+    ],
+    "price": 2500,
+    "location": "Sissu",
+    "country": "India",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        77.118,
+        32.4844
+      ]
+    },
+    "coordinatesApproximate": true,
+    "totalRooms": 8,
+    "maxGuests": 16,
+    "sourceUrl": "https://www.zostel.com/destination/sissu/stay/zostel-sissu-sssh294",
+    "sourceName": "Zostel",
+    "sourceAccessedAt": "2026-10-28",
+    "isCatalog": true,
+    "ratesIndicative": true,
+    "isActive": true
+  },
+  {
+    "catalogSlug": "zostel-srinagar",
+    "title": "Zostel Srinagar",
+    "description": "Plan an escape by the water with Zostel Srinagar in Srinagar. This hostel appears in Zostel's official property collection; consult the property page for its current room types and policies.",
+    "image": {
+      "url": "https://images.unsplash.com/photo-1470770841072-f978cf4d019e?auto=format&fit=crop&w=1200&q=85",
+      "filename": "",
+      "isIllustrative": true
+    },
+    "imageAttribution": "Illustrative stock photograph from Unsplash; not a photograph of this property.",
+    "categories": [
+      "Trending",
+      "LakeFront",
+      "Rooms"
+    ],
+    "price": 2900,
+    "location": "Srinagar",
+    "country": "India",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        74.7973,
+        34.0837
+      ]
+    },
+    "coordinatesApproximate": true,
+    "totalRooms": 8,
+    "maxGuests": 16,
+    "sourceUrl": "https://www.zostel.com/destination/srinagar/stay/srinagar-srnh885",
+    "sourceName": "Zostel",
+    "sourceAccessedAt": "2026-10-28",
+    "isCatalog": true,
+    "ratesIndicative": true,
+    "isActive": true
+  },
+  {
+    "catalogSlug": "zostel-udaipur",
+    "title": "Zostel Udaipur",
+    "description": "Plan an escape by the water with Zostel Udaipur in Udaipur. This hostel appears in Zostel's official property collection; consult the property page for its current room types and policies.",
+    "image": {
+      "url": "https://images.unsplash.com/photo-1500534623283-312aade485b7?auto=format&fit=crop&w=1200&q=85",
+      "filename": "",
+      "isIllustrative": true
+    },
+    "imageAttribution": "Illustrative stock photograph from Unsplash; not a photograph of this property.",
+    "categories": [
+      "Trending",
+      "LakeFront",
+      "Rooms"
+    ],
+    "price": 2400,
+    "location": "Udaipur",
+    "country": "India",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        73.7125,
+        24.5854
+      ]
+    },
+    "coordinatesApproximate": true,
+    "totalRooms": 8,
+    "maxGuests": 16,
+    "sourceUrl": "https://www.zostel.com/destination/udaipur/stay/udaipur-udph705",
+    "sourceName": "Zostel",
+    "sourceAccessedAt": "2026-10-28",
+    "isCatalog": true,
+    "ratesIndicative": true,
+    "isActive": true
+  },
+  {
+    "catalogSlug": "zostel-varanasi",
+    "title": "Zostel Varanasi",
+    "description": "Plan a culture-filled city break with Zostel Varanasi in Varanasi. This hostel appears in Zostel's official property collection; consult the property page for its current room types and policies.",
+    "image": {
+      "url": "https://images.unsplash.com/photo-1564507592333-c60657eea523?auto=format&fit=crop&w=1200&q=85",
+      "filename": "",
+      "isIllustrative": true
+    },
+    "imageAttribution": "Illustrative stock photograph from Unsplash; not a photograph of this property.",
+    "categories": [
+      "Trending",
+      "Heritage",
+      "Rooms"
+    ],
+    "price": 2000,
+    "location": "Varanasi",
+    "country": "India",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        82.9739,
+        25.3176
+      ]
+    },
+    "coordinatesApproximate": true,
+    "totalRooms": 8,
+    "maxGuests": 16,
+    "sourceUrl": "https://www.zostel.com/destination/varanasi/stay/zostel-varanasi-vrnh142",
+    "sourceName": "Zostel",
+    "sourceAccessedAt": "2026-10-28",
+    "isCatalog": true,
+    "ratesIndicative": true,
+    "isActive": true
+  },
+  {
+    "catalogSlug": "zostel-varkala",
+    "title": "Zostel Varkala",
+    "description": "Plan a coastal break with Zostel Varkala in Varkala. This hostel appears in Zostel's official property collection; consult the property page for its current room types and policies.",
+    "image": {
+      "url": "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1200&q=85",
+      "filename": "",
+      "isIllustrative": true
+    },
+    "imageAttribution": "Illustrative stock photograph from Unsplash; not a photograph of this property.",
+    "categories": [
+      "Trending",
+      "Beach",
+      "Rooms"
+    ],
+    "price": 2600,
+    "location": "Varkala",
+    "country": "India",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        76.7163,
+        8.7379
+      ]
+    },
+    "coordinatesApproximate": true,
+    "totalRooms": 8,
+    "maxGuests": 16,
+    "sourceUrl": "https://www.zostel.com/destination/varkala/stay/varkala-vrkh781",
+    "sourceName": "Zostel",
+    "sourceAccessedAt": "2026-10-28",
+    "isCatalog": true,
+    "ratesIndicative": true,
+    "isActive": true
+  },
+  {
+    "catalogSlug": "generator-amsterdam",
+    "title": "Generator Amsterdam",
+    "description": "Generator Amsterdam is part of Generator's accommodation collection in Amsterdam. Use it as a base for a city break and check the official property page for room choices and current policies.",
+    "image": {
+      "url": "https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?auto=format&fit=crop&w=1200&q=85",
+      "filename": "",
+      "isIllustrative": true
+    },
+    "imageAttribution": "Illustrative stock photograph from Unsplash; not a photograph of this property.",
+    "categories": [
+      "Trending",
+      "City",
+      "Rooms"
+    ],
+    "price": 6500,
+    "location": "Amsterdam",
+    "country": "Netherlands",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        4.9158,
+        52.3607
+      ]
+    },
+    "coordinatesApproximate": true,
+    "totalRooms": 8,
+    "maxGuests": 16,
+    "sourceUrl": "https://staygenerator.com/hostels/amsterdam",
+    "sourceName": "Generator",
+    "sourceAccessedAt": "2026-10-28",
+    "isCatalog": true,
+    "ratesIndicative": true,
+    "isActive": true
+  },
+  {
+    "catalogSlug": "generator-barcelona",
+    "title": "Generator Barcelona",
+    "description": "Generator Barcelona is part of Generator's accommodation collection in Barcelona. Use it as a base for a city break and check the official property page for room choices and current policies.",
+    "image": {
+      "url": "https://images.unsplash.com/photo-1519501025264-65ba15a82390?auto=format&fit=crop&w=1200&q=85",
+      "filename": "",
+      "isIllustrative": true
+    },
+    "imageAttribution": "Illustrative stock photograph from Unsplash; not a photograph of this property.",
+    "categories": [
+      "Trending",
+      "City",
+      "Rooms"
+    ],
+    "price": 6200,
+    "location": "Barcelona",
+    "country": "Spain",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        2.1649,
+        41.4016
+      ]
+    },
+    "coordinatesApproximate": true,
+    "totalRooms": 8,
+    "maxGuests": 16,
+    "sourceUrl": "https://staygenerator.com/hostels/barcelona",
+    "sourceName": "Generator",
+    "sourceAccessedAt": "2026-10-28",
+    "isCatalog": true,
+    "ratesIndicative": true,
+    "isActive": true
+  },
+  {
+    "catalogSlug": "generator-berlin-alexanderplatz",
+    "title": "Generator Berlin Alexanderplatz",
+    "description": "Generator Berlin Alexanderplatz is part of Generator's accommodation collection in Berlin. Use it as a base for a city break and check the official property page for room choices and current policies.",
+    "image": {
+      "url": "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=1200&q=85",
+      "filename": "",
+      "isIllustrative": true
+    },
+    "imageAttribution": "Illustrative stock photograph from Unsplash; not a photograph of this property.",
+    "categories": [
+      "Trending",
+      "City",
+      "Rooms"
+    ],
+    "price": 5600,
+    "location": "Berlin",
+    "country": "Germany",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        13.4214,
+        52.5256
+      ]
+    },
+    "coordinatesApproximate": true,
+    "totalRooms": 8,
+    "maxGuests": 16,
+    "sourceUrl": "https://staygenerator.com/hostels/berlin/alexanderplatz",
+    "sourceName": "Generator",
+    "sourceAccessedAt": "2026-10-28",
+    "isCatalog": true,
+    "ratesIndicative": true,
+    "isActive": true
+  },
+  {
+    "catalogSlug": "generator-berlin-mitte",
+    "title": "Generator Berlin Mitte",
+    "description": "Generator Berlin Mitte is part of Generator's accommodation collection in Berlin. Use it as a base for a city break and check the official property page for room choices and current policies.",
+    "image": {
+      "url": "https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=1200&q=85",
+      "filename": "",
+      "isIllustrative": true
+    },
+    "imageAttribution": "Illustrative stock photograph from Unsplash; not a photograph of this property.",
+    "categories": [
+      "Trending",
+      "City",
+      "Rooms"
+    ],
+    "price": 5900,
+    "location": "Berlin",
+    "country": "Germany",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        13.3898,
+        52.5257
+      ]
+    },
+    "coordinatesApproximate": true,
+    "totalRooms": 8,
+    "maxGuests": 16,
+    "sourceUrl": "https://staygenerator.com/hostels/berlin/mitte",
+    "sourceName": "Generator",
+    "sourceAccessedAt": "2026-10-28",
+    "isCatalog": true,
+    "ratesIndicative": true,
+    "isActive": true
+  },
+  {
+    "catalogSlug": "generator-copenhagen",
+    "title": "Generator Copenhagen",
+    "description": "Generator Copenhagen is part of Generator's accommodation collection in Copenhagen. Use it as a base for a city break and check the official property page for room choices and current policies.",
+    "image": {
+      "url": "https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?auto=format&fit=crop&w=1200&q=85",
+      "filename": "",
+      "isIllustrative": true
+    },
+    "imageAttribution": "Illustrative stock photograph from Unsplash; not a photograph of this property.",
+    "categories": [
+      "Trending",
+      "City",
+      "Rooms"
+    ],
+    "price": 7600,
+    "location": "Copenhagen",
+    "country": "Denmark",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        12.5809,
+        55.6838
+      ]
+    },
+    "coordinatesApproximate": true,
+    "totalRooms": 8,
+    "maxGuests": 16,
+    "sourceUrl": "https://staygenerator.com/hostels/copenhagen",
+    "sourceName": "Generator",
+    "sourceAccessedAt": "2026-10-28",
+    "isCatalog": true,
+    "ratesIndicative": true,
+    "isActive": true
+  },
+  {
+    "catalogSlug": "generator-dublin",
+    "title": "Generator Dublin",
+    "description": "Generator Dublin is part of Generator's accommodation collection in Dublin. Use it as a base for a city break and check the official property page for room choices and current policies.",
+    "image": {
+      "url": "https://images.unsplash.com/photo-1519501025264-65ba15a82390?auto=format&fit=crop&w=1200&q=85",
+      "filename": "",
+      "isIllustrative": true
+    },
+    "imageAttribution": "Illustrative stock photograph from Unsplash; not a photograph of this property.",
+    "categories": [
+      "Trending",
+      "City",
+      "Rooms"
+    ],
+    "price": 7100,
+    "location": "Dublin",
+    "country": "Ireland",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        -6.2781,
+        53.3483
+      ]
+    },
+    "coordinatesApproximate": true,
+    "totalRooms": 8,
+    "maxGuests": 16,
+    "sourceUrl": "https://staygenerator.com/hostels/dublin",
+    "sourceName": "Generator",
+    "sourceAccessedAt": "2026-10-28",
+    "isCatalog": true,
+    "ratesIndicative": true,
+    "isActive": true
+  },
+  {
+    "catalogSlug": "generator-hamburg",
+    "title": "Generator Hamburg",
+    "description": "Generator Hamburg is part of Generator's accommodation collection in Hamburg. Use it as a base for a city break and check the official property page for room choices and current policies.",
+    "image": {
+      "url": "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=1200&q=85",
+      "filename": "",
+      "isIllustrative": true
+    },
+    "imageAttribution": "Illustrative stock photograph from Unsplash; not a photograph of this property.",
+    "categories": [
+      "Trending",
+      "City",
+      "Rooms"
+    ],
+    "price": 6000,
+    "location": "Hamburg",
+    "country": "Germany",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        10.0093,
+        53.5524
+      ]
+    },
+    "coordinatesApproximate": true,
+    "totalRooms": 8,
+    "maxGuests": 16,
+    "sourceUrl": "https://staygenerator.com/hostels/hamburg",
+    "sourceName": "Generator",
+    "sourceAccessedAt": "2026-10-28",
+    "isCatalog": true,
+    "ratesIndicative": true,
+    "isActive": true
+  },
+  {
+    "catalogSlug": "generator-london-king-s-cross",
+    "title": "Generator London King's Cross",
+    "description": "Generator London King's Cross is part of Generator's accommodation collection in London. Use it as a base for a city break and check the official property page for room choices and current policies.",
+    "image": {
+      "url": "https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=1200&q=85",
+      "filename": "",
+      "isIllustrative": true
+    },
+    "imageAttribution": "Illustrative stock photograph from Unsplash; not a photograph of this property.",
+    "categories": [
+      "Trending",
+      "City",
+      "Rooms"
+    ],
+    "price": 7900,
+    "location": "London",
+    "country": "United Kingdom",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        -0.1265,
+        51.5256
+      ]
+    },
+    "coordinatesApproximate": true,
+    "totalRooms": 8,
+    "maxGuests": 16,
+    "sourceUrl": "https://staygenerator.com/hostels/london/kingscross",
+    "sourceName": "Generator",
+    "sourceAccessedAt": "2026-10-28",
+    "isCatalog": true,
+    "ratesIndicative": true,
+    "isActive": true
+  },
+  {
+    "catalogSlug": "generator-madrid",
+    "title": "Generator Madrid",
+    "description": "Generator Madrid is part of Generator's accommodation collection in Madrid. Use it as a base for a city break and check the official property page for room choices and current policies.",
+    "image": {
+      "url": "https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?auto=format&fit=crop&w=1200&q=85",
+      "filename": "",
+      "isIllustrative": true
+    },
+    "imageAttribution": "Illustrative stock photograph from Unsplash; not a photograph of this property.",
+    "categories": [
+      "Trending",
+      "City",
+      "Rooms"
+    ],
+    "price": 6300,
+    "location": "Madrid",
+    "country": "Spain",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        -3.7094,
+        40.4207
+      ]
+    },
+    "coordinatesApproximate": true,
+    "totalRooms": 8,
+    "maxGuests": 16,
+    "sourceUrl": "https://staygenerator.com/hostels/madrid",
+    "sourceName": "Generator",
+    "sourceAccessedAt": "2026-10-28",
+    "isCatalog": true,
+    "ratesIndicative": true,
+    "isActive": true
+  },
+  {
+    "catalogSlug": "paramount-times-square-a-generator-hotel",
+    "title": "Paramount Times Square - A Generator Hotel",
+    "description": "Paramount Times Square - A Generator Hotel is part of Generator's accommodation collection in New York. Use it as a base for a city break and check the official property page for room choices and current policies.",
+    "image": {
+      "url": "https://images.unsplash.com/photo-1519501025264-65ba15a82390?auto=format&fit=crop&w=1200&q=85",
+      "filename": "",
+      "isIllustrative": true
+    },
+    "imageAttribution": "Illustrative stock photograph from Unsplash; not a photograph of this property.",
+    "categories": [
+      "Trending",
+      "City",
+      "Rooms"
+    ],
+    "price": 14500,
+    "location": "New York",
+    "country": "United States",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        -73.9877,
+        40.7596
+      ]
+    },
+    "coordinatesApproximate": true,
+    "totalRooms": 8,
+    "maxGuests": 16,
+    "sourceUrl": "https://staygenerator.com/hotels/paramount-times-square",
+    "sourceName": "Generator",
+    "sourceAccessedAt": "2026-10-28",
+    "isCatalog": true,
+    "ratesIndicative": true,
+    "isActive": true
+  },
+  {
+    "catalogSlug": "generator-paris",
+    "title": "Generator Paris",
+    "description": "Generator Paris is part of Generator's accommodation collection in Paris. Use it as a base for a city break and check the official property page for room choices and current policies.",
+    "image": {
+      "url": "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=1200&q=85",
+      "filename": "",
+      "isIllustrative": true
+    },
+    "imageAttribution": "Illustrative stock photograph from Unsplash; not a photograph of this property.",
+    "categories": [
+      "Trending",
+      "City",
+      "Rooms"
+    ],
+    "price": 7300,
+    "location": "Paris",
+    "country": "France",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        2.3701,
+        48.8786
+      ]
+    },
+    "coordinatesApproximate": true,
+    "totalRooms": 8,
+    "maxGuests": 16,
+    "sourceUrl": "https://staygenerator.com/hostels/paris",
+    "sourceName": "Generator",
+    "sourceAccessedAt": "2026-10-28",
+    "isCatalog": true,
+    "ratesIndicative": true,
+    "isActive": true
+  },
+  {
+    "catalogSlug": "generator-rome",
+    "title": "Generator Rome",
+    "description": "Generator Rome is part of Generator's accommodation collection in Rome. Use it as a base for a city break and check the official property page for room choices and current policies.",
+    "image": {
+      "url": "https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=1200&q=85",
+      "filename": "",
+      "isIllustrative": true
+    },
+    "imageAttribution": "Illustrative stock photograph from Unsplash; not a photograph of this property.",
+    "categories": [
+      "Trending",
+      "City",
+      "Rooms"
+    ],
+    "price": 6700,
+    "location": "Rome",
+    "country": "Italy",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        12.5057,
+        41.8952
+      ]
+    },
+    "coordinatesApproximate": true,
+    "totalRooms": 8,
+    "maxGuests": 16,
+    "sourceUrl": "https://staygenerator.com/hostels/rome",
+    "sourceName": "Generator",
+    "sourceAccessedAt": "2026-10-28",
+    "isCatalog": true,
+    "ratesIndicative": true,
+    "isActive": true
+  },
+  {
+    "catalogSlug": "generator-stockholm",
+    "title": "Generator Stockholm",
+    "description": "Generator Stockholm is part of Generator's accommodation collection in Stockholm. Use it as a base for a city break and check the official property page for room choices and current policies.",
+    "image": {
+      "url": "https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?auto=format&fit=crop&w=1200&q=85",
+      "filename": "",
+      "isIllustrative": true
+    },
+    "imageAttribution": "Illustrative stock photograph from Unsplash; not a photograph of this property.",
+    "categories": [
+      "Trending",
+      "City",
+      "Rooms"
+    ],
+    "price": 6900,
+    "location": "Stockholm",
+    "country": "Sweden",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        18.0497,
+        59.3364
+      ]
+    },
+    "coordinatesApproximate": true,
+    "totalRooms": 8,
+    "maxGuests": 16,
+    "sourceUrl": "https://staygenerator.com/hostels/stockholm",
+    "sourceName": "Generator",
+    "sourceAccessedAt": "2026-10-28",
+    "isCatalog": true,
+    "ratesIndicative": true,
+    "isActive": true
+  },
+  {
+    "catalogSlug": "generator-venice",
+    "title": "Generator Venice",
+    "description": "Generator Venice is part of Generator's accommodation collection in Venice. Use it as a base for a city break and check the official property page for room choices and current policies.",
+    "image": {
+      "url": "https://images.unsplash.com/photo-1519501025264-65ba15a82390?auto=format&fit=crop&w=1200&q=85",
+      "filename": "",
+      "isIllustrative": true
+    },
+    "imageAttribution": "Illustrative stock photograph from Unsplash; not a photograph of this property.",
+    "categories": [
+      "Trending",
+      "City",
+      "Rooms"
+    ],
+    "price": 7200,
+    "location": "Venice",
+    "country": "Italy",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        12.335,
+        45.4241
+      ]
+    },
+    "coordinatesApproximate": true,
+    "totalRooms": 8,
+    "maxGuests": 16,
+    "sourceUrl": "https://staygenerator.com/hostels/venice",
+    "sourceName": "Generator",
+    "sourceAccessedAt": "2026-10-28",
+    "isCatalog": true,
+    "ratesIndicative": true,
+    "isActive": true
+  },
+  {
+    "catalogSlug": "the-taj-mahal-palace-mumbai",
+    "title": "The Taj Mahal Palace, Mumbai",
+    "description": "A landmark hotel in Mumbai's waterfront district. Taj's official collection lists this heritage property overlooking the sea.",
+    "image": {
+      "url": "https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?auto=format&fit=crop&w=1200&q=85",
+      "filename": "",
+      "isIllustrative": true
+    },
+    "imageAttribution": "Illustrative stock photograph from Unsplash; not a photograph of this property.",
+    "categories": [
+      "Trending",
+      "Luxury",
+      "Rooms",
+      "Heritage"
+    ],
+    "price": 28500,
+    "location": "Mumbai",
+    "country": "India",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        72.8347,
+        18.9217
+      ]
+    },
+    "coordinatesApproximate": true,
+    "totalRooms": 8,
+    "maxGuests": 16,
+    "sourceUrl": "https://www.tajhotels.com/en-in/hotels/taj-mahal-palace-mumbai",
+    "sourceName": "Taj Hotels",
+    "sourceAccessedAt": "2026-10-28",
+    "isCatalog": true,
+    "ratesIndicative": true,
+    "isActive": true
+  },
+  {
+    "catalogSlug": "taj-lake-palace-udaipur",
+    "title": "Taj Lake Palace, Udaipur",
+    "description": "A palace hotel on Lake Pichola in Udaipur, listed in Taj's official collection. Explore its official page for the current accommodation experience.",
+    "image": {
+      "url": "https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=1200&q=85",
+      "filename": "",
+      "isIllustrative": true
+    },
+    "imageAttribution": "Illustrative stock photograph from Unsplash; not a photograph of this property.",
+    "categories": [
+      "Trending",
+      "Luxury",
+      "Rooms",
+      "LakeFront"
+    ],
+    "price": 42000,
+    "location": "Udaipur",
+    "country": "India",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        73.6796,
+        24.5755
+      ]
+    },
+    "coordinatesApproximate": true,
+    "totalRooms": 8,
+    "maxGuests": 16,
+    "sourceUrl": "https://www.tajhotels.com/en-in/hotels/taj-lake-palace-udaipur",
+    "sourceName": "Taj Hotels",
+    "sourceAccessedAt": "2026-10-28",
+    "isCatalog": true,
+    "ratesIndicative": true,
+    "isActive": true
+  },
+  {
+    "catalogSlug": "rambagh-palace-jaipur",
+    "title": "Rambagh Palace, Jaipur",
+    "description": "A palace hotel in Jaipur within Taj's heritage collection. Its official page introduces the property's historic setting and accommodation.",
+    "image": {
+      "url": "https://images.unsplash.com/photo-1571896349842-33c89424de2d?auto=format&fit=crop&w=1200&q=85",
+      "filename": "",
+      "isIllustrative": true
+    },
+    "imageAttribution": "Illustrative stock photograph from Unsplash; not a photograph of this property.",
+    "categories": [
+      "Trending",
+      "Luxury",
+      "Rooms",
+      "Heritage"
+    ],
+    "price": 38500,
+    "location": "Jaipur",
+    "country": "India",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        75.8035,
+        26.8982
+      ]
+    },
+    "coordinatesApproximate": true,
+    "totalRooms": 8,
+    "maxGuests": 16,
+    "sourceUrl": "https://www.tajhotels.com/en-in/hotels/rambagh-palace-jaipur",
+    "sourceName": "Taj Hotels",
+    "sourceAccessedAt": "2026-10-28",
+    "isCatalog": true,
+    "ratesIndicative": true,
+    "isActive": true
+  },
+  {
+    "catalogSlug": "taj-falaknuma-palace-hyderabad",
+    "title": "Taj Falaknuma Palace, Hyderabad",
+    "description": "A hilltop palace hotel in Hyderabad, listed by Taj Hotels. The official property page describes its heritage setting and views across the city.",
+    "image": {
+      "url": "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&w=1200&q=85",
+      "filename": "",
+      "isIllustrative": true
+    },
+    "imageAttribution": "Illustrative stock photograph from Unsplash; not a photograph of this property.",
+    "categories": [
+      "Trending",
+      "Luxury",
+      "Rooms",
+      "Heritage"
+    ],
+    "price": 39500,
+    "location": "Hyderabad",
+    "country": "India",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        78.4679,
+        17.3304
+      ]
+    },
+    "coordinatesApproximate": true,
+    "totalRooms": 8,
+    "maxGuests": 16,
+    "sourceUrl": "https://www.tajhotels.com/en-in/hotels/taj-falaknuma-palace-hyderabad",
+    "sourceName": "Taj Hotels",
+    "sourceAccessedAt": "2026-10-28",
+    "isCatalog": true,
+    "ratesIndicative": true,
+    "isActive": true
+  },
+  {
+    "catalogSlug": "taj-exotica-resort-spa-goa",
+    "title": "Taj Exotica Resort & Spa, Goa",
+    "description": "A beachfront Taj resort in Goa, with a Goan-Portuguese architectural setting noted in its official listing. Check the property page for current stay details.",
+    "image": {
+      "url": "https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?auto=format&fit=crop&w=1200&q=85",
+      "filename": "",
+      "isIllustrative": true
+    },
+    "imageAttribution": "Illustrative stock photograph from Unsplash; not a photograph of this property.",
+    "categories": [
+      "Trending",
+      "Luxury",
+      "Rooms",
+      "Beach"
+    ],
+    "price": 22500,
+    "location": "Benaulim, Goa",
+    "country": "India",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        73.9182,
+        15.2429
+      ]
+    },
+    "coordinatesApproximate": true,
+    "totalRooms": 8,
+    "maxGuests": 16,
+    "sourceUrl": "https://www.tajhotels.com/en-in/hotels/taj-exotica-goa",
+    "sourceName": "Taj Hotels",
+    "sourceAccessedAt": "2026-10-28",
+    "isCatalog": true,
+    "ratesIndicative": true,
+    "isActive": true
+  },
+  {
+    "catalogSlug": "taj-bekal-resort-spa-kerala",
+    "title": "Taj Bekal Resort & Spa, Kerala",
+    "description": "A Taj resort in Kerala's Bekal area. The official collection places the property in the region's backwater landscape.",
+    "image": {
+      "url": "https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=1200&q=85",
+      "filename": "",
+      "isIllustrative": true
+    },
+    "imageAttribution": "Illustrative stock photograph from Unsplash; not a photograph of this property.",
+    "categories": [
+      "Trending",
+      "Luxury",
+      "Rooms",
+      "Beach"
+    ],
+    "price": 24500,
+    "location": "Bekal",
+    "country": "India",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        75.0215,
+        12.3978
+      ]
+    },
+    "coordinatesApproximate": true,
+    "totalRooms": 8,
+    "maxGuests": 16,
+    "sourceUrl": "https://www.tajhotels.com/en-in/hotels/taj-bekal-kerala",
+    "sourceName": "Taj Hotels",
+    "sourceAccessedAt": "2026-10-28",
+    "isCatalog": true,
+    "ratesIndicative": true,
+    "isActive": true
+  },
+  {
+    "catalogSlug": "jai-mahal-palace-jaipur",
+    "title": "Jai Mahal Palace, Jaipur",
+    "description": "A Jaipur palace hotel in Taj's official collection, with heritage architecture and Mughal garden surroundings described by the hotel.",
+    "image": {
+      "url": "https://images.unsplash.com/photo-1571896349842-33c89424de2d?auto=format&fit=crop&w=1200&q=85",
+      "filename": "",
+      "isIllustrative": true
+    },
+    "imageAttribution": "Illustrative stock photograph from Unsplash; not a photograph of this property.",
+    "categories": [
+      "Trending",
+      "Luxury",
+      "Rooms",
+      "Heritage"
+    ],
+    "price": 19500,
+    "location": "Jaipur",
+    "country": "India",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        75.7841,
+        26.9124
+      ]
+    },
+    "coordinatesApproximate": true,
+    "totalRooms": 8,
+    "maxGuests": 16,
+    "sourceUrl": "https://www.tajhotels.com/en-in/hotels/jai-mahal-palace-jaipur",
+    "sourceName": "Taj Hotels",
+    "sourceAccessedAt": "2026-10-28",
+    "isCatalog": true,
+    "ratesIndicative": true,
+    "isActive": true
+  },
+  {
+    "catalogSlug": "taj-mahal-new-delhi",
+    "title": "Taj Mahal, New Delhi",
+    "description": "A Taj hotel in New Delhi, listed in the brand's India collection. Open the official property page to explore its accommodation and current stay information.",
+    "image": {
+      "url": "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&w=1200&q=85",
+      "filename": "",
+      "isIllustrative": true
+    },
+    "imageAttribution": "Illustrative stock photograph from Unsplash; not a photograph of this property.",
+    "categories": [
+      "Trending",
+      "Luxury",
+      "Rooms",
+      "Heritage"
+    ],
+    "price": 20500,
+    "location": "New Delhi",
+    "country": "India",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        77.223,
+        28.6007
+      ]
+    },
+    "coordinatesApproximate": true,
+    "totalRooms": 8,
+    "maxGuests": 16,
+    "sourceUrl": "https://www.tajhotels.com/en-in/hotels/taj-mahal-new-delhi",
+    "sourceName": "Taj Hotels",
+    "sourceAccessedAt": "2026-10-28",
+    "isCatalog": true,
+    "ratesIndicative": true,
+    "isActive": true
+  }
+]

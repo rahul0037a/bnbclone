@@ -1,117 +1,75 @@
-# WanderLust - Premium Airbnb Clone
+# WanderLust
 
-WanderLust is a feature-rich, full-stack MVC web application designed to replicate the listing, booking, review, and user management core experience of Airbnb. Built with modern backend engineering practices, a dynamic theme engine, responsive grid layouts, and interactive mapping, WanderLust provides a high-end, responsive travel booking feel.
+A full-stack travel discovery and demo reservation app built with Node.js, Express 5, EJS, MongoDB/Mongoose, Passport, Cloudinary and Leaflet. The original MVC architecture is preserved.
 
----
+## Features
 
-## 💡 Development Philosophy & Handcrafted Architecture
+- A sourced catalog of 72 real properties across 66 destinations and 13 countries, with official property links.
+- Destination/category search, price and capacity filters, date availability, sorting, pagination and saved stays.
+- Responsive light/dark layouts, keyboard navigation, reduced-motion support, and lazy maps with safely rendered popups.
+- Host listing management, image uploads, reviews, reservation history, printable itineraries and cancellation.
+- Transactional inventory checks prevent concurrent overbooking. Check-out and check-in may share a day.
+- Immutable property and pricing snapshots preserve receipts after a price change or listing archival.
+- Server validation, CSRF protection, password rules, rate limits, secure session configuration and query indexes.
 
-This project was built from scratch, utilizing **organic, manual programming techniques** to implement its core systems. 
+Catalog rates and capacity are indicative demo values; photographs are illustrative and coordinates approximate. Reservations do not book with the named property or collect payments. See [CATALOG_SOURCES.md](CATALOG_SOURCES.md) for all official sources and verification limits.
 
-- **MVC Structural Foundation**: Built without heavy automation boilerplate, the Model-View-Controller (MVC) architecture was handcrafted line-by-line. Database models, route handlers, controllers, and middlewares were manually designed to keep the codebase dry, performant, and organized.
-- **Robust Authorization & Logic Layers**: The security infrastructure—including sessions, Passport configurations, authorization middleware validations, and database schema mappings—was written from scratch, ensuring complete control over the application's runtime.
-- **Handmade Custom Styling**: The custom styling system, theme state preservation, adaptive variables, and animation transitions were tailored manually in CSS to match modern design guidelines.
+## Setup
 
----
+Use the Node.js version declared in `package.json` and MongoDB Atlas or another MongoDB replica set. Replica-set transactions are required for reservations and inventory changes.
 
-## 🚀 Key Features
-
-### 1. Dynamic Dark & Light Theme Engine
-- **State Persistence**: Instantly checks user preferences using local storage, loading the chosen theme synchronously in the head to prevent visual page flickering (FOUC).
-- **Smooth Eased Transitions**: Transitions all background colors, typography, borders, and shadows seamlessly using a `cubic-bezier(0.4, 0, 0.2, 1)` easing curve.
-- **Dark Mode Map Filter**: Applies a premium Mapbox Dark-style CSS filter onto active Leaflet map containers (`#map` and `#map-preview`) when the dark theme is active.
-
-### 2. Premium Landing Page (Root `/` Routing)
-- Designed an introductory landing page at the root route featuring:
-  - An animated **Hero Section** with a glassmorphism travel search engine widget.
-  - Interactive **Categories Filter Tiles** linking directly to filtered listing views.
-  - **Featured Showcase** showcasing popular destinations.
-  - **Host CTA & Value Proposition panels** for onboarding travelers and hosts.
-
-### 3. Listings & Geocoding Management (CRUD)
-- Complete creation, reading, editing, and deletion (CRUD) flow for properties.
-- **Image Cloud Hosting**: Integrated Cloudinary services via `multer` for secure, optimized user-uploaded listing photos.
-- **OpenStreetMap Nominatim Geocoding**: Automatically geocodes location details into geographic coordinates and maps them onto an interactive **Leaflet Map**.
-
-### 4. Interactive Review System
-- Hand-coded starability rating selections (1-5 stars).
-- Custom reviews rendering with automated author identification.
-- Authorization guards to ensure only the review's author can delete their feedback.
-
-### 5. Mobile-First Optimization
-- **Fluid Layout Adapting**: Form components (New listing, Edit listing, Login, and Signup forms) center dynamically (`col-lg-6 offset-lg-3 col-md-8 offset-md-2 col-12`) for readable margins on phones, tablets, laptops, and monitors.
-- **Horizontal category scroll**: Category navigation lists on listings view scroll horizontally with custom hidden-scroll scrollbars.
-
----
-
-## 🛠️ Technology Stack
-
-- **Backend Architecture**: Node.js, Express.js (MVC Pattern)
-- **Database Model**: MongoDB, Mongoose ODM
-- **Templating Engine**: EJS (embedded Javascript) with `ejs-mate` layouts
-- **Security & Authentication**: Passport.js, Passport-Local, Express-Session, Connect-Flash
-- **Validation**: Joi schemas (backend form validations)
-- **Frontend Components**: Bootstrap 5, Custom CSS3 Variables, Leaflet.js Maps, Tom-Select dropdown fields, FontAwesome icons
-
----
-
-## 📁 Directory Structure
-
-```text
-├── config/             # Cloudinary configuration (cloudConfig.js)
-├── controllers/        # Handcrafted business logic (listings, reviews, users, bookings)
-├── init/               # DB initialization and geocode seeding scripts
-├── models/             # Schema models (Listing, Review, User, Booking)
-├── public/             
-│   ├── css/            # Stylesheets (style.css, rating.css)
-│   └── js/             # Scripts (script.js, map.js)
-├── routes/             # Express routes (listing.js, review.js, user.js, bookings.js)
-├── utils/              # Helper utilities (wrapAsync.js, ExpressError.js, categories.js)
-├── views/              # EJS template folders
-│   ├── bookings/       # Booking forms and receipt screens
-│   ├── includes/       # Layout chunks (navbar.ejs, footer.ejs, flash.ejs)
-│   ├── layouts/        # Base EJS layout boilerplate
-│   ├── listings/       # Property forms, details, landing, and search templates
-│   └── users/          # Authentication templates (login, signup)
-├── app.js              # Server entry point
-├── schema.js           # Validation schemas
-└── middleware.js       # Authentication & security middlewares
+```sh
+npm install
 ```
 
----
+Create a private `.env` using `.env.example` as a template. Configure `ATLASDB_URL`, `SECRET`, and the optional Cloudinary upload credentials. `DB_NAME` overrides the database in the connection URL. Preserve an existing `.env` when upgrading; credentials and existing database records are not part of Git.
 
-## 🏁 Getting Started
-
-### 📋 Prerequisites
-Ensure you have the following installed on your machine:
-- [Node.js](https://nodejs.org/en) (v16.0 or higher)
-- [MongoDB Community Server](https://www.mongodb.com/try/download/community) (running locally on port `27017`)
-
-### ⚙️ Installation
-1. Clone the project repository and open it in your terminal.
-2. Install the project dependencies:
-   ```bash
-   npm install
-   ```
-
-### 🗄️ Database Seeding
-Initialize and seed the MongoDB database with sample properties:
-```bash
-node init/index.js
+```sh
+npm start
 ```
 
-### 🔑 Environment Variables
-Create a `.env` file in the root directory and configure the variables required for Cloudinary uploads:
-```env
-CLOUD_NAME=your_cloudinary_cloud_name
-CLOUD_API_KEY=your_cloudinary_api_key
-CLOUD_API_SECRET=your_cloudinary_api_secret
+Ordinary development defaults to port 8080. Set `PORT` as needed. `npm run dev` restarts the server when server-side code changes. Cloudinary credentials are required for new host photo uploads; the sourced catalog can be browsed without uploading images.
+
+## Load the demo catalog safely
+
+Use a separate database such as `wanderlust_preview_local`. Set both the URL database and `DB_NAME` to that name, and set `PREVIEW_MODE=true` to isolate the session cookie and default to port 8081.
+
+```sh
+npm run catalog:validate
+npm run seed
 ```
 
-### 🛰️ Running the Application
-Start the Node server:
-```bash
-node app.js
+Validation is offline. The seed refuses databases outside `wanderlust_preview_<suffix>`, upserts only its own catalog records by stable slug, and never clears existing collections. Repeated runs do not duplicate listings. The curator account is not a real property owner and has no publicly known password. Create an account through Sign up to explore guest or host flows.
+
+Existing databases can use the updated application without running the catalog seed. Existing mixed-case usernames remain usable, older receipt records have a compatibility fallback, and missing map coordinates are repaired on the next listing edit. No automatic destructive database migration is performed.
+
+## Verification
+
+```sh
+npm run check
+npm test
+npm run catalog:validate
 ```
-The application will start, connect to MongoDB, and listen on:
-[http://localhost:8080](http://localhost:8080)
+
+The checks compile EJS and validate JavaScript syntax. Tests cover dates, input conversion, capacity, pricing, authentication boundaries, CSRF, model constraints and safe map rendering.
+
+```sh
+npm run smoke
+```
+
+The integration check requires `PREVIEW_MODE=true` and a separate preview database. It creates temporary accounts/listings, exercises concurrent reservations, receipt access, historical pricing, reviews, cancellation and archival, then removes only its own fixtures. It refuses other databases.
+
+## Architecture
+
+- `app.js`: middleware, database-backed sessions, route mounting, error handling and startup.
+- `routes/`, `middleware.js`, `controllers/`: endpoints, authorization, validation and request handling.
+- `models/`: persistence schemas, relationships and indexes.
+- `utils/stays.js`, `utils/bookingService.js`: pricing, interval capacity and transactional reservations.
+- `views/`, `public/`: EJS pages, shared components, styles and browser interactions.
+- `init/`: catalog provenance, validation and guarded seed/geocoding scripts.
+
+## Deployment
+
+Provide environment variables directly when `NODE_ENV=production`; `.env` is loaded only outside production. Configure a random `SECRET` of at least 32 characters. Respect the hosting provider's `PORT`. Non-preview mode listens on `0.0.0.0`; preview mode listens on `127.0.0.1`, unless `HOST` is explicitly configured.
+
+Production cookies require HTTPS. Set `TRUST_PROXY=1` only when serving behind one trusted reverse proxy that terminates TLS. Set `PREVIEW_MODE=false` for an ordinary deployment. Never commit `.env`, credentials, local logs, or database exports. The bundled catalog and reservation flows remain demonstrations; live property inventory and payment processing are not integrated.

@@ -2,15 +2,9 @@ const express = require("express");
 const router = express.Router();
 const wrapAsync = require("../utils/wrapAsync");
 const { isLoggedIn } = require("../middleware");
-const bookingsController = require("../controllers/bookings");
-
-// View my bookings (User past bookings)
-router.get("/my", isLoggedIn, wrapAsync(bookingsController.myBookings));
-
-// View incoming bookings (Owner view)
-router.get("/incoming", isLoggedIn, wrapAsync(bookingsController.incomingBookings));
-
-// View details of a specific booking
-router.get("/:id", isLoggedIn, wrapAsync(bookingsController.showBooking));
-
+const bookings = require("../controllers/bookings");
+router.get("/my", isLoggedIn, wrapAsync(bookings.myBookings));
+router.get("/incoming", isLoggedIn, wrapAsync(bookings.incomingBookings));
+router.get("/:id", isLoggedIn, wrapAsync(bookings.showBooking));
+router.post("/:id/cancel", isLoggedIn, wrapAsync(bookings.cancelBooking));
 module.exports = router;

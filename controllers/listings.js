@@ -1,253 +1,163 @@
+const mongoose = require("mongoose");
 const Listing = require("../models/listing");
-const ExpressError = require("../utils/ExpressError.js");
+const Booking = require("../models/booking");
+const ExpressError = require("../utils/ExpressError");
 const categories = require("../utils/categories");
-const { listingSchema } = require("../schema.js");
+const { filterSchema } = require("../schema");
+const { assertObjectId } = require("../utils/identity");
+const { cleanupUpload, destroyImage } = require("../utils/uploads");
+const { assertCapacity, utcToday } = require("../utils/stays");
 
-// Escape special regex characters to prevent ReDoS attacks
-function escapeRegex(text) {
-    return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, '\\$&');
-}
+function escapeRegex(text) { return text.replace(/[.*+?^$()|[\]\\]/g, "\\$&"); }
 
-// Geocode a location string using Nominatim (OpenStreetMap)
 async function geocodeLocation(location, country) {
     try {
-        const query = encodeURIComponent(`${location}, ${country}`);
-
-        const response = await fetch(
-            `https://nominatim.openstreetmap.org/search?q=${query}&format=json&limit=1`,
-            {
-                headers: {
-                    "User-Agent": "WanderLust-BnBClone/1.0",
-                },
-            }
-        );
-
+        const response = await fetch("https://nominatim.openstreetmap.org/search?q=" + encodeURIComponent(location + ", " + country) + "&format=json&limit=1", {
+            headers: { "User-Agent": "WanderLust-Preview/2.0" }, signal: AbortSignal.timeout(5000),
+        });
+        if (!response.ok) return null;
         const data = await response.json();
-
-        if (data && data.length > 0) {
-            return {
-                type: "Point",
-                coordinates: [
-                    parseFloat(data[0].lon),
-                    parseFloat(data[0].lat),
-                ],
-            };
-        }
-
-        return null;
-    } catch (err) {
-        console.log("Geocoding error:", err.message);
-        return null;
-    }
+        if (!Array.isArray(data) || !data.length) return null;
+        const coordinates = [Number(data[0].lon), Number(data[0].lat)];
+        return coordinates.every(Number.isFinite) && Math.abs(coordinates[0]) <= 180 && Math.abs(coordinates[1]) <= 90 ? { type: "Point", coordinates } : null;
+    } catch { return null; }
 }
 
-// ====================== INDEX ======================
-
 module.exports.index = async (req, res) => {
-    const { category, search } = req.query;
-
-    let query = {};
-
-    if (category) {
-        query.categories = category;
+    const { value: values, error } = filterSchema.validate(req.query, { abortEarly: false });
+    if (error) throw new ExpressError(400, error.details.map(item => item.message).join(" "));
+    const query = { isActive: { $ne: false } };
+    if (values.category) query.categories = values.category;
+    if (values.search) {
+        const pattern = new RegExp(escapeRegex(values.search), "i");
+        query.$or = [{ title: pattern }, { location: pattern }, { country: pattern }];
     }
-
-    if (search) {
-        const searchRegex = new RegExp(escapeRegex(search.trim()), "i");
-        query.$or = [
-            { title: searchRegex },
-            { location: searchRegex },
-            { country: searchRegex }
-        ];
+    if (values.minPrice !== undefined || values.maxPrice !== undefined) {
+        query.price = {};
+        if (values.minPrice !== undefined) query.price.$gte = values.minPrice;
+        if (values.maxPrice !== undefined) query.price.$lte = values.maxPrice;
     }
-
-    let allListings = await Listing.find(query);
-
-    res.render("listings/index.ejs", {
-        allListings,
-        categories,
-        selectedCategory: category || "",
-    });
+    if (values.saved) query._id = { $in: [...new Set(values.saved.split(","))] };
+    const capacityConditions = [];
+    if (values.guests) capacityConditions.push({ $gte: [{ $ifNull: ["$maxGuests", 2] }, values.guests] });
+    if (values.rooms) capacityConditions.push({ $gte: [{ $ifNull: ["$totalRooms", 1] }, values.rooms] });
+    if (capacityConditions.length) query.$expr = { $and: capacityConditions };
+    const sorts = { "price-asc": { price: 1, _id: 1 }, "price-desc": { price: -1, _id: 1 }, newest: { createdAt: -1, _id: -1 }, recommended: { isCatalog: -1, createdAt: -1, _id: 1 } };
+    const limit = 12;
+    let total, page, allListings;
+    if (values.checkIn) {
+        // Date searches use the same interval-capacity rules as the transactional reservation.
+        const candidates = await Listing.find(query).sort(sorts[values.sort]).lean();
+        const bookings = candidates.length ? await Booking.find({
+            listing: { $in: candidates.map(item => item._id) }, status: { $ne: "cancelled" },
+            checkInDate: { $lt: values.checkOut }, checkOutDate: { $gt: values.checkIn },
+        }).select("listing checkInDate checkOutDate numberOfRooms numberOfPeople status").lean() : [];
+        const groups = new Map();
+        for (const booking of bookings) {
+            const key = String(booking.listing);
+            if (!groups.has(key)) groups.set(key, []);
+            groups.get(key).push(booking);
+        }
+        const available = candidates.filter(listing => {
+            try {
+                assertCapacity(listing, groups.get(String(listing._id)) || [], values.checkIn, values.checkOut, values.rooms || 1, values.guests || 1);
+                return true;
+            } catch { return false; }
+        });
+        total = available.length;
+        page = Math.min(values.page, Math.max(1, Math.ceil(total / limit)));
+        allListings = available.slice((page - 1) * limit, page * limit);
+    } else {
+        total = await Listing.countDocuments(query);
+        page = Math.min(values.page, Math.max(1, Math.ceil(total / limit)));
+        allListings = await Listing.find(query).sort(sorts[values.sort]).skip((page - 1) * limit).limit(limit);
+    }
+    const filters = {
+        search: values.search, category: values.category,
+        minPrice: values.minPrice ?? "", maxPrice: values.maxPrice ?? "",
+        guests: values.guests ?? "", rooms: values.rooms ?? "",
+        checkIn: values.checkIn ? values.checkIn.toISOString().slice(0, 10) : "",
+        checkOut: values.checkOut ? values.checkOut.toISOString().slice(0, 10) : "",
+        sort: values.sort, saved: values.saved || "", page,
+    };
+    res.render("listings/index.ejs", { allListings, categories, selectedCategory: values.category, filters, pagination: { page, totalPages: Math.max(1, Math.ceil(total / limit)), total, limit } });
 };
 
-// ====================== NEW ======================
-
-module.exports.renderNewForm = (req, res) => {
-    res.render("listings/new", {
-        categories,
-    });
-};
-
-// ====================== SHOW ======================
+module.exports.renderNewForm = (req, res) => res.render("listings/new.ejs", { categories });
 
 module.exports.showListing = async (req, res) => {
-    let { id } = req.params;
-
-    const listing = await Listing.findById(id)
-        .populate({
-            path: "reviews",
-            populate: {
-                path: "author",
-            },
-        })
-        .populate("owner");
-
-    if (!listing) {
-        req.flash("error", "Listing Not Found!");
-        return res.redirect("/listings");
-    }
-
-    // Fetch up to 3 similar listings that share categories
-    const similarListings = await Listing.find({
-        _id: { $ne: listing._id },
-        categories: { $in: listing.categories }
-    }).limit(3);
-
-    res.render("listings/show.ejs", {
-        listing,
-        similarListings,
-    });
+    const id = assertObjectId(req.params.id, "Listing");
+    const listing = await Listing.findOne({ _id: id, isActive: { $ne: false } })
+        .populate({ path: "reviews", populate: { path: "author", select: "username" } })
+        .populate("owner", "username");
+    if (!listing) throw new ExpressError(404, "Listing not found.");
+    const similarListings = await Listing.find({ _id: { $ne: listing._id }, isActive: { $ne: false }, categories: { $in: listing.categories } }).limit(3);
+    res.render("listings/show.ejs", { listing, similarListings });
 };
-
-// ====================== CREATE ======================
 
 module.exports.createListing = async (req, res) => {
-    let url = req.file.path;
-    let filename = req.file.filename;
-
-    let result = listingSchema.validate(req.body);
-
-    if (result.error) {
-        throw new ExpressError(400, result.error);
+    if (!req.file) throw new ExpressError(400, "Choose a JPG or PNG cover image.");
+    let persisted = false;
+    try {
+        const { image, ...fields } = req.body.listing;
+        const listing = new Listing({ ...fields, owner: req.user._id, image: { url: req.file.path, filename: req.file.filename } });
+        const geometry = await geocodeLocation(listing.location, listing.country);
+        if (geometry) listing.geometry = geometry;
+        await listing.save();
+        persisted = true;
+        req.flash("success", "Your stay has been published.");
+        res.redirect("/listings/" + listing._id);
+    } catch (error) {
+        if (!persisted) await cleanupUpload(req.file);
+        throw error;
     }
-
-    const newListing = new Listing(req.body.listing);
-
-    newListing.owner = req.user._id;
-
-    newListing.image = {
-        url,
-        filename,
-    };
-
-    // Remove duplicate categories
-    if (req.body.listing.categories) {
-        newListing.categories = [
-            ...new Set(req.body.listing.categories),
-        ];
-    }
-
-    // Geocode location
-    let geometry = await geocodeLocation(
-        req.body.listing.location,
-        req.body.listing.country
-    );
-
-    if (geometry) {
-        newListing.geometry = geometry;
-    }
-
-    await newListing.save();
-
-    req.flash("success", "New Listing Created!");
-
-    res.redirect("/listings");
 };
-
-// ====================== EDIT ======================
 
 module.exports.renderEditForm = async (req, res) => {
-    let { id } = req.params;
-
-    const listing = await Listing.findById(id);
-
-    if (!listing) {
-        req.flash("error", "Listing Not Found!");
-        return res.redirect("/listings");
-    }
-
-    let originalImageUrl = listing.image.url;
-    originalImageUrl = originalImageUrl.replace(
-        "/upload",
-        "/upload/w_200"
-    );
-
-    // Merge predefined + custom categories
+    const listing = req.listing;
     const allCategories = [...categories];
-
-    listing.categories.forEach((cat) => {
-        if (!allCategories.find((c) => c.name === cat)) {
-            allCategories.push({
-                name: cat,
-                icon: "fa-solid fa-tag",
-            });
-        }
-    });
-
-    res.render("listings/edit.ejs", {
-        listing,
-        originalImageUrl,
-        categories: allCategories,
-    });
+    for (const name of listing.categories) if (!allCategories.some(item => item.name === name)) allCategories.push({ name, icon: "fa-solid fa-tag" });
+    res.render("listings/edit.ejs", { listing, originalImageUrl: (listing.image?.url || "").replace("/upload/", "/upload/w_300/"), categories: allCategories });
 };
-
-// ====================== UPDATE ======================
 
 module.exports.updateListing = async (req, res) => {
-    let { id } = req.params;
-
-    let listing = await Listing.findByIdAndUpdate(
-        id,
-        {
-            ...req.body.listing,
-        },
-        {
-            new: true,
+    const { image, ...fields } = req.body.listing;
+    const addressChanged = fields.location !== req.listing.location || fields.country !== req.listing.country || req.listing.geometry?.coordinates?.length !== 2;
+    const geometry = addressChanged ? await geocodeLocation(fields.location, fields.country) : undefined;
+    let oldImage, persisted = false, listing;
+    try {
+        listing = await mongoose.connection.transaction(async session => {
+            const current = await Listing.findOneAndUpdate({ _id: req.params.id, owner: req.user._id, isActive: { $ne: false } }, { $inc: { bookingVersion: 1 } }, { new: true, session });
+            if (!current) throw new ExpressError(404, "Listing not found.");
+            const existing = await Booking.find({ listing: current._id, status: { $ne: "cancelled" }, checkOutDate: { $gt: utcToday() } }).session(session);
+            assertCapacity({ totalRooms: fields.totalRooms, maxGuests: fields.maxGuests }, existing, utcToday(), new Date("9999-12-31"), 0, 0);
+            Object.assign(current, fields);
+            if (addressChanged) current.geometry = geometry || undefined;
+            if (req.file) {
+                oldImage = { url: current.image?.url, filename: current.image?.filename };
+                current.image = { url: req.file.path, filename: req.file.filename, isIllustrative: false };
+                current.imageAttribution = undefined;
+            }
+            await current.save({ session });
+            return current;
+        });
+        persisted = true;
+        if (oldImage?.filename && oldImage.filename !== req.file?.filename) {
+            // Keep an image that is part of an existing receipt snapshot.
+            const referenced = await Booking.exists({ "listingSnapshot.imageUrl": oldImage.url });
+            if (!referenced) await destroyImage(oldImage.filename);
         }
-    );
-
-    // Remove duplicate categories
-    if (req.body.listing.categories) {
-        listing.categories = [
-            ...new Set(req.body.listing.categories),
-        ];
+        req.flash("success", "Listing updated.");
+        res.redirect("/listings/" + listing._id);
+    } catch (error) {
+        if (!persisted) await cleanupUpload(req.file);
+        throw error;
     }
-
-    // Update image
-    if (req.file) {
-        listing.image = {
-            url: req.file.path,
-            filename: req.file.filename,
-        };
-    }
-
-    // Re-geocode
-    let geometry = await geocodeLocation(
-        req.body.listing.location,
-        req.body.listing.country
-    );
-
-    if (geometry) {
-        listing.geometry = geometry;
-    }
-
-    await listing.save();
-
-    req.flash("success", "Listing Updated!");
-
-    res.redirect(`/listings/${id}`);
 };
 
-// ====================== DELETE ======================
-
 module.exports.deleteListing = async (req, res) => {
-    let { id } = req.params;
-
-    let deletedListing = await Listing.findByIdAndDelete(id);
-
-
-
-    req.flash("success", "Listing Deleted!");
-
+    const listing = await Listing.findOneAndUpdate({ _id: req.params.id, owner: req.user._id, isActive: { $ne: false } }, { $set: { isActive: false }, $inc: { bookingVersion: 1 } }, { new: true });
+    if (!listing) throw new ExpressError(404, "Listing not found.");
+    req.flash("success", "Listing archived. Existing demo reservations and receipts remain available.");
     res.redirect("/listings");
 };

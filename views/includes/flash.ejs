@@ -1,10 +1,2 @@
-<% if(success && success.length) {%>
-<div class ="alert alert-success alert-dismissible fade show col-6 offset-3" role="alert"><%= success %>
-    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-</div>
-<% } %>
-<% if(error && error.length) {%>
-<div class ="alert alert-danger alert-dismissible fade show col-6 offset-3" role="alert"><%= error %>
-    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-</div>
-<% } %> 
+<% if (success && success.length) { %><div class="alert alert-success alert-dismissible fade show flash-message" role="status"><i class="fa-regular fa-circle-check" aria-hidden="true"></i><span><%= success.join(' ') %></span><button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Dismiss message"></button></div><% } %>
+<% if (error && error.length) { %><div class="alert alert-danger alert-dismissible fade show flash-message" role="alert"><i class="fa-solid fa-circle-exclamation" aria-hidden="true"></i><span><%= error.join(' ') %></span><button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Dismiss message"></button></div><% } %>

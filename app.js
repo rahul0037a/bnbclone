@@ -1,151 +1,123 @@
-if(process.env.NODE_ENV !== "production"){
-    require('dotenv').config();
-}
- 
+if (process.env.NODE_ENV !== "production") require("dotenv").config({ quiet: true });
 
 const express = require("express");
-const app = express();
 const helmet = require("helmet");
 const rateLimit = require("express-rate-limit");
-const mongoose = require('mongoose');
-const Listing = require("./models/listing");
-const path = require("path");
+const mongoose = require("mongoose");
+const path = require("node:path");
 const methodOverride = require("method-override");
 const ejsMate = require("ejs-mate");
-const wrapAsync = require("./utils/wrapAsync.js");
-const ExpressError = require("./utils/ExpressError.js");
-const {listingSchema, reviewSchema} = require("./schema.js");
-const Review = require("./models/review.js");
-const session = require('express-session');
-const MongoStore = require('connect-mongo').default;
-const flash = require('connect-flash');
+const session = require("express-session");
+const MongoStore = require("connect-mongo").default;
+const flash = require("connect-flash");
 const passport = require("passport");
 const LocalStrategy = require("passport-local");
-const User = require("./models/user.js");
+const Listing = require("./models/listing");
+const User = require("./models/user");
+const categories = require("./utils/categories");
+const wrapAsync = require("./utils/wrapAsync");
+const ExpressError = require("./utils/ExpressError");
+const { getConfig } = require("./utils/config");
+const { csrfProtection } = require("./utils/security");
 
-// const MONGO_URL = "mongodb://127.0.0.1:27017/wanderlust"
-const dbUrl = process.env.ATLASDB_URL;
-
-const listingRouter = require("./routes/listing.js");
-const reviewRouter = require("./routes/review.js");
-const userRouter = require("./routes/user.js");
-const bookingRouter = require("./routes/bookings.js");
-
-
-main()
-.then(() =>{
-    console.log("Connected to DB");
-})
-.catch(err => console.log(err));
-
-
-async function main() {
-  await mongoose.connect(dbUrl);
-}
-
-app.set("view engine", "ejs");
-app.set("views", path.join(__dirname, "views"));
-app.use(express.urlencoded({extended:true}));
-app.use(methodOverride('_method'));
-app.engine("ejs", ejsMate);
-app.use(express.static(path.join(__dirname, "/public")));
-
-// Security Headers
-app.use(helmet({
-    contentSecurityPolicy: false, // Disabled to allow CDN scripts/styles
-    crossOriginEmbedderPolicy: false, // Allow Cloudinary images & Leaflet tiles
-}));
-
-// General Rate Limiter
-const limiter = rateLimit({
-    windowMs: 15 * 60 * 1000, // 15 minutes
-    max: 200, // limit each IP to 200 requests per window
-    standardHeaders: true,
-    legacyHeaders: false,
-});
-app.use(limiter);
-
-const secret = process.env.SECRET || "mysupersecretcode";
-
-const store = MongoStore.create({
-    mongoUrl: dbUrl,
-    crypto: {
-        secret: secret,
-    },
-    touchAfter: 24 * 60 * 60, 
-});
-
-store.on("error", (err) =>{
-    console.log("ERROR IN MONGO SESSION STORE", err);
-});
-
-
-const sessionOptions = {
-    store,
-    secret: secret,
-    resave: false,
-    saveUninitialized: false,
-    cookie: {
-        expires: Date.now() + 7 * 24 * 60 * 60 * 1000,
-        maxAge: 7 * 24 * 60 * 60 * 1000,
-        httpOnly: true,
-        secure: process.env.NODE_ENV === "production" && process.env.SECURE_COOKIE === "true",
-        sameSite: "lax",
-    }
-};
-
-
-app.use(session(sessionOptions));
-app.use(flash());
-
-app.use(passport.initialize());
-app.use(passport.session());
 passport.use(new LocalStrategy(User.authenticate()));
-
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
-app.use((req, res, next) =>{
-    res.locals.success = req.flash("success");
-    res.locals.error = req.flash("error");
-    res.locals.currUser = req.user;
-    res.locals.searchQuery = req.query.search || "";
-    next();
-});
+function createApp({ sessionStore, config = getConfig(), rateLimits = true } = {}) {
+    if (!sessionStore) throw new Error("An explicit session store is required.");
+    const app = express();
+    app.disable("x-powered-by");
+    if (config.trustProxy) app.set("trust proxy", 1);
+    app.set("view engine", "ejs");
+    app.set("views", path.join(__dirname, "views"));
+    app.engine("ejs", ejsMate);
+    Object.assign(app.locals, { currUser: null, searchQuery: "", success: [], error: [], csrfToken: "", previewMode: config.previewMode });
+    app.use(helmet({
+        contentSecurityPolicy: {
+            directives: {
+                defaultSrc: ["'self'"],
+                scriptSrc: ["'self'", "'unsafe-inline'", "https://cdn.jsdelivr.net", "https://unpkg.com"],
+                styleSrc: ["'self'", "'unsafe-inline'", "https://fonts.googleapis.com", "https://cdn.jsdelivr.net", "https://cdnjs.cloudflare.com", "https://unpkg.com"],
+                fontSrc: ["'self'", "https://fonts.gstatic.com", "https://cdnjs.cloudflare.com", "data:"],
+                imgSrc: ["'self'", "https:", "data:"],
+                connectSrc: ["'self'", "https://nominatim.openstreetmap.org"],
+                frameAncestors: ["'none'"],
+                upgradeInsecureRequests: config.production ? [] : null,
+            },
+        },
+        crossOriginEmbedderPolicy: false,
+        strictTransportSecurity: config.production,
+        referrerPolicy: { policy: "strict-origin-when-cross-origin" },
+    }));
+    app.use(express.static(path.join(__dirname, "public"), { maxAge: config.production ? "1h" : 0 }));
+    if (rateLimits) app.use(rateLimit({ windowMs: 15 * 60 * 1000, limit: 200, standardHeaders: "draft-8", legacyHeaders: false }));
+    app.use((req, res, next) => { res.set("Cache-Control", "private, no-store"); next(); });
+    app.use(express.urlencoded({ extended: true, limit: "100kb" }));
+    app.use(methodOverride("_method"));
+    app.use(session({
+        name: config.previewMode ? "wanderlust.preview.sid" : "wanderlust.sid",
+        store: sessionStore,
+        secret: config.secret,
+        resave: false,
+        saveUninitialized: false,
+        cookie: { maxAge: 7 * 24 * 60 * 60 * 1000, httpOnly: true, secure: config.production, sameSite: "lax" },
+    }));
+    app.use(flash());
+    app.use(passport.initialize());
+    app.use(passport.session());
+    app.use((req, res, next) => {
+        res.locals.success = req.flash("success");
+        res.locals.error = req.flash("error");
+        res.locals.currUser = req.user || null;
+        res.locals.searchQuery = typeof req.query.search === "string" ? req.query.search : "";
+        res.locals.previewMode = config.previewMode;
+        next();
+    });
+    app.use(csrfProtection);
+    app.get("/health", (req, res) => res.status(mongoose.connection.readyState === 1 ? 200 : 503).json({ status: mongoose.connection.readyState === 1 ? "ok" : "starting" }));
+    app.use("/listings", require("./routes/listing"));
+    app.use("/listings/:id/reviews", require("./routes/review"));
+    app.use("/bookings", require("./routes/bookings"));
+    app.use("/", require("./routes/user"));
+    app.get("/", wrapAsync(async (req, res) => {
+        const [featuredListings, listingCount, countries] = await Promise.all([
+            Listing.find({ isActive: { $ne: false } }).sort({ isCatalog: -1, _id: 1 }).limit(6).lean(),
+            Listing.countDocuments({ isActive: { $ne: false } }),
+            Listing.distinct("country", { isActive: { $ne: false } }),
+        ]);
+        res.render("listings/landing", { featuredListings, categories, listingCount, countryCount: countries.length });
+    }));
+    app.get("/privacy", (req, res) => res.render("privacy"));
+    app.get("/terms", (req, res) => res.render("terms"));
+    app.use((req, res, next) => next(new ExpressError(404, "We couldn't find that page.")));
+    app.use((err, req, res, next) => {
+        if (res.headersSent) return next(err);
+        let status = Number(err.statusCode || err.status || 500);
+        let message = err.message;
+        if (err.name === "CastError") { status = 400; message = "That identifier is invalid."; }
+        if (err.name === "ValidationError") { status = 400; message = "Please check the submitted details."; }
+        if (err.code === 11000) { status = 409; message = "An account with those details already exists."; }
+        if (err.code === "LIMIT_FILE_SIZE") { status = 400; message = "Choose an image smaller than 5 MB."; }
+        if (!Number.isInteger(status) || status < 400 || status > 599) status = 500;
+        if (status >= 500) { console.error("Request failed:", err.name); message = "Something went wrong. Please try again."; }
+        res.status(status).render("error", { message, statusCode: status });
+    });
+    return app;
+}
 
-// app.get("/demoUser", async (req, res) =>{
-//     let fakeUser = new User({
-//         email: "student@gmail.com",
-//         username: "delta-student",
-//     });
-
-//     let registeredUser = await User.register(fakeUser, "helloworld");
-//     res.send(registeredUser);
-// })
-
-
-app.use("/listings", listingRouter);
-app.use("/listings/:id/reviews", reviewRouter);
-app.use("/bookings", bookingRouter);
-app.use("/", userRouter);
-
-app.get("/", wrapAsync(async (req, res) => {
-    const featuredListings = await Listing.find({}).limit(6);
-    const categories = require("./utils/categories");
-    res.render("listings/landing.ejs", { featuredListings, categories });
-}));
-
-app.use((req, res, next) => {
-    next(new ExpressError(404, "Page Not Found"));
-});
-
-
-app.use((err, req, res, next)=>{
-    let {statusCode =500, message ="Something Went Horribly wrong"} = err;
-    res.status(statusCode).render("error.ejs", {message});
-    // res.status(statusCode).send(message);
-})
-
-app.listen (8080, ()=>{
-    console.log("Server is running on port 8080");
-})
+async function start() {
+    const config = getConfig();
+    if (!config.dbUrl) throw new Error("Set ATLASDB_URL before starting the app.");
+    await mongoose.connect(config.dbUrl, { dbName: config.dbName, serverSelectionTimeoutMS: 15000 });
+    const store = MongoStore.create({ client: mongoose.connection.getClient(), dbName: config.dbName, crypto: { secret: config.secret }, touchAfter: 24 * 60 * 60 });
+    store.on("error", err => console.error("Session store error:", err.name));
+    const app = createApp({ sessionStore: store, config });
+    const server = app.listen(config.port, config.host, () => console.log(`WanderLust ready at http://localhost:${config.port}${config.previewMode ? " (isolated preview)" : ""}`));
+    const shutdown = () => server.close(async () => { await mongoose.disconnect(); process.exit(0); });
+    process.once("SIGINT", shutdown);
+    process.once("SIGTERM", shutdown);
+    return { app, server };
+}
+if (require.main === module) start().catch(async err => { console.error("Startup failed:", err.name, "Check database and environment configuration."); await mongoose.disconnect(); process.exitCode = 1; });
+module.exports = { createApp, start };

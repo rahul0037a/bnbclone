@@ -1,152 +1,18 @@
-<% layout("layouts/boilerplate") %>
-
-<body>
-    <!-- <h3>All Listings</h3> -->
-    <!-- <form method="get" action="/listings/new">
-        <button>Create New Listing</button>
-
-    </form> -->
-    <style>
-        .filters{
-    display:flex;
-    align-items:center;
-    gap:2rem;
-    overflow-x:auto;
-    overflow-y:hidden;
-    white-space:nowrap;
-    flex-wrap:nowrap;
-    padding:1rem;
-    scrollbar-width:none;
-}
-
-.filters::-webkit-scrollbar{
-    display:none;
-}
-
-.filter{
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    text-align:center;
-    flex:0 0 auto;
-
-    margin-right:2rem;
-    margin-top:1rem;
-
-    opacity:0.7;
-
-    color:black;
-    text-decoration:none;
-
-    transition:0.2s;
-}
-
-.filter:hover{
-    opacity:1;
-    color:black;
-}
-
-.filter p{
-    font-size:.8rem;
-    margin-top:.3rem;
-}
-
-.active-filter{
-    opacity:1;
-}
-
-.active-filter p{
-    border-bottom:2px solid #fe424d;
-    padding-bottom:3px;
-    font-weight:600;
-}
-
-.active-filter i{
-    color:#fe424d;
-}
-    </style>
-    <div class="filters">
-
-    <a href="/listings"
-       class="filter text-decoration-none text-dark <%= !selectedCategory ? 'active-filter' : '' %>">
-        <div><i class="fa-solid fa-border-all"></i></div>
-        <p>All</p>
-    </a>
-
-    <% categories.forEach(category => { %>
-
-        <a
-            href="/listings?category=<%= encodeURIComponent(category.name) %>"
-            class="filter text-decoration-none text-dark <%= selectedCategory === category.name ? 'active-filter' : '' %>">
-
-            <div>
-                <i class="<%= category.icon %>"></i>
-            </div>
-
-            <p><%= category.name %></p>
-
-        </a>
-
-    <% }) %>
-
-</div>
-    
-    <div class="tax-toggle">
-            <div class="form-check-reverse form-switch">
-                <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
-                <label class="form-check-label" for="flexSwitchCheckDefault">Display total after Taxes</label>
-            </div>
-        </div>  
-<% if (allListings.length === 0) { %>
-    <div class="no-listings-container text-center my-5 py-5" style="border: 1px dashed #ddd; border-radius: 15px; background: #fafafa;">
-        <div class="no-listings-icon mb-4">
-            <i class="fa-solid fa-face-frown fa-5x" style="color: #ff385c;"></i>
-        </div>
-        <h2 class="fw-bold mb-3" style="color: #222222;">No Results Found</h2>
-        <p class="text-muted fs-5 mb-4">
-            <% if (searchQuery) { %>
-                We couldn't find any listings matching "<span class="text-danger fw-bold"><%= searchQuery %></span>"<%= selectedCategory ? ` in the category "${selectedCategory}"` : '' %>.
-            <% } else if (selectedCategory) { %>
-                We couldn't find any listings in the category "<span class="fw-bold"><%= selectedCategory %></span>".
-            <% } else { %>
-                There are no listings available right now. Please check back later!
-            <% } %>
-        </p>
-        <div class="d-flex justify-content-center gap-3">
-            <a href="/listings" class="btn btn-outline-danger px-4 py-2 rounded-pill fw-semibold" style="border-color: #ff385c; color: #ff385c;">
-                Clear Search & Filters
-            </a>
-        </div>
-    </div>
-<% } else { %>
-<div class="row row-cols-lg-3 row-cols-md-2 row-cols-sm-1">
-    <% for(let listing of allListings){ %>
-    <div class="card listing-card" style="width: 19rem;"><a href="/listings/<%= listing._id %>">
-    <img src="<%= listing.image.url %>" class="card-img-top" alt="Listing Image">
-    <div class="card-img-overlay"></div>
-    <div class="card-body">
-    <p class="card-text">
-      <b><%= listing.title %></b>
-      <span class="listing-location"><i class="fa-solid fa-location-dot me-1"></i><%= listing.location %><% if (listing.country) { %>, <%= listing.country %><% } %></span>
-      &#8377; <%= listing.price.toLocaleString("en-IN") %> per night <i class="tax-info">&nbsp;&nbsp;+18% GST</i>
-    </p>
-  </div>
-  </a>
-</div>
-<% } %>
-</div>
-<% } %>
-
-<script>
-    let taxSwitch = document.getElementById("flexSwitchCheckDefault");
-    taxSwitch.addEventListener("click", () =>{
-        let taxInfo = document.getElementsByClassName("tax-info");
-        for(info of taxInfo){
-            info.style.display = taxSwitch.checked ? "inline" : "none";
-        }
-    })
-</script>
-
-</body>
+<% layout('layouts/boilerplate');
+const f = typeof filters !== 'undefined' ? filters : {search:searchQuery || '',category:selectedCategory || ''};
+const p = typeof pagination !== 'undefined' ? pagination : {page:1,totalPages:1,total:allListings.length,limit:allListings.length};
+const queryLink = (changes) => { const q=new URLSearchParams(); Object.entries({...f,...changes}).forEach(([k,v])=>{if(v!==''&&v!==undefined&&v!==null&&!(k==='page'&&Number(v)===1)) q.set(k,v instanceof Date?v.toISOString().slice(0,10):v);}); return '/listings'+(q.size?'?'+q.toString():''); };
+const inputDate = v => v instanceof Date ? v.toISOString().slice(0,10) : (v || '');
+const activeFilters=['minPrice','maxPrice','guests','rooms','checkIn','checkOut'].filter(k=>f[k]!==''&&f[k]!==undefined&&f[k]!==null).length;
+const savedMode = Boolean(f.saved);
+%>
+<div class="page-heading catalog-heading"><div><p class="eyebrow">SOMEWHERE NEW STARTS HERE</p><h1><%= savedMode ? 'Your somewhere-someday list.' : 'Find your kind of away.' %></h1><p><%= savedMode ? 'The places you saved on this device, ready for a closer look.' : 'Discover distinctive places, from close-to-home escapes to far-flung adventures.' %></p></div><span class="catalog-count"><strong><%= p.total %></strong> <%= savedMode ? 'saved stays' : 'places to discover' %></span></div>
+<form action="/listings" method="get" class="catalog-search" id="catalog-filter-form" role="search"><div class="catalog-search-top"><div class="field search-field"><label for="destination">Destination</label><div class="input-icon"><i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i><input type="search" name="search" id="destination" value="<%= f.search || '' %>" placeholder="City, country, or property name"></div></div><div class="field"><label for="filter-checkin">Check-in</label><input type="date" id="filter-checkin" name="checkIn" value="<%= inputDate(f.checkIn) %>"></div><div class="field"><label for="filter-checkout">Check-out</label><input type="date" id="filter-checkout" name="checkOut" value="<%= inputDate(f.checkOut) %>"></div><button class="button button-brand" type="submit">Find stays <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></button></div><input type="hidden" name="category" value="<%= f.category || '' %>"><% if(savedMode) { %><input type="hidden" name="saved" value="<%= f.saved %>"><% } %>
+<details class="filter-details" <%= activeFilters ? 'open' : '' %>><summary><i class="fa-solid fa-sliders" aria-hidden="true"></i> Refine your stay <span><%= activeFilters ? activeFilters+' active' : 'Price, guests & rooms' %></span><i class="fa-solid fa-chevron-down" aria-hidden="true"></i></summary><div class="filter-fields"><div class="field"><label for="min-price">Min / night (₹)</label><input id="min-price" type="number" min="0" step="1" name="minPrice" value="<%= f.minPrice ?? '' %>" placeholder="No minimum"></div><div class="field"><label for="max-price">Max / night (₹)</label><input id="max-price" type="number" min="0" step="1" name="maxPrice" value="<%= f.maxPrice ?? '' %>" placeholder="No maximum"></div><div class="field"><label for="guests">Guests</label><input id="guests" type="number" min="1" max="50" name="guests" value="<%= f.guests || '' %>" placeholder="Any"></div><div class="field"><label for="rooms">Rooms</label><input id="rooms" type="number" min="1" max="20" name="rooms" value="<%= f.rooms || '' %>" placeholder="Any"></div><div class="field"><label for="sort-order">Sort by</label><select id="sort-order" name="sort"><% [['recommended','Recommended'],['newest','Newest first'],['price-asc','Price: low to high'],['price-desc','Price: high to low']].forEach(([value,label])=>{ %><option value="<%= value %>" <%= (f.sort || 'recommended')===value?'selected':'' %>><%= label %></option><% }) %></select></div><button type="submit" class="button button-dark">Apply filters</button></div><p class="filter-hint">Prices are per room, per night, before demo tax. Choose both dates to check demo availability. Guest capacity is for the entire property.</p></details></form>
+<nav class="category-strip" aria-label="Stay categories"><a href="<%= queryLink({category:'',page:1}) %>" class="category-chip <%= !selectedCategory?'active':'' %>" <%- !selectedCategory?'aria-current="page"':'' %>><i class="fa-solid fa-border-all" aria-hidden="true"></i> All stays</a><% categories.forEach(category=>{ %><a class="category-chip <%= selectedCategory===category.name?'active':'' %>" href="<%= queryLink({category:category.name,page:1}) %>" <%- selectedCategory===category.name?'aria-current="page"':'' %>><i class="<%= category.icon %>" aria-hidden="true"></i> <%= category.name %></a><% }) %></nav>
+<div class="results-toolbar" id="saved-stays"><div><strong><%= selectedCategory || (savedMode?'Saved stays':'All stays') %></strong><span class="muted"> · <%= p.total %> <%= p.total===1?'result':'results' %></span><% if(f.search) { %><span class="muted"> for “<%= f.search %>”</span><% } %></div><div class="results-actions"><button type="button" class="saved-filter" data-saved-filter aria-pressed="<%= savedMode?'true':'false' %>"><i class="fa-regular fa-heart" aria-hidden="true"></i> <%= savedMode?'Showing saved':'Saved stays' %></button><label class="tax-switch"><input type="checkbox" data-tax-toggle><span>Include 18% demo tax</span></label></div></div>
+<% if(!allListings.length) { %><section class="empty-state"><i class="fa-regular <%= savedMode?'fa-heart':'fa-compass' %>" aria-hidden="true"></i><h2><%= savedMode?'Your next favorite is out there':'No stays match this search' %></h2><p><%= savedMode?'Tap the heart on a place you like. Your saved stays live on this device.':'Try a nearby destination, different dates, or a wider price range.' %></p><a class="button button-brand" href="/listings"><%= savedMode?'Discover stays':'Clear all filters' %></a></section><% } else { %><div class="stay-grid catalog-grid"><% allListings.forEach(listing=>{ %><%- include('../includes/listing-card.ejs',{listing}) %><% }) %></div><% } %>
+<% if(p.totalPages>1) { %><nav class="pagination-nav" aria-label="Results pages"><% if(p.page>1) { %><a href="<%= queryLink({page:p.page-1}) %>" class="page-button" aria-label="Previous page"><i class="fa-solid fa-arrow-left" aria-hidden="true"></i></a><% } %><% for(let n=Math.max(1,p.page-2);n<=Math.min(p.totalPages,p.page+2);n++){ %><a class="page-button <%= n===p.page?'current':'' %>" href="<%= queryLink({page:n}) %>" <%- n===p.page?'aria-current="page"':'' %>><%= n %></a><% } %><% if(p.page<p.totalPages) { %><a href="<%= queryLink({page:p.page+1}) %>" class="page-button" aria-label="Next page"><i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a><% } %><span class="muted small">Page <%= p.page %> of <%= p.totalPages %></span></nav><% } %>
+<p class="catalog-disclaimer"><i class="fa-regular fa-circle-question" aria-hidden="true"></i> Catalog properties link to their original source. Rates are indicative and images may be illustrative. Reservations are demos and do not book real stays.</p>
 
 

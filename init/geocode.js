@@ -1,90 +1,70 @@
-const mongoose = require('mongoose');
-const Listing = require('../models/listing');
+require("dotenv").config({ quiet: true });
+const mongoose = require("mongoose");
+const Listing = require("../models/listing");
+const { assertPreviewDatabase } = require("./previewSafety");
 
-const MONGO_URL = "mongodb://127.0.0.1:27017/wanderlust";
-
-main()
-.then(() => {
-    console.log("Connected to DB");
-})
-.catch(err => console.log(err));
-
-async function main() {
-    await mongoose.connect(MONGO_URL);
-}
-
-// Nominatim requires 1 request/second max
-function delay(ms) {
-    return new Promise(resolve => setTimeout(resolve, ms));
-}
+const delay = milliseconds => new Promise(resolve => setTimeout(resolve, milliseconds));
 
 async function geocodeLocation(location, country) {
-    try {
-        const query = encodeURIComponent(`${location}, ${country}`);
-        const response = await fetch(
-            `https://nominatim.openstreetmap.org/search?q=${query}&format=json&limit=1`,
-            {
-                headers: {
-                    'User-Agent': 'WanderLust-BnBClone/1.0',
-                },
-            }
-        );
-        const data = await response.json();
-        if (data && data.length > 0) {
-            return {
-                type: 'Point',
-                coordinates: [parseFloat(data[0].lon), parseFloat(data[0].lat)],
-            };
-        }
-        return null;
-    } catch (err) {
-        console.log("Geocoding error:", err.message);
-        return null;
+    const query = encodeURIComponent(`${location}, ${country}`);
+    const response = await fetch(`https://nominatim.openstreetmap.org/search?q=${query}&format=json&limit=1`, {
+        headers: { "User-Agent": "WanderLust-Preview-Catalog/1.0" },
+        signal: AbortSignal.timeout(10000),
+    });
+    if (!response.ok) throw new Error(`Geocoder returned HTTP ${response.status}.`);
+    const [result] = await response.json();
+    if (!result) return null;
+    const coordinates = [Number(result.lon), Number(result.lat)];
+    if (coordinates.some(number => !Number.isFinite(number)) || Math.abs(coordinates[0]) > 180 || Math.abs(coordinates[1]) > 90) {
+        throw new Error("Geocoder returned invalid coordinates.");
     }
+    return { type: "Point", coordinates };
 }
 
-const geocodeAll = async () => {
-    // Find all listings that don't have geometry or have empty coordinates
+async function main() {
+    const flags = process.argv.slice(2);
+    if (flags.some(flag => !["--apply", "--dry-run"].includes(flag)) || (flags.includes("--apply") && flags.includes("--dry-run"))) {
+        throw new Error("Usage: node init/geocode.js [--dry-run | --apply]");
+    }
+    const databaseName = assertPreviewDatabase(process.env.DB_NAME);
+    if (!process.env.ATLASDB_URL) throw new Error("Set ATLASDB_URL in the preview .env file.");
+    await mongoose.connect(process.env.ATLASDB_URL, { dbName: databaseName, serverSelectionTimeoutMS: 10000, autoIndex: false });
+    assertPreviewDatabase(mongoose.connection.name);
     const listings = await Listing.find({
+        isCatalog: { $ne: true },
         $or: [
             { geometry: { $exists: false } },
             { geometry: null },
-            { 'geometry.coordinates': { $exists: false } },
-            { 'geometry.coordinates': { $size: 0 } },
-        ]
+            { "geometry.coordinates": { $exists: false } },
+            { "geometry.coordinates": { $size: 0 } },
+        ],
     });
-
-    console.log(`Found ${listings.length} listings without coordinates.\n`);
-
-    let success = 0;
-    let failed = 0;
-
-    for (let listing of listings) {
-        const locationStr = `${listing.location}, ${listing.country}`;
-        process.stdout.write(`Geocoding: "${locationStr}" ... `);
-
-        const geometry = await geocodeLocation(listing.location, listing.country);
-
-        if (geometry) {
-            listing.geometry = geometry;
-            await listing.save();
-            console.log(`✓ [${geometry.coordinates[1]}, ${geometry.coordinates[0]}]`);
-            success++;
-        } else {
-            console.log(`✗ Not found`);
-            failed++;
+    console.log(`Preview target: ${databaseName}. Found ${listings.length} non-catalog listings without coordinates.`);
+    if (!flags.includes("--apply")) {
+        console.log("Dry run: no geocoding calls or document writes. Add --apply to update these preview listings.");
+        return;
+    }
+    for (const listing of listings) {
+        try {
+            const geometry = await geocodeLocation(listing.location, listing.country);
+            if (geometry) {
+                listing.geometry = geometry;
+                listing.coordinatesApproximate = true;
+                await listing.save();
+                console.log(`Updated ${listing._id}. Coordinates remain approximate.`);
+            }
+        } catch (error) {
+            console.error(`Skipped ${listing._id}: ${error.message}`);
         }
-
-        // Respect Nominatim's 1 req/sec rate limit
         await delay(1100);
     }
+}
 
-    console.log(`\n--- Done ---`);
-    console.log(`Successfully geocoded: ${success}`);
-    console.log(`Failed: ${failed}`);
-    console.log(`Total: ${listings.length}`);
+if (require.main === module) main().catch(error => {
+    console.error(error.name === "MongoServerSelectionError" ? "Preview database connection failed. Check preview credentials and network access." : error.message);
+    process.exitCode = 1;
+}).finally(async () => {
+    if (mongoose.connection.readyState !== 0) await mongoose.disconnect();
+});
 
-    mongoose.connection.close();
-};
-
-geocodeAll();
+module.exports = { geocodeLocation };

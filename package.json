@@ -4,9 +4,15 @@
   },
   "name": "majorproject",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node app.js",
+    "dev": "node --watch app.js",
+    "test": "node --test test/*.test.js",
+    "catalog:validate": "node init/index.js --validate-only",
+    "seed": "node init/index.js --apply",
+    "check": "node scripts/check.js",
+    "smoke": "node scripts/smoke.js"
   },
   "keywords": [],
   "author": "",
