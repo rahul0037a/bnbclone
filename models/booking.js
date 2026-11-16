@@ -15,6 +15,7 @@ const snapshotSchema = new Schema({
 const bookingSchema = new Schema({
     listing: { type: Schema.Types.ObjectId, ref: "Listing", required: true, immutable: true },
     user: { type: Schema.Types.ObjectId, ref: "User", required: true, immutable: true },
+    bookingRequestId: { type: String, immutable: true },
     owner: { type: Schema.Types.ObjectId, ref: "User", required: true, immutable: true },
     listingSnapshot: { type: snapshotSchema, required: true, immutable: true },
     checkInDate: { type: Date, required: true, immutable: true },
@@ -43,6 +44,10 @@ bookingSchema.virtual("pricing").get(function() {
     return { nightlyPrice: this.nightlyPrice, nights: this.nights, rooms: this.numberOfRooms, subtotal: this.subtotal, taxRate: this.taxRate, taxAmount: this.taxAmount, total: this.totalPrice };
 });
 bookingSchema.index({ listing: 1, status: 1, checkInDate: 1, checkOutDate: 1 });
+bookingSchema.index({ listing: 1, user: 1, bookingRequestId: 1 }, {
+    unique: true,
+    partialFilterExpression: { bookingRequestId: { $type: "string" } },
+});
 bookingSchema.index({ user: 1, createdAt: -1 });
 bookingSchema.index({ owner: 1, createdAt: -1 });
 module.exports = mongoose.model("Booking", bookingSchema);

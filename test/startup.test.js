@@ -53,3 +53,38 @@ test("malformed database URL escapes produce safe configuration diagnostics", ()
         error => error instanceof StartupConfigurationError && error.code === "INVALID_DATABASE_URL",
     );
 });
+
+test("startup handles a session index failure before closing MongoDB", () => {
+    const result = spawnSync(process.execPath, ["-e", `
+        const assert = require("node:assert/strict");
+        const mongoose = require("mongoose");
+        const { start } = require("./app");
+        const index = Promise.withResolvers();
+        const indexStarted = Promise.withResolvers();
+        const failure = new Error("Session index could not be created");
+        let closed = false;
+        mongoose.connect = async () => {};
+        mongoose.disconnect = async () => { closed = true; };
+        mongoose.connection.getClient = () => ({
+            db: () => ({ collection: () => ({ createIndex() {
+                indexStarted.resolve();
+                return index.promise;
+            } }) }),
+        });
+        (async () => {
+            const rejected = assert.rejects(start(), error => error === failure);
+            await indexStarted.promise;
+            assert.equal(closed, false);
+            index.reject(failure);
+            await rejected;
+            assert.equal(closed, true);
+        })().catch(error => { console.error(error); process.exitCode = 1; });
+    `], {
+        cwd: path.resolve(__dirname, ".."),
+        env: { ...process.env, NODE_ENV: "production", PREVIEW_MODE: "false", SECRET: "test-only-secret-with-at-least-32-characters", ATLASDB_URL: "mongodb://127.0.0.1:1/unused", DB_NAME: "unused", PORT: "10000" },
+        encoding: "utf8", timeout: 10000,
+    });
+    assert.equal(result.error, undefined);
+    assert.equal(result.status, 0, result.stderr);
+    assert.doesNotMatch(result.stdout, /WanderLust ready/);
+});

@@ -41,6 +41,15 @@ function client(base) {
         },
     };
 }
+
+async function bookingForm(browser, listingId, details) {
+    const { response, html } = await browser.get(`/listings/${listingId}/book`);
+    assert.equal(response.status, 200);
+    const bookingRequestId = html.match(/name="bookingRequestId" value="([^"]+)"/)?.[1];
+    assert.ok(bookingRequestId, "the booking form supplies a request ID");
+    return { ...details, bookingRequestId };
+}
+
 async function run() {
     await mongoose.connect(config.dbUrl, { dbName: config.dbName, serverSelectionTimeoutMS: 15000 });
     assert.equal(mongoose.connection.name, config.dbName);
@@ -53,7 +62,7 @@ async function run() {
     }
     const listing = await Listing.create({ title: `Smoke coast ${stamp}`, description: "Temporary integration fixture.", image: { url: "https://images.unsplash.com/photo-1566073771259-6a8506099945", filename: "" }, price: 1000, location: "Goa", country: "India", geometry: { type: "Point", coordinates: [73.8, 15.5] }, categories: ["Beach"], owner: users.owner._id, totalRooms: 1, maxGuests: 4 });
     listingIds.push(listing._id);
-    const other = await Listing.create({ ...listing.toObject(), _id: new mongoose.Types.ObjectId(), title: `Smoke forest ${stamp}` });
+    const other = await Listing.create({ ...listing.toObject(), _id: new mongoose.Types.ObjectId(), title: `Smoke forest ${stamp}`, totalRooms: 2 });
     listingIds.push(other._id);
     const app = createApp({ sessionStore: new session.MemoryStore(), config, rateLimits: false });
     server = app.listen(0, "127.0.0.1");
@@ -66,11 +75,24 @@ async function run() {
     result.checks.push("authentication and CSRF session rotation");
     const day = offset => new Date(Date.now() + offset * 86400000).toISOString().slice(0, 10);
     const payload = { checkInDate: day(14), checkOutDate: day(16), numberOfPeople: "2", numberOfRooms: "1", contactEmail: users.guest.email };
-    const responses = await Promise.all([guest.post(`/listings/${listing._id}/book`, payload), guest.post(`/listings/${listing._id}/book`, payload)]);
+    const firstForm = await bookingForm(guest, listing._id, payload);
+    const secondForm = await bookingForm(guest, listing._id, payload);
+    assert.notEqual(firstForm.bookingRequestId, secondForm.bookingRequestId);
+    const responses = await Promise.all([guest.post(`/listings/${listing._id}/book`, firstForm), guest.post(`/listings/${listing._id}/book`, secondForm)]);
     const bookings = await Booking.find({ listing: listing._id, status: "confirmed" });
     assert.equal(bookings.length, 1, "concurrent requests must not overbook");
     assert.equal(responses.filter(r => /^\/bookings\/[a-f0-9]{24}$/.test(r.headers.get("location") || "")).length, 1);
     result.checks.push("concurrent reservation capacity protection");
+
+    const retryPath = `/listings/${other._id}/book`;
+    const retryPayload = await bookingForm(guest, other._id, payload);
+    const [submission, retry] = await Promise.all([guest.post(retryPath, retryPayload), guest.post(retryPath, retryPayload)]);
+    const receiptLocation = submission.headers.get("location");
+    assert.match(receiptLocation || "", /^\/bookings\/[a-f0-9]{24}$/);
+    assert.equal(retry.headers.get("location"), receiptLocation);
+    assert.equal(await Booking.countDocuments({ listing: other._id }), 1);
+    result.checks.push("concurrent retries return the same receipt without consuming extra capacity");
+
     const booking = bookings[0];
     assert.equal(booking.totalPrice, 2360);
     const denied = await outsider.get(`/bookings/${booking._id}`);
@@ -83,10 +105,11 @@ async function run() {
     assert.ok(receipt.html.includes(`Smoke coast ${stamp}`), "receipt uses original title snapshot");
     assert.equal(booking.pricing.nightlyPrice, 1000);
     result.checks.push("historical booking snapshots survive price edits");
-    const past = await guest.post(`/listings/${listing._id}/book`, { ...payload, checkInDate: "2020-01-01", checkOutDate: "2020-01-02" });
+    const pastForm = await bookingForm(guest, listing._id, { ...payload, checkInDate: "2020-01-01", checkOutDate: "2020-01-02" });
+    const past = await guest.post(`/listings/${listing._id}/book`, pastForm);
     assert.ok([400,302].includes(past.status));
     assert.equal(await Booking.countDocuments({ listing: listing._id }), 1);
-    const own = await host.post(`/listings/${listing._id}/book`, payload);
+    const own = await host.post(`/listings/${listing._id}/book`, firstForm);
     assert.ok([400,403,302].includes(own.status));
     assert.equal(await Booking.countDocuments({ listing: listing._id }), 1);
     result.checks.push("past dates and self booking rejected");
@@ -99,7 +122,7 @@ async function run() {
     const cancelled = await guest.post(`/bookings/${booking._id}/cancel`);
     assert.ok([302,303].includes(cancelled.status));
     assert.equal((await Booking.findById(booking._id)).status, "cancelled");
-    const rebook = await guest.post(`/listings/${listing._id}/book`, payload);
+    const rebook = await guest.post(`/listings/${listing._id}/book`, await bookingForm(guest, listing._id, payload));
     assert.match(rebook.headers.get("location") || "", /^\/bookings\//);
     result.checks.push("cancellation releases inventory");
     const deleted = await host.post(`/listings/${listing._id}?_method=DELETE`);

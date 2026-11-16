@@ -26,14 +26,15 @@ module.exports.reviewSchema = Joi.object({
 }).required();
 
 module.exports.bookingSchema = Joi.object({
+    bookingRequestId: Joi.string().lowercase().guid({ version: "uuidv4", separator: "-", wrapper: false }).required().messages({
+        "any.required": "Open the reservation form again before submitting.",
+        "string.guid": "Open the reservation form again before submitting.",
+    }),
     checkInDate: dateField.required(), checkOutDate: dateField.required(),
     numberOfPeople: Joi.number().integer().min(1).max(50).required(),
     numberOfRooms: Joi.number().integer().min(1).max(20).required(),
     contactEmail: Joi.string().email({ tlds: { allow: false } }).allow("", null),
     contactPhone: Joi.string().trim().pattern(/^[+\d\s()\-]{7,20}$/).allow("", null),
-}).custom((value, helpers) => {
-    try { validateStay(value.checkInDate, value.checkOutDate); return value; }
-    catch (error) { return helpers.message(error.message); }
 }).required();
 
 module.exports.signupSchema = Joi.object({
@@ -42,20 +43,33 @@ module.exports.signupSchema = Joi.object({
     password: Joi.string().min(10).max(128).pattern(/^(?=.*[a-zA-Z])(?=.*\d)[\s\S]+$/).required().messages({ "string.pattern.base": "Password must include a letter and a number." }),
 }).required();
 
+const tripFields = {
+    guests: Joi.number().integer().min(1).max(50).empty("").optional(),
+    rooms: Joi.number().integer().min(1).max(20).empty("").optional(),
+    checkIn: dateField.empty("").optional(), checkOut: dateField.empty("").optional(),
+};
+
+function validateTripDates(value, helpers) {
+    if (Boolean(value.checkIn) !== Boolean(value.checkOut)) return helpers.message("Choose both check-in and check-out dates.");
+    if (value.checkIn) {
+        try { validateStay(value.checkIn, value.checkOut); }
+        catch (error) { return helpers.message(error.message); }
+    }
+    return value;
+}
+
+module.exports.tripFilterSchema = Joi.object(tripFields).custom(validateTripDates);
+
 module.exports.filterSchema = Joi.object({
     search: Joi.string().trim().max(100).allow("").default(""),
     category: Joi.string().trim().max(60).allow("").default(""),
     minPrice: Joi.number().min(0).max(10000000).empty("").optional(),
     maxPrice: Joi.number().min(0).max(10000000).empty("").optional(),
-    guests: Joi.number().integer().min(1).max(50).empty("").optional(),
-    rooms: Joi.number().integer().min(1).max(20).empty("").optional(),
-    checkIn: dateField.empty("").optional(), checkOut: dateField.empty("").optional(),
+    ...tripFields,
     sort: Joi.string().valid("recommended", "newest", "price-asc", "price-desc").default("recommended"),
     saved: Joi.string().max(2499).pattern(/^(?:[a-fA-F0-9]{24})(?:,[a-fA-F0-9]{24}){0,99}$/).empty("").optional(),
     page: Joi.number().integer().min(1).max(10000).empty("").default(1),
 }).custom((value, helpers) => {
     if (value.minPrice !== undefined && value.maxPrice !== undefined && value.maxPrice < value.minPrice) return helpers.message("Maximum price must be at least the minimum price.");
-    if (Boolean(value.checkIn) !== Boolean(value.checkOut)) return helpers.message("Choose both check-in and check-out dates.");
-    if (value.checkIn) { try { validateStay(value.checkIn, value.checkOut); } catch (error) { return helpers.message(error.message); } }
-    return value;
+    return validateTripDates(value, helpers);
 }).required();

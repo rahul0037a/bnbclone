@@ -10,7 +10,7 @@ module.exports.signup = async (req, res, next) => {
         req.login(user, error => {
             if (error) return next(error);
             req.flash("success", "Welcome to WanderLust. Your account is ready.");
-            res.redirect("/listings");
+            res.redirect(res.locals.redirectUrl || "/listings");
         });
     } catch (error) {
         req.flash("error", error.code === 11000 ? "An account with that email already exists." : error.message);

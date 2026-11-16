@@ -11,7 +11,7 @@ const authLimiter = rateLimit({
     standardHeaders: "draft-8", legacyHeaders: false,
 });
 router.get("/signup", users.renderSignupForm);
-router.post("/signup", authLimiter, validateSignup, wrapAsync(users.signup));
+router.post("/signup", authLimiter, saveRedirectUrl, validateSignup, wrapAsync(users.signup));
 router.get("/login", users.renderLoginForm);
 router.post("/login", authLimiter, saveRedirectUrl, passport.authenticate("local", { failureRedirect: "/login", failureFlash: true }), users.login);
 router.post("/logout", users.logout);

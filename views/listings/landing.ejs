@@ -1,6 +1,115 @@
 <% layout('layouts/boilerplate'); %>
-<section class="landing-hero" aria-labelledby="hero-title"><div class="hero-copy"><p class="eyebrow"><span></span> MAKE ROOM FOR SOMETHING NEW</p><h1 id="hero-title">Find a stay worth<br>the <span>journey.</span></h1><p class="hero-description">A hideaway in the hills. A slower morning by the sea. Discover places that make getting away feel a little more like you.</p><form action="/listings" method="get" class="hero-search" role="search"><div class="hero-search-field"><i class="fa-solid fa-location-dot" aria-hidden="true"></i><div><label for="hero-destination">Where to?</label><input id="hero-destination" name="search" type="search" placeholder="City, country, or a little inspiration" autocomplete="off"></div></div><button type="submit" class="button button-brand"><span>Explore stays</span><i class="fa-solid fa-arrow-right" aria-hidden="true"></i></button></form><div class="hero-footnote"><span class="mini-line"></span><p>Less routine.<br><strong>More somewhere new.</strong></p></div></div><div class="hero-visual"><div class="hero-photo-main"><img src="https://images.unsplash.com/photo-1470770841072-f978cf4d019e?auto=format&fit=crop&w=1200&q=85" alt="Alpine village beside a still lake, surrounded by mountains" fetchpriority="high" width="900" height="1100"><div class="hero-photo-caption"><span><i class="fa-solid fa-location-dot" aria-hidden="true"></i> Somewhere you can exhale</span><span>01 / ESCAPE</span></div></div><div class="hero-photo-small"><img src="https://images.unsplash.com/photo-1499793983690-e29da59ef1c2?auto=format&fit=crop&w=550&q=85" alt="Quiet coastal cabin with a view of the ocean" width="440" height="520"><span>A different kind of everyday.</span></div><span class="hero-coordinate" aria-hidden="true">TAKE THE SCENIC ROUTE ↗</span></div></section>
-<section class="discovery-section" aria-labelledby="mood-title"><div class="section-heading"><div><p class="eyebrow">FOLLOW YOUR KIND OF FEELING</p><h2 id="mood-title">What does your escape look like?</h2></div><a class="text-link" href="/listings">All stays <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a></div><div class="mood-grid"><a class="mood-card" href="/listings?category=Beach"><span class="mood-icon"><i class="fa-solid fa-umbrella-beach" aria-hidden="true"></i></span><span><strong>Coastal days</strong><small>A little closer to the water</small></span><i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i></a><a class="mood-card" href="/listings?category=Hill%20Station"><span class="mood-icon"><i class="fa-solid fa-mountain-sun" aria-hidden="true"></i></span><span><strong>Mountain air</strong><small>Take the long way up</small></span><i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i></a><a class="mood-card" href="/listings?category=Nature"><span class="mood-icon"><i class="fa-solid fa-house" aria-hidden="true"></i></span><span><strong>Quiet corners</strong><small>Room to switch off</small></span><i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i></a><a class="mood-card" href="/listings?category=LakeFront"><span class="mood-icon"><i class="fa-regular fa-sun" aria-hidden="true"></i></span><span><strong>Lakeside mornings</strong><small>A slower start to the day</small></span><i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i></a></div></section>
-<section class="discovery-section" aria-labelledby="featured-title"><div class="section-heading"><div><p class="eyebrow">THE WANDERLUST EDIT</p><h2 id="featured-title">Good places. Great possibilities.</h2><p class="section-description">Distinctive stays to put on your somewhere-someday list.</p></div><a class="text-link" href="/listings">Discover more <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a></div><% if (featuredListings && featuredListings.length) { %><div class="stay-grid"><% featuredListings.forEach(listing => { %><%- include('../includes/listing-card.ejs', {listing}) %><% }) %></div><% } else { %><div class="empty-state"><i class="fa-regular fa-compass" aria-hidden="true"></i><h3>Your next discovery starts here</h3><p>New stays will appear here as the collection grows.</p><a class="button button-brand" href="/listings/new">Add a place</a></div><% } %></section>
-<section class="destination-section" aria-labelledby="destinations-title"><div class="section-heading"><div><p class="eyebrow">PICK A DIRECTION</p><h2 id="destinations-title">Where next?</h2></div><span class="muted small">A few places to begin</span></div><div class="destination-grid"><a href="/listings?search=India" class="destination-card"><img loading="lazy" src="https://images.unsplash.com/photo-1524492412937-b28074a5d7da?auto=format&fit=crop&w=720&q=80" alt="The Taj Mahal in India" width="640" height="800"><span><small>COLOR, CULTURE & CONTRAST</small><strong>India</strong><i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i></span></a><a href="/listings?search=Italy" class="destination-card"><img loading="lazy" src="https://images.unsplash.com/photo-1516483638261-f4dbaf036963?auto=format&fit=crop&w=720&q=80" alt="Colorful houses on the Italian coast" width="640" height="800"><span><small>THE SLOWER WAY AROUND</small><strong>Italy</strong><i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i></span></a><a href="/listings?search=France" class="destination-card"><img loading="lazy" src="https://images.unsplash.com/photo-1502602898657-3e91760cbb34?auto=format&fit=crop&w=720&q=80" alt="The Eiffel Tower and rooftops in Paris" width="640" height="800"><span><small>A DIFFERENT PERSPECTIVE</small><strong>France</strong><i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i></span></a></div></section>
-<section class="host-banner"><div><p class="eyebrow">THERE'S A STORY IN EVERY SPACE</p><h2>Your place. Someone’s<br>next favorite memory.</h2><p>Add your property and try the hosting experience.</p><a href="/listings/new" class="button button-dark">Share your space <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a></div><div class="host-banner-note"><i class="fa-regular fa-compass" aria-hidden="true"></i><p>Made for exploring.<br><strong>Built for the possibilities.</strong></p><span>This is a demo travel platform. Catalog rates are indicative; reservations do not book real accommodation or collect payments.</span></div></section>
+    <section class="landing-hero" aria-labelledby="hero-title">
+        <div class="hero-copy">
+            <p class="eyebrow"><span></span> MAKE ROOM FOR SOMETHING NEW</p>
+            <h1 id="hero-title">Find a stay worth<br>the <span>journey.</span></h1>
+            <p class="hero-description">A hideaway in the hills. A slower morning by the sea. Discover places that make
+                getting away feel a little more like you.</p>
+            <form action="/listings" method="get" class="hero-search" role="search">
+                <div class="hero-search-field"><i class="fa-solid fa-location-dot" aria-hidden="true"></i>
+                    <div><label for="hero-destination">Where to?</label><input id="hero-destination" name="search"
+                            type="search" placeholder="City, country, or a little inspiration" autocomplete="off"></div>
+                </div><button type="submit" class="button button-brand"><span>Explore stays</span><i
+                        class="fa-solid fa-arrow-right" aria-hidden="true"></i></button>
+            </form>
+            <div class="hero-footnote"><span class="mini-line"></span>
+                <p>Less routine.<br><strong>More somewhere new.</strong></p>
+            </div>
+        </div>
+        <div class="hero-visual">
+            <div class="hero-photo-main"><img
+                    src="https://images.unsplash.com/photo-1470770841072-f978cf4d019e?auto=format&fit=crop&w=1200&q=85"
+                    alt="Alpine village beside a still lake, surrounded by mountains" fetchpriority="high" width="900"
+                    height="1100">
+                <div class="hero-photo-caption"><span><i class="fa-solid fa-location-dot" aria-hidden="true"></i>
+                        Somewhere you can exhale</span><span>01 / ESCAPE</span></div>
+            </div>
+            <div class="hero-photo-small"><img
+                    src="https://images.unsplash.com/photo-1499793983690-e29da59ef1c2?auto=format&fit=crop&w=550&q=85"
+                    alt="Quiet coastal cabin with a view of the ocean" width="440" height="520"><span>A different kind
+                    of everyday.</span></div><span class="hero-coordinate" aria-hidden="true">TAKE THE SCENIC ROUTE
+                ↗</span>
+        </div>
+    </section>
+    <section class="discovery-section" aria-labelledby="mood-title">
+        <div class="section-heading">
+            <div>
+                <p class="eyebrow">FOLLOW YOUR KIND OF FEELING</p>
+                <h2 id="mood-title">What does your escape look like?</h2>
+            </div><a class="text-link" href="/listings">All stays <i class="fa-solid fa-arrow-right"
+                    aria-hidden="true"></i></a>
+        </div>
+        <div class="mood-grid"><a class="mood-card" href="/listings?category=Beach"><span class="mood-icon"><i
+                        class="fa-solid fa-umbrella-beach" aria-hidden="true"></i></span><span><strong>Coastal
+                        days</strong><small>A little closer to the water</small></span><i
+                    class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i></a><a class="mood-card"
+                href="/listings?category=Hill%20Station"><span class="mood-icon"><i class="fa-solid fa-mountain-sun"
+                        aria-hidden="true"></i></span><span><strong>Mountain air</strong><small>Take the long way
+                        up</small></span><i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i></a><a
+                class="mood-card" href="/listings?category=Nature"><span class="mood-icon"><i class="fa-solid fa-house"
+                        aria-hidden="true"></i></span><span><strong>Quiet corners</strong><small>Room to switch
+                        off</small></span><i class="fa-solid fa-arrow-up-right-from-square"
+                    aria-hidden="true"></i></a><a class="mood-card" href="/listings?category=LakeFront"><span
+                    class="mood-icon"><i class="fa-regular fa-sun" aria-hidden="true"></i></span><span><strong>Lakeside
+                        mornings</strong><small>A slower start to the day</small></span><i
+                    class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i></a></div>
+    </section>
+    <section class="discovery-section" aria-labelledby="featured-title">
+        <div class="section-heading">
+            <div>
+                <p class="eyebrow">THE WANDERLUST EDIT</p>
+                <h2 id="featured-title">Good places. Great possibilities.</h2>
+                <p class="section-description">Distinctive stays to put on your somewhere-someday list.</p>
+            </div><a class="text-link" href="/listings">Discover more <i class="fa-solid fa-arrow-right"
+                    aria-hidden="true"></i></a>
+        </div>
+        <% if (featuredListings && featuredListings.length) { %>
+            <div class="stay-grid">
+                <% featuredListings.forEach(listing=> { %><%- include('../includes/listing-card.ejs', {listing}) %>
+                        <% }) %>
+            </div>
+            <% } else { %>
+                <div class="empty-state"><i class="fa-regular fa-compass" aria-hidden="true"></i>
+                    <h3>Your next discovery starts here</h3>
+                    <p>New stays will appear here as the collection grows.</p><a class="button button-brand"
+                        href="/listings/new">Add a place</a>
+                </div>
+                <% } %>
+    </section>
+    <section class="destination-section" aria-labelledby="destinations-title">
+        <div class="section-heading">
+            <div>
+                <p class="eyebrow">PICK A DIRECTION</p>
+                <h2 id="destinations-title">Where next?</h2>
+            </div><span class="muted small">A few places to begin</span>
+        </div>
+        <div class="destination-grid"><a href="/listings?search=India" class="destination-card"><img loading="lazy"
+                    src="https://images.unsplash.com/photo-1524492412937-b28074a5d7da?auto=format&fit=crop&w=720&q=80"
+                    alt="The Taj Mahal in India" width="640" height="800"><span><small>COLOR, CULTURE &
+                        CONTRAST</small><strong>India</strong><i class="fa-solid fa-arrow-up-right-from-square"
+                        aria-hidden="true"></i></span></a><a href="/listings?search=Italy" class="destination-card"><img
+                    loading="lazy"
+                    src="https://images.unsplash.com/photo-1516483638261-f4dbaf036963?auto=format&fit=crop&w=720&q=80"
+                    alt="Colorful houses on the Italian coast" width="640" height="800"><span><small>THE SLOWER WAY
+                        AROUND</small><strong>Italy</strong><i class="fa-solid fa-arrow-up-right-from-square"
+                        aria-hidden="true"></i></span></a><a href="/listings?search=France"
+                class="destination-card"><img loading="lazy"
+                    src="https://images.unsplash.com/photo-1502602898657-3e91760cbb34?auto=format&fit=crop&w=720&q=80"
+                    alt="The Eiffel Tower and rooftops in Paris" width="640" height="800"><span><small>A DIFFERENT
+                        PERSPECTIVE</small><strong>France</strong><i class="fa-solid fa-arrow-up-right-from-square"
+                        aria-hidden="true"></i></span></a></div>
+    </section>
+    <section class="host-banner">
+        <div>
+            <p class="eyebrow">THERE'S A STORY IN EVERY SPACE</p>
+            <h2>Your place. Someone’s<br>next favorite memory.</h2>
+            <p>Add your property and try the hosting experience.</p><a href="/listings/new"
+                class="button button-dark">Share your space <i class="fa-solid fa-arrow-right"
+                    aria-hidden="true"></i></a>
+        </div>
+        <div class="host-banner-note"><i class="fa-regular fa-compass" aria-hidden="true"></i>
+            <p>Made for exploring.<br><strong>Built for the possibilities.</strong></p><span>This is a demo travel
+                platform. Catalog rates are indicative; reservations do not book real accommodation or collect
+                payments.</span>
+        </div>
+    </section>

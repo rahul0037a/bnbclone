@@ -3,7 +3,7 @@ const Listing = require("../models/listing");
 const Booking = require("../models/booking");
 const ExpressError = require("./ExpressError");
 const { sameId } = require("./identity");
-const { validateStay, assertCapacity, calculatePrice, utcToday } = require("./stays");
+const { dateOnly, validateStay, assertCapacity, calculatePrice, utcToday } = require("./stays");
 
 const transaction = callback => mongoose.connection.transaction(callback, {
     readConcern: { level: "snapshot" }, writeConcern: { w: "majority" }, readPreference: "primary",
@@ -11,9 +11,24 @@ const transaction = callback => mongoose.connection.transaction(callback, {
 
 async function reserveBooking({ listingId, user, input, now = new Date() }, dependencies = {}) {
     const models = { Listing, Booking, transaction, ...dependencies };
-    const { checkIn, checkOut, nights } = validateStay(input.checkInDate, input.checkOutDate, now);
-    if (!Number.isInteger(input.numberOfRooms) || input.numberOfRooms < 1 || input.numberOfRooms > 20 || !Number.isInteger(input.numberOfPeople) || input.numberOfPeople < 1 || input.numberOfPeople > 50) throw new ExpressError(400, "Choose valid whole room and guest counts.");
+    const { bookingRequestId, numberOfRooms, numberOfPeople } = input;
+    if (!bookingRequestId) throw new ExpressError(400, "Open the reservation form again before submitting.");
+    if (!Number.isInteger(numberOfRooms) || numberOfRooms < 1 || numberOfRooms > 20 || !Number.isInteger(numberOfPeople) || numberOfPeople < 1 || numberOfPeople > 50) throw new ExpressError(400, "Choose valid whole room and guest counts.");
+    const checkIn = dateOnly(input.checkInDate);
+    const checkOut = dateOnly(input.checkOutDate);
+    const contactPhone = input.contactPhone || "";
+    const request = { listing: listingId, user: user._id, bookingRequestId };
     return models.transaction(async session => {
+        const saved = await models.Booking.findOne(request).session(session);
+        if (saved) {
+            if (+saved.checkInDate !== +checkIn || +saved.checkOutDate !== +checkOut ||
+                saved.numberOfRooms !== numberOfRooms || saved.numberOfPeople !== numberOfPeople ||
+                (saved.contactPhone || "") !== contactPhone) {
+                throw new ExpressError(409, "This form has already been submitted. Open a new form to make another reservation.");
+            }
+            return saved;
+        }
+        const { nights } = validateStay(checkIn, checkOut, now);
         // This shared write serializes reservations, cancellations, inventory edits and archival.
         // A competing transaction gets a write conflict and the driver's transaction retry reads fresh inventory.
         const listing = await models.Listing.findOneAndUpdate(
@@ -23,18 +38,17 @@ async function reserveBooking({ listingId, user, input, now = new Date() }, depe
         if (!listing) throw new ExpressError(404, "This stay is no longer available.");
         if (sameId(listing.owner, user._id)) throw new ExpressError(403, "You cannot reserve your own listing.");
         const existing = await models.Booking.find({ listing: listingId, status: { $ne: "cancelled" }, checkInDate: { $lt: checkOut }, checkOutDate: { $gt: checkIn } }).session(session);
-        assertCapacity(listing, existing, checkIn, checkOut, input.numberOfRooms, input.numberOfPeople);
-        const pricing = calculatePrice(listing.price, nights, input.numberOfRooms);
+        assertCapacity(listing, existing, checkIn, checkOut, numberOfRooms, numberOfPeople);
+        const pricing = calculatePrice(listing.price, nights, numberOfRooms);
         const [booking] = await models.Booking.create([{
-            listing: listing._id, user: user._id, owner: listing.owner,
+            listing: listing._id, user: user._id, bookingRequestId, owner: listing.owner,
             listingSnapshot: {
                 title: listing.title, location: listing.location, country: listing.country,
                 imageUrl: listing.image?.url || "", nightlyPrice: listing.price,
                 isCatalog: Boolean(listing.isCatalog), sourceName: listing.sourceName, sourceUrl: listing.sourceUrl,
             },
             checkInDate: checkIn, checkOutDate: checkOut,
-            numberOfPeople: input.numberOfPeople, numberOfRooms: input.numberOfRooms,
-            nights, contactPhone: input.contactPhone || "", contactEmail: user.email,
+            numberOfPeople, numberOfRooms, nights, contactPhone, contactEmail: user.email,
             nightlyPrice: pricing.nightlyPrice, subtotal: pricing.subtotal,
             taxRate: pricing.taxRate, taxAmount: pricing.taxAmount, totalPrice: pricing.total,
             status: "confirmed", isDemo: true,

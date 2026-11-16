@@ -4,6 +4,7 @@ const express = require("express");
 const helmet = require("helmet");
 const rateLimit = require("express-rate-limit");
 const mongoose = require("mongoose");
+const { once } = require("node:events");
 const path = require("node:path");
 const methodOverride = require("method-override");
 const ejsMate = require("ejs-mate");
@@ -21,7 +22,7 @@ const { getConfig } = require("./utils/config");
 const { StartupConfigurationError, describeStartupError } = require("./utils/startupError");
 const { csrfProtection } = require("./utils/security");
 
-passport.use(new LocalStrategy(User.authenticate()));
+passport.use(new LocalStrategy(User.verifyLogin.bind(User)));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
@@ -111,19 +112,29 @@ function createApp({ sessionStore, config = getConfig(), rateLimits = true } = {
 async function start() {
     const config = getConfig();
     if (!config.dbUrl) throw new StartupConfigurationError("MISSING_DATABASE_URL");
-    await mongoose.connect(config.dbUrl, { dbName: config.dbName, serverSelectionTimeoutMS: 15000 });
-    const store = MongoStore.create({ client: mongoose.connection.getClient(), dbName: config.dbName, crypto: { secret: config.secret }, touchAfter: 24 * 60 * 60 });
-    store.on("error", err => console.error("Session store error:", err.name));
-    const app = createApp({ sessionStore: store, config });
-    const server = app.listen(config.port, config.host, () => console.log(`WanderLust ready at http://localhost:${config.port}${config.previewMode ? " (isolated preview)" : ""}`));
+    let app, server;
+    try {
+        await mongoose.connect(config.dbUrl, { dbName: config.dbName, serverSelectionTimeoutMS: 15000 });
+        const store = MongoStore.create({ client: mongoose.connection.getClient(), dbName: config.dbName, crypto: { secret: config.secret }, touchAfter: 24 * 60 * 60 });
+        store.on("error", err => console.error("Session store error:", err.name));
+        // Wait for the session TTL index so a failure is handled before the database closes.
+        await store.collectionP;
+        app = createApp({ sessionStore: store, config });
+        server = app.listen(config.port, config.host);
+        await once(server, "listening");
+    } catch (error) {
+        try { await mongoose.disconnect(); }
+        catch { console.error("Startup cleanup failed: could not close MongoDB."); }
+        throw error;
+    }
+    console.log(`WanderLust ready at http://localhost:${config.port}${config.previewMode ? " (isolated preview)" : ""}`);
     const shutdown = () => server.close(async () => { await mongoose.disconnect(); process.exit(0); });
     process.once("SIGINT", shutdown);
     process.once("SIGTERM", shutdown);
     return { app, server };
 }
-if (require.main === module) start().catch(async err => {
+if (require.main === module) start().catch(err => {
     console.error("Startup failed:", describeStartupError(err));
-    await mongoose.disconnect();
     process.exitCode = 1;
 });
 module.exports = { createApp, start };

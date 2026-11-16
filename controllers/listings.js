@@ -7,6 +7,7 @@ const { filterSchema } = require("../schema");
 const { assertObjectId } = require("../utils/identity");
 const { cleanupUpload, destroyImage } = require("../utils/uploads");
 const { assertCapacity, utcToday } = require("../utils/stays");
+const { readTripFilters, tripQueryString } = require("../utils/tripSearch");
 
 function escapeRegex(text) { return text.replace(/[.*+?^$()|[\]\\]/g, "\\$&"); }
 
@@ -80,7 +81,7 @@ module.exports.index = async (req, res) => {
         checkOut: values.checkOut ? values.checkOut.toISOString().slice(0, 10) : "",
         sort: values.sort, saved: values.saved || "", page,
     };
-    res.render("listings/index.ejs", { allListings, categories, selectedCategory: values.category, filters, pagination: { page, totalPages: Math.max(1, Math.ceil(total / limit)), total, limit } });
+    res.render("listings/index.ejs", { allListings, categories, selectedCategory: values.category, filters, tripQuery: tripQueryString(values), pagination: { page, totalPages: Math.max(1, Math.ceil(total / limit)), total, limit } });
 };
 
 module.exports.renderNewForm = (req, res) => res.render("listings/new.ejs", { categories });
@@ -92,7 +93,7 @@ module.exports.showListing = async (req, res) => {
         .populate("owner", "username");
     if (!listing) throw new ExpressError(404, "Listing not found.");
     const similarListings = await Listing.find({ _id: { $ne: listing._id }, isActive: { $ne: false }, categories: { $in: listing.categories } }).limit(3);
-    res.render("listings/show.ejs", { listing, similarListings });
+    res.render("listings/show.ejs", { listing, similarListings, tripQuery: tripQueryString(readTripFilters(req.query)) });
 };
 
 module.exports.createListing = async (req, res) => {

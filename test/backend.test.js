@@ -1,5 +1,6 @@
 const test = require("node:test");
 const assert = require("node:assert/strict");
+const { randomUUID } = require("node:crypto");
 const mongoose = require("mongoose");
 const { bookingSchema, listingSchema, signupSchema, filterSchema } = require("../schema");
 const Listing = require("../models/listing");
@@ -26,19 +27,22 @@ test("strict calendar dates reject normalized invalid dates and preserve UTC day
 });
 
 test("Joi conversions are retained by booking middleware, including numeric scientific notation", async () => {
-    const req = { body: { checkInDate: future(10), checkOutDate: future(12), numberOfPeople: "1e1", numberOfRooms: "2", _csrf: "already-verified" } };
+    const bookingRequestId = randomUUID();
+    const req = { body: { bookingRequestId: bookingRequestId.toUpperCase(), checkInDate: future(10), checkOutDate: future(12), numberOfPeople: "1e1", numberOfRooms: "2", _csrf: "already-verified" } };
     let called = false;
     await middleware.validateBooking(req, {}, () => { called = true; });
     assert.equal(called, true);
     assert.equal(req.body.numberOfPeople, 10);
     assert.equal(req.body.numberOfRooms, 2);
+    assert.equal(req.body.bookingRequestId, bookingRequestId);
     assert.ok(req.body.checkInDate instanceof Date);
     assert.equal(req.body._csrf, undefined);
-    assert.ok(bookingSchema.validate({ ...req.body, checkInDate: "2020-01-01", checkOutDate: "2020-01-02" }).error);
+    assert.ok(bookingSchema.validate({ ...req.body, checkInDate: "2030-02-30" }).error);
+    assert.ok(bookingSchema.validate({ ...req.body, bookingRequestId: undefined }).error);
 });
 
 test("validation rejects fractional counts, hostile query structures, invalid sorting and missing listing body", () => {
-    assert.ok(bookingSchema.validate({ checkInDate: future(10), checkOutDate: future(11), numberOfPeople: 1.5, numberOfRooms: 1 }).error);
+    assert.ok(bookingSchema.validate({ bookingRequestId: randomUUID(), checkInDate: future(10), checkOutDate: future(11), numberOfPeople: 1.5, numberOfRooms: 1 }).error);
     assert.ok(filterSchema.validate({ search: { $ne: "" } }).error);
     assert.ok(filterSchema.validate({ category: ["Beach", "Cabins"] }).error);
     assert.ok(filterSchema.validate({ sort: "price;drop" }).error);
@@ -83,10 +87,11 @@ test("reservation locks listing before reading capacity and creates immutable re
     const events = [], session = Symbol("session");
     const listing = { _id: id(), owner: id(), title: "Original coast", location: "Goa", country: "India", price: 1000, totalRooms: 1, maxGuests: 4, image: { url: "https://example.com/original.jpg" }, isCatalog: true };
     const user = { _id: id(), email: "guest@example.com" };
-    const booking = await reserveBooking({ listingId: String(listing._id), user, now: new Date("2030-01-01"), input: { checkInDate: "2030-01-10", checkOutDate: "2030-01-12", numberOfPeople: 2, numberOfRooms: 1 } }, {
+    const booking = await reserveBooking({ listingId: String(listing._id), user, now: new Date("2030-01-01"), input: { bookingRequestId: randomUUID(), checkInDate: "2030-01-10", checkOutDate: "2030-01-12", numberOfPeople: 2, numberOfRooms: 1 } }, {
         transaction: callback => callback(session),
         Listing: { async findOneAndUpdate(query, update, options) { events.push("lock"); assert.equal(update.$inc.bookingVersion, 1); assert.equal(options.session, session); return listing; } },
         Booking: {
+            findOne() { return chain(null); },
             find(query) { events.push("capacity"); assert.equal(query.status.$ne, "cancelled"); return chain([]); },
             async create(documents, options) { events.push("create"); assert.equal(options.session, session); return documents; },
         },
@@ -100,17 +105,48 @@ test("reservation locks listing before reading capacity and creates immutable re
     assert.equal(booking.nightlyPrice, 1000);
 });
 
+test("retries return the original receipt and a new form can reserve the same stay again", async () => {
+    const listing = { _id: id(), owner: id(), title: "Coast", location: "Goa", country: "India", price: 1000, totalRooms: 2, maxGuests: 4 };
+    const user = { _id: id(), email: "guest@example.com" };
+    const input = { bookingRequestId: randomUUID(), checkInDate: "2030-01-10", checkOutDate: "2030-01-12", numberOfPeople: 2, numberOfRooms: 1 };
+    const request = { listingId: String(listing._id), user, input, now: new Date("2030-01-01") };
+    const bookings = [];
+    let locks = 0;
+    const dependencies = {
+        transaction: callback => callback({}),
+        Listing: { async findOneAndUpdate() { locks += 1; return listing.isActive === false ? null : listing; } },
+        Booking: {
+            findOne(query) { return chain(bookings.find(booking => sameId(booking.listing, query.listing) && sameId(booking.user, query.user) && booking.bookingRequestId === query.bookingRequestId)); },
+            find() { return chain(bookings); },
+            async create([document]) { const booking = { ...document, _id: id() }; bookings.push(booking); return [booking]; },
+        },
+    };
+    const original = await reserveBooking(request, dependencies);
+    assert.equal(await reserveBooking(request, dependencies), original);
+    await assert.rejects(reserveBooking({ ...request, input: { ...input, numberOfPeople: 1 } }, dependencies), error => error.statusCode === 409);
+    assert.equal(locks, 1);
+
+    const separate = await reserveBooking({ ...request, input: { ...input, bookingRequestId: randomUUID() } }, dependencies);
+    assert.notEqual(separate._id, original._id);
+    listing.isActive = false;
+    original.status = "cancelled";
+    assert.equal(await reserveBooking({ ...request, now: new Date("2030-01-13") }, dependencies), original);
+    assert.equal(locks, 2);
+    assert.equal(bookings.length, 2);
+});
+
 test("reservation rejects sold-out dates and self-bookings before inserting", async () => {
     const listing = { _id: id(), owner: id(), totalRooms: 1, maxGuests: 2, price: 1000 };
     let inserted = false;
     const dependencies = {
         transaction: callback => callback({}),
         Listing: { async findOneAndUpdate() { return listing; } },
-        Booking: { find: () => chain([interval("2030-01-10", "2030-01-12")]), async create() { inserted = true; } },
+        Booking: { findOne: () => chain(null), find: () => chain([interval("2030-01-10", "2030-01-12")]), async create() { inserted = true; } },
     };
-    const input = { checkInDate: "2030-01-10", checkOutDate: "2030-01-12", numberOfPeople: 1, numberOfRooms: 1 };
+    const input = { bookingRequestId: randomUUID(), checkInDate: "2030-01-10", checkOutDate: "2030-01-12", numberOfPeople: 1, numberOfRooms: 1 };
     await assert.rejects(reserveBooking({ listingId: String(listing._id), user: { _id: id() }, input, now: new Date("2030-01-01") }, dependencies), error => error.statusCode === 409);
     await assert.rejects(reserveBooking({ listingId: String(listing._id), user: { _id: listing.owner }, input, now: new Date("2030-01-01") }, dependencies), error => error.statusCode === 403);
+    await assert.rejects(reserveBooking({ listingId: String(listing._id), user: { _id: id() }, input, now: new Date("2030-01-13") }, dependencies), /past/);
     assert.equal(inserted, false);
 });
 

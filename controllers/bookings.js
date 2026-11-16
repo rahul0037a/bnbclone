@@ -1,9 +1,11 @@
+const { randomUUID } = require("node:crypto");
 const Booking = require("../models/booking");
 const Listing = require("../models/listing");
 const ExpressError = require("../utils/ExpressError");
 const { sameId, assertObjectId } = require("../utils/identity");
-const { utcToday, DAY_MS, roundMoney } = require("../utils/stays");
+const { utcToday, DAY_MS, roundMoney, calculatePrice } = require("../utils/stays");
 const { reserveBooking, cancelBooking } = require("../utils/bookingService");
+const { readTripFilters, tripQueryString } = require("../utils/tripSearch");
 
 function presentBooking(document) {
     const booking = document.toObject ? document.toObject() : { ...document };
@@ -30,13 +32,28 @@ module.exports.renderBookingForm = async (req, res) => {
     const listing = await Listing.findOne({ _id: id, isActive: { $ne: false } });
     if (!listing) throw new ExpressError(404, "This stay is no longer available.");
     if (sameId(listing.owner, req.user._id)) throw new ExpressError(403, "You cannot reserve your own listing.");
-    res.render("bookings/new.ejs", { listing });
+    const trip = readTripFilters(req.query);
+    const today = utcToday();
+    const checkIn = trip.checkIn ?? today;
+    const firstCheckout = new Date(+checkIn + DAY_MS);
+    const checkOut = trip.checkOut ?? firstCheckout;
+    const rooms = trip.rooms ?? 1;
+    const stay = {
+        checkIn: checkIn.toISOString().slice(0, 10),
+        checkOut: checkOut.toISOString().slice(0, 10),
+        minCheckIn: today.toISOString().slice(0, 10),
+        minCheckOut: firstCheckout.toISOString().slice(0, 10),
+        guests: trip.guests ?? 1,
+        rooms,
+        pricing: calculatePrice(listing.price, (checkOut - checkIn) / DAY_MS, rooms),
+    };
+    res.render("bookings/new.ejs", { listing, stay, tripQuery: tripQueryString(trip), bookingRequestId: randomUUID() });
 };
 
 module.exports.createBooking = async (req, res) => {
     const listingId = assertObjectId(req.params.id, "Listing");
     const booking = await reserveBooking({ listingId, user: req.user, input: req.body });
-    req.flash("success", "Demo reservation confirmed. No payment was collected and no real property reservation was made.");
+    if (booking.status !== "cancelled") req.flash("success", "Demo reservation confirmed. No payment was collected and no real property reservation was made.");
     res.redirect("/bookings/" + booking._id);
 };
 

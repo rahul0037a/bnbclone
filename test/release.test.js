@@ -13,6 +13,39 @@ test("legacy mixed-case usernames retain their original lookup spelling", () => 
     assert.deepEqual(filter, { $or: [{ username: "LegacyHost" }] });
 });
 
+test("login retries normalized usernames only after an exact lookup misses", async t => {
+    const legacyUser = new User({ username: "LegacyHost", email: "legacy@example.com" });
+    const normalizedUser = new User({ username: "legacyhost", email: "normalized@example.com" });
+    const legacyPassword = "TestLegacyPassword42";
+    const normalizedPassword = "TestNormalizedPassword42";
+    await Promise.all([legacyUser.setPassword(legacyPassword), normalizedUser.setPassword(normalizedPassword)]);
+
+    const accounts = new Map([[legacyUser.username, legacyUser], [normalizedUser.username, normalizedUser]]);
+    const lookups = [];
+    t.mock.method(User, "findByUsername", async (username, selectCredentials) => {
+        assert.equal(selectCredentials, true);
+        lookups.push(username);
+        return accounts.get(username) || null;
+    });
+    const login = (username, password) => new Promise((resolve, reject) => {
+        User.verifyLogin(username, password, (error, user, failure) => {
+            if (error) reject(error);
+            else resolve({ user, failure });
+        });
+    });
+
+    assert.equal((await login("LegacyHost", legacyPassword)).user, legacyUser);
+    assert.deepEqual(lookups.splice(0), ["LegacyHost"]);
+
+    const wrongAccount = await login("LegacyHost", normalizedPassword);
+    assert.equal(wrongAccount.user, false);
+    assert.equal(wrongAccount.failure.name, "IncorrectPasswordError");
+    assert.deepEqual(lookups.splice(0), ["LegacyHost"]);
+
+    assert.equal((await login("LEGACYHOST", normalizedPassword)).user, normalizedUser);
+    assert.deepEqual(lookups, ["LEGACYHOST", "legacyhost"]);
+});
+
 test("deployment binds publicly while preview remains loopback by default", () => {
     assert.equal(getConfig({}).host, "0.0.0.0");
     assert.equal(getConfig({ PREVIEW_MODE: "true", DB_NAME: "wanderlust_preview_test" }).host, "127.0.0.1");
